@@ -1,0 +1,1066 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Top 25 Hoops Calendar</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Archivo:wdth,wght@75..125,400..700&display=swap">
+<style>
+/* Layout: scoreboard hero with countdown + clash rail, sticky team strip and month tabs, calendar grid with hover flyouts, day rundown, slide-in game/team drawer */
+:root{
+  --bg:#EEF1F5; --surface:#FFFFFF; --raise:#E5E9EF; --line:#D3D9E2; --ink:#0E1B2E; --muted:#596579; --ball:#E25A17; --win:#16804A;
+  --board:#0E1B2E; --board-ink:#F3F5F9; --board-muted:#93A3BA; --board-line:rgba(255,255,255,.12);
+  --sec:#B07C12; --acc:#1D5FC4; --b1g:#0A7C74; --bige:#B02F58; --b12:#C4561B;
+  --shadow:0 1px 2px rgba(14,27,46,.06),0 8px 24px rgba(14,27,46,.08);
+  --display:"Big Shoulders Display","Oswald","Arial Narrow",sans-serif;
+  --body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#09101A; --surface:#111A27; --raise:#182334; --line:#243146; --ink:#E8EDF4; --muted:#94A1B5; --ball:#FF7A36; --win:#4CC283;
+  --board:#060B13; --board-ink:#F3F5F9; --board-muted:#8C9BB2; --board-line:rgba(255,255,255,.10);
+  --sec:#E3AE42; --acc:#5E98F1; --b1g:#33BAB0; --bige:#E46B92; --b12:#F38A50;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#09101A; --surface:#111A27; --raise:#182334; --line:#243146; --ink:#E8EDF4; --muted:#94A1B5; --ball:#FF7A36; --win:#4CC283;
+  --board:#060B13; --board-ink:#F3F5F9; --board-muted:#8C9BB2; --board-line:rgba(255,255,255,.10);
+  --sec:#E3AE42; --acc:#5E98F1; --b1g:#33BAB0; --bige:#E46B92; --b12:#F38A50;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35); color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;font-variant-numeric:tabular-nums}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--ball);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.disp{font-family:var(--display);text-transform:uppercase;letter-spacing:.01em}
+
+/* Hero scoreboard */
+.hero{background:var(--board);color:var(--board-ink);position:relative;overflow:hidden}
+.hero .court{position:absolute;inset:0;pointer-events:none;opacity:.9}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:24px 40px;align-items:end;padding-block:28px 26px}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}}
+.brand h1{font-family:var(--display);font-weight:900;font-size:clamp(46px,9vw,92px);line-height:.86;margin:0;text-transform:uppercase;letter-spacing:-.005em}
+.brand h1 em{font-style:normal;color:var(--ball);display:block}
+.brand p{margin:14px 0 0;color:var(--board-muted);max-width:52ch;font-size:15px}
+.brand .meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:14px;font-size:13px;color:var(--board-muted)}
+.brand .meta b{color:var(--board-ink);font-weight:600}
+.next{border:1px solid var(--board-line);border-radius:14px;padding:16px 18px;background:rgba(255,255,255,.03);text-align:left;width:100%;color:inherit;transition:transform .2s,border-color .2s,background .2s}
+.next:hover{transform:translateY(-2px);border-color:var(--ball);background:rgba(255,255,255,.06)}
+.next .lbl{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ball)}
+.next .mu{font-family:var(--display);font-weight:800;font-size:28px;line-height:1.02;text-transform:uppercase;margin:6px 0 2px;text-wrap:balance}
+.next .mu small{font-size:.6em;color:var(--board-muted);font-weight:700;margin-right:3px}
+.next .sub{font-size:13px;color:var(--board-muted)}
+.clock{display:flex;gap:14px;margin-top:12px}
+.clock div{display:flex;flex-direction:column;align-items:flex-start}
+.clock b{font-family:var(--display);font-weight:800;font-size:40px;line-height:1;color:var(--board-ink)}
+.clock span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--board-muted)}
+
+/* Clash rail */
+.railhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-block:22px 10px}
+.railhead h2{font-family:var(--display);font-weight:800;font-size:26px;margin:0;text-transform:uppercase}
+.railhead .ctl{display:flex;gap:6px}
+.rail{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 4px 14px;margin:-10px -4px 0;scrollbar-width:thin;cursor:grab;user-select:none;-webkit-user-select:none}
+.rail.dragging,.chips.dragging{cursor:grabbing;scroll-snap-type:none}
+.rail.dragging .clash,.chips.dragging .chip{pointer-events:none}
+.chips{cursor:grab;user-select:none;-webkit-user-select:none}
+.clash{flex:0 0 228px;scroll-snap-align:start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 14px 12px;text-align:left;position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1.4),box-shadow .35s,border-color .2s;animation:pop .6s cubic-bezier(.2,.8,.2,1.25) backwards;animation-delay:calc(var(--i,0)*70ms + .45s)}
+@keyframes pop{from{opacity:0;transform:translateY(26px) scale(.9)}}
+.clash::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--ca) 0 50%,var(--cb) 50% 100%);transition:height .3s cubic-bezier(.2,.8,.2,1)}
+.clash:hover{transform:translateY(-8px) rotate(-1deg);box-shadow:0 20px 40px rgba(14,27,46,.24);border-color:transparent}
+.clash:hover::before{height:12px}
+.clash:active{transform:translateY(-2px) scale(.98)}
+.clash .d{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.clash .t{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:800;font-size:21px;text-transform:uppercase;line-height:1.1;margin-top:6px}
+.clash .t i{width:10px;height:10px;border-radius:3px;background:var(--c);flex:none}
+.clash .t small{font-family:var(--body);font-size:12px;font-weight:600;color:var(--muted);min-width:18px}
+.clash .n{margin-top:8px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.clash .n b{color:var(--ink);font-weight:600}
+
+/* Sticky controls */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;flex-direction:column;gap:8px;padding-block:10px}
+.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-block:2px;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 11px 5px 7px;font-size:13px;font-weight:600;white-space:nowrap;transition:background .2s,border-color .2s,color .2s,transform .3s cubic-bezier(.2,.8,.2,1.5)}
+.chips.anim .chip{animation:pop .5s cubic-bezier(.2,.8,.2,1.3) backwards;animation-delay:calc(var(--i)*22ms + .3s)}
+.chip:hover i{transform:scale(1.25)}
+.chip i{transition:transform .3s cubic-bezier(.2,.8,.2,1.6)}
+.chip:active{transform:scale(.94)}
+.chip[aria-pressed="true"]{animation:chipOn .45s cubic-bezier(.2,.8,.2,1.5)}
+@keyframes chipOn{0%{transform:scale(.85)}60%{transform:scale(1.08)}100%{transform:none}}
+.chip:hover{border-color:var(--ink);transform:translateY(-1px)}
+.chip i{width:14px;height:14px;border-radius:50%;background:var(--tc);flex:none;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--surface) 30%,transparent)}
+.chip small{color:var(--muted);font-weight:600;font-size:11px}
+.chip[aria-pressed="true"]{background:var(--tc);border-color:var(--tc);color:var(--tt)}
+.chip[aria-pressed="true"] small{color:inherit;opacity:.75}
+.chip.all i{background:conic-gradient(var(--sec) 0 20%,var(--acc) 0 40%,var(--b1g) 0 60%,var(--bige) 0 80%,var(--b12) 0)}
+.chip.all[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.row2{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.months{position:relative;display:flex;background:var(--raise);border-radius:10px;padding:3px}
+.months button{position:relative;z-index:1;background:none;border:0;padding:6px 14px;font-family:var(--display);font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);border-radius:8px;transition:color .2s}
+.months button[aria-selected="true"]{color:var(--ink)}
+.months .pill{position:absolute;z-index:0;top:3px;bottom:3px;border-radius:8px;background:var(--surface);box-shadow:var(--shadow);transition:left .42s cubic-bezier(.3,1.35,.4,1),width .42s cubic-bezier(.3,1.35,.4,1)}
+.switch{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--muted);background:none;border:0;padding:4px}
+.switch .tr{width:34px;height:20px;border-radius:999px;background:var(--line);position:relative;transition:background .2s}
+.switch .tr::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--surface);box-shadow:0 1px 2px rgba(0,0,0,.25);transition:left .2s}
+.switch[aria-checked="true"]{color:var(--ink)}
+.switch[aria-checked="true"] .tr{background:var(--ball)}
+.switch[aria-checked="true"] .tr::after{left:16px}
+.legend{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px}
+
+/* Calendar */
+main{padding-block:16px 40px}
+.cal{overflow:hidden;padding:14px;margin:-14px}
+.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.grid.anim .cell{animation:cellIn .55s cubic-bezier(.2,.8,.2,1.2) backwards;animation-delay:calc(var(--i)*16ms)}
+@keyframes cellIn{from{opacity:0;transform:translateX(var(--dx,0)) translateY(14px) scale(.85)}}
+.cell.sel::after{content:"";position:absolute;inset:-3px;border-radius:12px;border:2px solid var(--ball);pointer-events:none;animation:ring .8s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes ring{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(1.35)}}
+.grid.in-l{animation:inL .32s cubic-bezier(.3,.7,.2,1)}
+.grid.in-r{animation:inR .32s cubic-bezier(.3,.7,.2,1)}
+@keyframes inL{from{opacity:0;transform:translateX(-24px)}}
+@keyframes inR{from{opacity:0;transform:translateX(24px)}}
+.dow{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:13px;color:var(--muted);padding:0 6px 2px}
+.cell{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:10px;min-height:104px;padding:7px 6px 6px;display:flex;flex-direction:column;gap:3px;min-width:0;text-align:left;transition:border-color .15s,transform .15s,box-shadow .15s}
+.cell{cursor:pointer;z-index:0;transition:border-color .18s,transform .22s cubic-bezier(.3,.7,.2,1.4),box-shadow .22s,background .18s}
+.cell:not(.out):hover{z-index:3;transform:translateY(-4px) scale(1.07);border-color:var(--ball);box-shadow:0 14px 34px rgba(14,27,46,.22),0 0 0 1px var(--ball);background:var(--surface)}
+.cell:not(.out):hover .dn span{color:var(--ball)}
+.cell.today:not(.out):hover .dn span{color:#fff}
+.cell:not(.out):active{transform:translateY(-1px) scale(1.02)}
+.day.flash .dayhead h2{animation:flash .9s ease-out}
+@keyframes flash{0%{color:var(--ball);transform:translateX(6px)}100%{transform:none}}
+.cell.out{background:transparent;border-style:dashed;border-color:color-mix(in srgb,var(--line) 60%,transparent);cursor:default}
+.cell.none{background:color-mix(in srgb,var(--surface) 55%,transparent)}
+.cell.sel{border-color:var(--ball);box-shadow:0 0 0 2px var(--ball)}
+.cell .dn{display:flex;justify-content:space-between;align-items:center;font-family:var(--display);font-weight:800;font-size:17px;line-height:1;padding:0 2px 3px}
+.cell .dn small{font-family:var(--body);font-size:11px;font-weight:600;color:var(--muted)}
+.cell.today .dn span{background:var(--ball);color:#fff;border-radius:5px;padding:2px 5px}
+.cell.has-rr .dn small{color:var(--ball)}
+.mp{font-size:11.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-radius:4px;padding:2px 5px;background:color-mix(in srgb,var(--c) 13%,transparent);box-shadow:inset 3px 0 0 var(--c)}
+.mp.rr{background:color-mix(in srgb,var(--ball) 18%,transparent);box-shadow:inset 3px 0 0 var(--ball)}
+.mp.fin{opacity:.6}
+.more{font-size:11px;font-weight:600;color:var(--muted);padding-left:5px}
+.dots{display:none;flex-wrap:wrap;gap:3px;padding:0 2px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--c)}
+@media (max-width:700px){.mp,.more{display:none}.dots{display:flex}.cell{min-height:58px;padding:6px 4px}.cell .dn small{display:none}.grid{gap:3px}}
+
+/* Day flyout */
+.fly{position:fixed;z-index:15;width:290px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:10px;pointer-events:none;opacity:0;transform:translateY(6px) scale(.98);transition:opacity .14s,transform .14s}
+.fly.on{opacity:1;transform:none}
+.fly h4{margin:0 0 6px;font-family:var(--display);font-weight:800;font-size:17px;text-transform:uppercase}
+.fly .r{display:grid;grid-template-columns:58px minmax(0,1fr);gap:8px;font-size:12.5px;padding:4px 0;border-top:1px solid var(--line)}
+.fly .r span{color:var(--muted);font-weight:600}
+.fly .r b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Day rundown */
+.day{margin-top:26px}
+.dayhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.dayhead h2{font-family:var(--display);font-weight:900;font-size:clamp(26px,4.4vw,38px);line-height:1;margin:0;text-transform:uppercase}
+.dayhead h2 small{display:block;font-family:var(--body);font-size:13px;font-weight:600;color:var(--muted);text-transform:none;letter-spacing:0;margin-top:4px}
+.nav2{display:flex;gap:6px}
+.ib{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-size:18px;line-height:1;display:grid;place-items:center;transition:border-color .15s,transform .15s}
+.ib:hover{border-color:var(--ink);transform:translateY(-1px)}
+.ib:disabled{opacity:.35;cursor:default;transform:none}
+.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:10px}
+.game{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px 12px 18px;text-align:left;width:100%;overflow:hidden;transition:transform .3s cubic-bezier(.2,.8,.2,1.3),box-shadow .3s,border-color .2s}
+.list.anim .game{animation:rise .6s cubic-bezier(.2,.8,.2,1.15) backwards;animation-delay:calc(var(--i)*70ms)}
+@keyframes rise{from{opacity:0;transform:translateY(28px) scale(.94)}}
+.game::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(var(--ca) 0 50%,var(--cb) 50% 100%)}
+.game::before{transition:width .3s cubic-bezier(.2,.8,.2,1)}
+.game:hover{transform:translateY(-5px) scale(1.015);box-shadow:0 18px 40px rgba(14,27,46,.2);border-color:transparent}
+.game:hover::before{width:10px}
+.game:active{transform:translateY(-1px) scale(.99)}
+.game .top{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.03em;text-transform:uppercase}
+.game .top .fin{color:var(--win)}
+.game .top .tagx{color:var(--ball)}
+.tm{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15.5px;min-width:0}
+.tm .rk{font-size:11px;color:var(--muted);font-weight:700;min-width:16px}
+.tm .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tm.l{color:var(--muted)}
+.sc{font-family:var(--display);font-weight:800;font-size:22px;line-height:1;text-align:right}
+.sc.l{color:var(--muted)}
+.net{align-self:center;font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.03em;border:1px solid var(--line);border-radius:6px;padding:3px 8px;white-space:nowrap;text-transform:uppercase}
+.foot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:2px 10px;font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:7px;margin-top:2px}
+.foot b{color:var(--ink);font-weight:600}
+.foot .ats{color:var(--ball);font-weight:600}
+.empty{color:var(--muted);padding:22px;border:1.5px dashed var(--line);border-radius:12px;text-align:center}
+
+/* Drawer */
+.scrim{position:fixed;inset:0;z-index:20;background:rgba(6,11,19,.5);opacity:0;transition:opacity .22s}
+.scrim.on{opacity:1}
+.drawer{position:fixed;z-index:21;background:var(--surface);box-shadow:-20px 0 50px rgba(0,0,0,.2);display:flex;flex-direction:column;
+  inset:auto 0 0 0;max-height:92vh;border-radius:18px 18px 0 0;transform:translateY(100%);transition:transform .3s cubic-bezier(.3,.7,.2,1)}
+.drawer.on{transform:none}
+@media (min-width:900px){.drawer{inset:0 0 0 auto;width:500px;max-height:none;border-radius:18px 0 0 18px;transform:translateX(100%)}}
+.grab{width:42px;height:5px;border-radius:9px;background:var(--line);margin:8px auto 0;flex:none}
+@media (min-width:900px){.grab{display:none}}
+.dhead{flex:none;position:relative;color:#fff;padding:18px max(18px,env(safe-area-inset-right,0px)) 16px 18px;overflow:hidden;background:linear-gradient(115deg,var(--ca) 0 49.6%,var(--cb) 50.4% 100%);border-radius:inherit;border-bottom-left-radius:0;border-bottom-right-radius:0}
+@media (max-width:899px){.dhead{margin:8px 10px 0;border-radius:14px}}
+.dhead::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.45))}
+.dhead>*{position:relative;z-index:1}
+.dtop{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.92}
+.xbtn{width:34px;height:34px;border-radius:50%;border:0;background:rgba(0,0,0,.3);color:#fff;font-size:18px;display:grid;place-items:center;flex:none}
+.xbtn:hover{background:rgba(0,0,0,.5)}
+.vs{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px;margin-top:12px}
+.vs .side{min-width:0;background:none;border:0;color:inherit;padding:0;text-align:left}
+.vs .side:last-child{text-align:right}
+.vs .side .rk{font-size:12px;font-weight:700;opacity:.85}
+.vs .side .nm{display:block;font-family:var(--display);font-weight:900;font-size:clamp(24px,6vw,32px);line-height:.95;text-transform:uppercase;overflow-wrap:anywhere}
+.vs .side:hover .nm{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
+.vs .side .scr{display:block;font-family:var(--display);font-weight:900;font-size:44px;line-height:1;margin-top:4px}
+.vs .side .scr.l{opacity:.55}
+.vs .mid{font-family:var(--display);font-weight:800;font-size:18px;opacity:.85}
+.tabs{flex:none;position:relative;display:flex;gap:2px;padding:0 14px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{background:none;border:0;padding:12px 10px 10px;font-family:var(--display);font-weight:800;font-size:16px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);white-space:nowrap;transition:color .15s}
+.tabs button[aria-selected="true"]{color:var(--ink)}
+.tabs .ul{position:absolute;bottom:-1px;height:3px;border-radius:3px;background:var(--ball);transition:left .25s cubic-bezier(.3,.7,.2,1),width .25s cubic-bezier(.3,.7,.2,1)}
+.dbody{flex:1;overflow:auto;padding:16px max(18px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px))}
+.pane{animation:fade .3s cubic-bezier(.2,.8,.2,1)}
+.pane.fr{animation:paneR .38s cubic-bezier(.2,.8,.2,1)}
+.pane.fl{animation:paneL .38s cubic-bezier(.2,.8,.2,1)}
+@keyframes paneR{from{opacity:0;transform:translateX(40px)}}
+@keyframes paneL{from{opacity:0;transform:translateX(-40px)}}
+.drawer.entering .vs .side:first-child{animation:fromL .6s .12s cubic-bezier(.2,.8,.2,1.2) backwards}
+.drawer.entering .vs .side:last-child{animation:fromR .6s .12s cubic-bezier(.2,.8,.2,1.2) backwards}
+.drawer.entering .vs .mid{animation:vsPop .55s .32s cubic-bezier(.2,.8,.2,1.8) backwards}
+.drawer.entering .dhead{animation:wipe .6s cubic-bezier(.2,.8,.2,1) backwards}
+.drawer.entering .sched .sr,.drawer.entering .oddsbox .ob{animation:rise .5s cubic-bezier(.2,.8,.2,1.15) backwards;animation-delay:calc(var(--i,0)*40ms + .25s)}
+@keyframes fromL{from{opacity:0;transform:translateX(-60px)}}
+@keyframes fromR{from{opacity:0;transform:translateX(60px)}}
+@keyframes vsPop{from{opacity:0;transform:scale(2.4) rotate(-12deg)}}
+@keyframes wipe{from{clip-path:inset(0 100% 0 0 round 14px)}to{clip-path:inset(0 0 0 0 round 14px)}}
+.vs .side .scr{animation:none}
+.drawer.entering .vs .side .scr{animation:scoreIn .7s .4s cubic-bezier(.2,.8,.2,1.5) backwards}
+@keyframes scoreIn{from{opacity:0;transform:translateY(20px) scale(.6)}}
+.drawer{transition:transform .45s cubic-bezier(.2,.85,.2,1.05)}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}}
+.facts{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 16px;margin:0;font-size:14px}
+.facts dt{color:var(--muted);font-weight:600;font-size:13px}
+.facts dd{margin:0}
+.oddsbox{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:16px}
+.ob{background:var(--raise);border-radius:10px;padding:10px 12px}
+.ob span{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ob b{display:block;font-family:var(--display);font-weight:800;font-size:20px;line-height:1.15;margin-top:3px}
+.ob small{display:block;font-size:12px;color:var(--muted)}
+.note{font-size:12.5px;color:var(--muted);margin:12px 0 0}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 12px;font-size:13.5px;font-weight:600;display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s}
+.btn:hover{border-color:var(--ink);transform:translateY(-1px)}
+.btn.pri{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.rhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.rhead b{font-family:var(--display);font-weight:800;font-size:22px;text-transform:uppercase}
+.rhead a{color:var(--ink);font-weight:600;font-size:13px}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:7px 9px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--line)}
+tbody tr:last-child td{border-bottom:0}
+tbody tr{transition:background .12s}
+tbody tr:hover{background:var(--raise)}
+th{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.05em;font-size:13px;color:var(--muted);background:var(--raise);position:sticky;top:0}
+td.n,th.n{text-align:right}
+td.num{font-family:var(--display);font-weight:800;font-size:16px;color:var(--muted);width:1%}
+td.pl{font-weight:600}
+tr.tot td{font-weight:700;background:var(--raise)}
+.sched{display:grid;gap:6px}
+.sr{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 10px;border-radius:9px;background:var(--raise);text-align:left;border:0;width:100%;transition:transform .15s}
+.sr:hover{transform:translateX(3px)}
+.sr .dt{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase}
+.sr .op{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sr .op small{color:var(--muted);font-weight:600;margin-right:4px}
+.sr .rs{font-family:var(--display);font-weight:800;font-size:16px}
+.sr .rs.w{color:var(--win)} .sr .rs.lo{color:var(--ball)}
+.stat3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:16px}
+
+.toast{position:fixed;z-index:30;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px) scale(.9);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:13.5px;font-weight:600;opacity:0;transition:opacity .25s,transform .4s cubic-bezier(.2,.8,.2,1.6);pointer-events:none;max-width:calc(100% - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0) scale(1)}
+/* hero entrance */
+.hero .court *{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.2s .15s cubic-bezier(.45,0,.2,1) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.brand h1{animation:up .8s cubic-bezier(.2,.8,.2,1) backwards}
+.brand h1 em{animation:up .8s .14s cubic-bezier(.2,.8,.2,1) backwards,glow 3.5s 1.2s ease-in-out infinite}
+.brand p{animation:up .7s .28s cubic-bezier(.2,.8,.2,1) backwards}
+.brand .meta{animation:up .7s .38s cubic-bezier(.2,.8,.2,1) backwards}
+.next{animation:slideIn .8s .3s cubic-bezier(.2,.8,.2,1.1) backwards}
+@keyframes up{from{opacity:0;transform:translateY(40px)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(50px) scale(.96)}}
+@keyframes glow{0%,100%{text-shadow:0 0 0 rgba(255,122,54,0)}50%{text-shadow:0 0 28px rgba(255,122,54,.55)}}
+.next .lbl::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ball);margin-right:7px;vertical-align:1px;animation:live 1.6s ease-in-out infinite}
+@keyframes live{0%,100%{box-shadow:0 0 0 0 rgba(255,122,54,.7)}60%{box-shadow:0 0 0 8px rgba(255,122,54,0)}}
+.clock div{perspective:300px}
+.clock b{display:inline-block;transform-origin:50% 60%}
+.clock b.tick{animation:flip .55s cubic-bezier(.2,.8,.2,1.3)}
+@keyframes flip{from{transform:rotateX(-90deg);opacity:0}}
+.day.flash .dayhead h2{animation:flash2 .9s cubic-bezier(.2,.8,.2,1.2)}
+@keyframes flash2{0%{color:var(--ball);transform:translateX(18px);opacity:.3}100%{transform:none}}
+/* view switch */
+.views{padding-top:18px}
+.vt{position:relative;display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px;box-shadow:var(--shadow)}
+.vt button{position:relative;z-index:1;background:none;border:0;padding:8px 18px;font-family:var(--display);font-weight:900;font-size:20px;text-transform:uppercase;letter-spacing:.02em;color:var(--muted);border-radius:10px;transition:color .25s}
+.vt button[aria-selected="true"]{color:var(--bg)}
+.vt .vpill{position:absolute;z-index:0;top:4px;bottom:4px;border-radius:10px;background:var(--ink);transition:left .45s cubic-bezier(.3,1.35,.4,1),width .45s cubic-bezier(.3,1.35,.4,1)}
+.viewin{animation:viewIn .5s cubic-bezier(.2,.8,.2,1) backwards}
+@keyframes viewIn{from{opacity:0;transform:translateY(18px)}}
+/* rankings */
+.rankv{padding-block:18px 40px}
+.rkhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px}
+.rkhead h2{font-family:var(--display);font-weight:900;font-size:clamp(34px,6vw,54px);line-height:.9;margin:0;text-transform:uppercase}
+.rkhead p{margin:6px 0 0;color:var(--muted);font-size:13.5px}
+.confs{display:flex;flex-wrap:wrap;gap:6px}
+.confs button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;transition:background .2s,color .2s,border-color .2s,transform .3s cubic-bezier(.2,.8,.2,1.5)}
+.confs button i{width:9px;height:9px;border-radius:2px;background:var(--cc)}
+.confs button:hover{transform:translateY(-2px);border-color:var(--ink)}
+.confs button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.rcols,.rrow{display:grid;grid-template-columns:52px 6px minmax(0,1.5fr) 76px minmax(0,1.3fr) minmax(0,1.3fr) 18px;align-items:center;gap:14px}
+.rcols{padding:16px 16px 6px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.rlist{display:grid;gap:8px}
+.rrow{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;text-align:left;width:100%;overflow:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1.4),box-shadow .3s,border-color .2s;animation:rise .55s cubic-bezier(.2,.8,.2,1.15) backwards;animation-delay:calc(var(--i)*32ms)}
+.rrow::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,color-mix(in srgb,var(--tc) 14%,transparent),transparent 55%);opacity:0;transition:opacity .3s;pointer-events:none}
+.rrow:hover{transform:translateX(6px) scale(1.01);box-shadow:0 14px 34px rgba(14,27,46,.18);border-color:var(--tc)}
+.rrow:hover::after{opacity:1}
+.rrow:hover .chev{transform:translateX(4px);color:var(--ball)}
+.rrow:disabled{cursor:default}
+.rrow .no{font-family:var(--display);font-weight:900;font-size:36px;line-height:.9;position:relative;z-index:1}
+.rrow .mv{display:block;font-family:var(--body);font-size:11px;font-weight:700;letter-spacing:.02em;margin-top:2px}
+.mv.up{color:var(--win)} .mv.dn{color:var(--ball)} .mv.eq{color:var(--muted)} .mv.nw{color:var(--acc)}
+.rbar{width:6px;align-self:stretch;border-radius:3px;background:var(--tc)}
+.tn{min-width:0;position:relative;z-index:1}
+.tn b{display:block;font-family:var(--display);font-weight:800;font-size:23px;line-height:1;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tn small{display:block;color:var(--muted);font-size:12.5px;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tn .mob{display:none}
+.rec{font-family:var(--display);font-weight:800;font-size:24px;line-height:1;position:relative;z-index:1}
+.rec small{display:block;font-family:var(--body);font-size:11px;font-weight:600;color:var(--muted);margin-top:3px}
+.c2{min-width:0;position:relative;z-index:1}
+.c2 b{display:block;font-size:13.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.c2 small{display:block;font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.c2 .w{color:var(--win)} .c2 .lo{color:var(--ball)}
+.chev{font-size:20px;color:var(--muted);transition:transform .3s cubic-bezier(.2,.8,.2,1.5),color .2s}
+@media (max-width:760px){.rcols{display:none}.rrow{grid-template-columns:40px 5px minmax(0,1fr) auto;gap:10px;padding:10px 12px}.rrow .c2,.rrow .chev{display:none}.tn .mob{display:block}.rrow .no{font-size:30px}.tn b{font-size:20px}}
+/* team stats */
+.splits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:14px 0 18px}
+.ob small b{color:var(--ink)}
+h5.sh{margin:18px 0 8px;font-family:var(--display);font-weight:800;font-size:18px;text-transform:uppercase;letter-spacing:.02em}
+footer{font-size:12px;color:var(--muted);padding-block:0 34px;max-width:80ch}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+
+<section class="hero">
+  <svg class="court" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="none" stroke="var(--board-line)" stroke-width="2">
+      <circle cx="900" cy="150" r="120"/><circle cx="900" cy="150" r="38"/><line x1="900" y1="-20" x2="900" y2="320"/>
+      <path d="M1200 30 A 260 260 0 0 0 1200 270"/><rect x="1060" y="95" width="160" height="110"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <div class="brand">
+      <h1>Top 25<em>Hoops</em></h1>
+      <p>Every announced game for the AP preseason Top 25 in women's college basketball, opening tip through the end of the regular season. All times Eastern.</p>
+      <div class="meta" id="meta"></div>
+    </div>
+    <button class="next" id="next" aria-label="Next Top 25 clash"></button>
+  </div>
+</section>
+
+<nav class="wrap views" aria-label="View"><div class="vt" id="views" role="tablist"><button role="tab" data-v="cal" aria-selected="true">Calendar</button><button role="tab" data-v="rank" aria-selected="false">AP Top 25</button><span class="vpill"></span></div></nav>
+<section class="wrap rankv" id="vRank" hidden>
+  <div class="rkhead"><div><h2>AP Top 25</h2><p id="pollMeta"></p></div><div class="confs" id="confs" role="group" aria-label="Conference"></div></div>
+  <div class="rcols" aria-hidden="true"><span>Rank</span><span></span><span>Team</span><span>Record</span><span>Last game</span><span>Up next</span><span></span></div>
+  <div class="rlist" id="rlist"></div>
+</section>
+<div id="vCal">
+<div class="wrap">
+  <div class="railhead"><h2>Top 25 clashes</h2><div class="ctl"><button class="ib" id="rl" aria-label="Scroll back">‹</button><button class="ib" id="rr2" aria-label="Scroll forward">›</button></div></div>
+  <div class="rail" id="rail"></div>
+</div>
+
+<div class="bar"><div class="wrap">
+  <div class="chips" id="chips" role="toolbar" aria-label="Filter by team"></div>
+  <div class="row2">
+    <div class="months" id="months" role="tablist" aria-label="Month"></div>
+    <button class="switch" id="rrsw" role="switch" aria-checked="false"><span class="tr"></span>Clashes only</button>
+    <div class="legend" id="legend"></div>
+  </div>
+</div></div>
+
+<main class="wrap">
+  <div class="cal"><div class="grid" id="grid"></div></div>
+  <section class="day">
+    <div class="dayhead"><h2 id="dtitle"></h2><div class="nav2"><button class="ib" id="dprev" aria-label="Previous game day">‹</button><button class="ib" id="dnext" aria-label="Next game day">›</button></div></div>
+    <div class="list" id="dlist"></div>
+  </section>
+</main>
+</div>
+<footer class="wrap">Rankings: AP poll (preseason poll of Oct. 20, 2026 until the first weekly poll on Nov. 9). Schedules, TV and rosters from ESPN, conference and school releases (Oct. 2026); times and networks can change. Final scores, box scores and that day's betting lines are added each morning. Odds are a morning snapshot from one sportsbook, for information only.</footer>
+
+<div class="fly" id="fly" aria-hidden="true"></div>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Game details" hidden></aside>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const T={ // key: [rank, name, conference, color, official roster page]
+SC:[1,"South Carolina","SEC","#73000A","gamecocksonline.com/sports/wbball/roster/"],UCONN:[2,"UConn","Big East","#000E2F","uconnhuskies.com/sports/womens-basketball/roster"],
+USC:[3,"USC","Big Ten","#990000","usctrojans.com/sports/womens-basketball/roster"],DUKE:[4,"Duke","ACC","#003087","goduke.com/sports/womens-basketball/roster"],
+MICH:[5,"Michigan","Big Ten","#00274C","mgoblue.com/sports/womens-basketball/roster"],TEX:[6,"Texas","SEC","#BF5700","texaslonghorns.com/sports/womens-basketball/roster"],
+LOU:[7,"Louisville","ACC","#AD0000","gocards.com/sports/womens-basketball/roster"],VAN:[8,"Vanderbilt","SEC","#866D4B","vucommodores.com/sports/wbball/roster"],
+LSU:[9,"LSU","SEC","#461D7C","lsusports.net/sports/wbball/roster"],IOWA:[10,"Iowa","Big Ten","#C9A100","hawkeyesports.com/sports/wbball/roster"],
+UCLA:[11,"UCLA","Big Ten","#2774AE","uclabruins.com/sports/womens-basketball/roster"],UNC:[12,"North Carolina","ACC","#4B9CD3","goheels.com/sports/womens-basketball/roster"],
+ND:[13,"Notre Dame","ACC","#0C2340","fightingirish.com/sports/wbball/roster"],UK:[14,"Kentucky","SEC","#0033A0","ukathletics.com/sports/wbball/roster/"],
+TCU:[15,"TCU","Big 12","#4D1979","gofrogs.com/sports/womens-basketball/roster"],UW:[16,"Washington","Big Ten","#4B2E83","gohuskies.com/sports/womens-basketball/roster"],
+MINN:[17,"Minnesota","Big Ten","#7A0019","gophersports.com/sports/womens-basketball/roster/2026-27"],OSU:[18,"Ohio State","Big Ten","#BB0000","ohiostatebuckeyes.com/sports/womens-basketball/roster"],
+MISS:[19,"Ole Miss","SEC","#CE1126","olemisssports.com/sports/womens-basketball/roster"],MD:[20,"Maryland","Big Ten","#E03A3E","umterps.com/sports/womens-basketball/roster"],
+OU:[21,"Oklahoma","SEC","#841617","soonersports.com/sports/womens-basketball/roster"],OKST:[22,"Oklahoma State","Big 12","#FF7300","okstate.com/sports/womens-basketball/roster"],
+ILL:[23,"Illinois","Big Ten","#E84A27","fightingillini.com/sports/womens-basketball/roster"],WVU:[24,"West Virginia","Big 12","#002855","wvusports.com/sports/womens-basketball/roster"],
+NCST:[25,"NC State","ACC","#CC0000","gopack.com/sports/womens-basketball/roster"]};
+const CONF={"SEC":"--sec","ACC":"--acc","Big Ten":"--b1g","Big East":"--bige","Big 12":"--b12"};
+
+// 2026-27 rosters: "No|Name|Pos|Ht|Class|Hometown" separated by ";"
+const R={
+SC:"0|Oliviyah Edwards|F|6-3|Fr.|Tacoma, Wash.;2|Ashlyn Watkins|F|6-3|5th|Columbia, S.C.;3|Kaeli Wynn|F|6-2|Fr.|Irvine, Calif.;5|Tessa Johnson|G|6-0|Sr.|Albertville, Minn.;6|Brooke Quarles-Daniels|G|5-7|5th|Macomb, Mich.;7|Jordan Lee|G|6-0|Jr.|Stockton, Calif.;8|Joyce Edwards|F|6-3|Jr.|Camden, S.C.;9|Jerzy Robinson|G|6-0|Fr.|Los Angeles, Calif.;15|Adhel Tac|F|6-5|Jr.|Grand Prairie, Texas;21|Chloe Kitts|F|6-2|5th|Oviedo, Fla.;23|Kelsi Andrews|F|6-3|Fr.|Hazel Green, Ala.;24|Ayla McDowell|G|6-1|So.|Cypress, Texas;31|Alicia Tournebize|F|6-7|So.|Vichy, France;32|Justine Loubens|G|6-2|Fr.|L'Isle-Jourdain, France;44|Agot Makeer|G|6-1|So.|Thunder Bay, Ontario",
+UCONN:"2|KK Arnold|G|5-9|Sr.|Germantown, Wis.;4|Blanca Quiñonez|F|6-2|So.|Milagro, Ecuador;5|Marine Dursus|G|5-10|Fr.|Strasbourg, France;7|Kelis Fisher|G|5-9|So.|Baltimore, Md.;8|Jana El Alfy|C|6-5|R-Jr.|Cairo, Egypt;9|Kayleigh Heckel|G|5-9|Jr.|Port Chester, N.Y.;11|Allie Ziebell|G|6-0|Jr.|Neenah, Wis.;12|Ashlynn Shade|G|5-10|Sr.|Noblesville, Ind.;13|Jovana Popovic|G|5-9|Fr.|Vrbas, Serbia;21|Sarah Strong|F|6-2|Jr.|Durham, N.C.;23|Morgan Cheli|G|6-2|R-So.|Los Altos, Calif.;25|Olivia Vukosa|C|6-5|Fr.|Whitestone, N.Y.;42|Gandy Malou-Mamel|C|6-5|So.|Limerick, Ireland",
+USC:"1|Sitaya Fagan|F|6-4|Fr.|Melbourne, Australia;2|Saniyah Hall|G/F|6-1|Fr.|Lorain, Ohio;3|Pania Davis|C|6-6|Sr.|Perth, Australia;4|Rian Forestier|G|5-11|Jr.|Helotes, Texas;6|Laura Williams|F|6-2|R-So.|Tampa, Fla.;9|Jazzy Davidson|G|6-2|So.|Clackamas, Ore.;10|Ryann Bennett|G|5-8|Jr.|Long Beach, Calif.;11|Kennedy Smith|G|6-1|Jr.|Chino, Calif.;12|JuJu Watkins|G|6-2|Sr.|Los Angeles, Calif.;13|Alesia Talkouskaya|G/F|6-0|Fr.|Smorgon, Belarus;17|Sara Okeke|F/C|6-4|Fr.|Madrid, Spain;24|Brooklyn Shamblin|G|5-9|Jr.|Carpinteria, Calif.",
+DUKE:"0|Sanai Green|G|6-0|Fr.|Richmond, Va.;2|Jadyn Donovan|G/F|6-0|Sr.|Upper Marlboro, Md.;4|Riley Nelson|G|6-2|Sr.|Clarksburg, Md.;5|Emilee Skinner|G|6-0|So.|Providence, Utah;7|Aaliyah Crump|G|6-1|So.|Minnetonka, Minn.;11|Autumn Fleary|G|5-7|Fr.|Baltimore, Md.;12|Delaney Thomas|F|6-3|Sr.|Charles Town, W.Va.;13|Jordan Wood|F|6-4|Sr.|Chicago, Ill.;15|Emma Koabel|G|5-11|Gr.|Port Colborne, Ontario;21|Arianna Roberson|C|6-4|Jr.|San Antonio, Texas;22|Bella Flemings|G|6-0|Fr.|San Antonio, Texas;33|Taylor Sofilkanich|F|6-4|Fr.|South Amboy, N.J.;35|Toby Fournier|F|6-2|Jr.|Toronto, Ontario;53|Olivia Martin|G|5-6|Gr.|Gaithersburg, Md.",
+TEX:"1|Bryanna Preston|G|5-9|Jr.|Jonesboro, Ga.;2|Amalia Holguin|G|5-9|Fr.|West Covina, Calif.;3|Brihanna Crittendon|F|6-3|Fr.|Thornton, Colo.;4|Addison Bjorn|G|6-2|Fr.|Parkville, Mo.;6|Sarah Graves|G|5-9|5th|Keller, Texas;8|Grace Prenter|G|5-8|So.|Dublin, Ireland;9|Zya Vann|G|5-9|Jr.|Edmond, Okla.;10|Lizzy Spaight|G|5-7|Fr.|Las Vegas, Nev.;14|Jada Bediako|F|6-3|Sr.|Toronto, Canada;16|Lovisa Asbrink Hose|C|6-6|Jr.|Stockholm, Sweden;21|Jayda Clark|G|6-0|So.|Perth, Australia;25|Breya Cunningham|F|6-4|Sr.|Chula Vista, Calif.;34|Isi Etute|F|6-2|Fr.|Dudelange, Luxembourg;35|Madison Booker|F|6-1|Sr.|Ridgeland, Miss.",
+LOU:"1|Myah Epps|G|5-10|Fr.|Fort Wayne, Ind.;2|Imari Berry|G|5-10|Jr.|Clarksville, Tenn.;3|Zamareya Jones|G|5-7|Jr.|Greenville, N.C.;4|Mackenly Randolph|F|6-0|Jr.|Los Angeles, Calif.;5|Ariyana Cradle|G|5-8|Fr.|Columbus, Ohio;10|Carys Baker|F|6-2|Sr.|West Hartford, Conn.;11|Elif Istanbulluoglu|F|6-3|Sr.|Istanbul, Türkiye;12|Amiya Joyner|F|6-2|5th|Farmville, N.C.;15|Rebekah Graves|G|5-6|Jr.|Keller, Texas;21|Reagan Bender|G|5-10|Jr.|Louisville, Ky.;22|Tajianna Roberts|G|5-10|Jr.|San Diego, Calif.;23|Ayse Melek Demirer|F|6-4|Fr.|Istanbul, Türkiye;24|Grace Mbugua|F|6-4|So.|Danville, Ky.;25|Deniya Prawl|G|6-2|So.|Toronto, Ontario",
+VAN:"0|Olivia Jones|G|5-11|Fr.|;1|Mikayla Blakes|G|5-8|Jr.|;3|Aubrey Galvan|G|5-6|So.|;4|Madison Greene|G|5-6|Sr.|;5|Jhai Johnson|F|6-4|Fr.|;7|Sther Ubaka|F|6-1|Fr.|;11|Monique Williams|F|6-3|So.|;14|Aiyana Mitchell|F|6-4|Sr.|;15|Vernell Atamah|G/F|6-0|Jr.|;30|Trinity Wilson|F|6-3|Jr.|;32|Aalyah Del Rosario|C|6-6|Sr.|;33|Mia Woolfolk|F|6-3|Jr.|",
+LSU:"00|Laila Reynolds|G|6-0|Sr.|;1|Lola Lampley|G|6-2|Fr.|;2|Grace Knox|F|6-3|So.|;3|Noa Morro|F|6-3|Sr.|;5|Anna Minaeva|F|6-5|Fr.|;8|Jada Williams|G|5-6|Sr.|;11|ZaKiyah Johnson|G|6-0|So.|;12|Mikaylah Williams|G|6-0|Sr.|;15|Meghan Yarnevich|F|6-0|So.|;21|Chloe Larry|G|5-6|Jr.|;23|MiLaysia Fulwiley|G|5-9|Sr.|",
+IOWA:"0|Jocelyn Faison|G/F|6-1|So.|Atlanta, Ga.;1|Taylor Stremlow|G|5-10|Jr.|Verona, Wis.;3|Dani Carnegie|G|5-9|Jr.|Mount Vernon, N.Y.;5|Ava Heiden|C|6-4|Jr.|Sherwood, Ore.;7|Ella Strömdahl|F|6-0|Fr.|Uppsala, Sweden;8|Journey Houston|G|6-0|So.|Davenport, Iowa;11|Chazadi 'Chit-Chat' Wright|G|5-4|Jr.|Atlanta, Ga.;12|Layla Hays|C|6-5|So.|Wasilla, Alaska;15|Amari Whiting|G|5-10|Sr.|Burley, Idaho;20|McKenna Woliczko|F|6-2|Fr.|San Bruno, Calif.;50|Bria Medina|G|5-6|Sr.|Tucson, Ariz.",
+UCLA:"3|Christina Karamouzi|G|5-11|So.|;4|Donovyn Hunter|G|6-0|Sr.|;7|Elina Aarnisalo|G|5-10|Jr.|;8|Lina Jerković|G|5-9|Fr.|;9|Lena Bilić|G/F|6-3|So.|;11|Somto Okafor|G|5-9|Fr.|;14|KK Bransford|G|5-11|5th|;16|Sienna Betts|F|6-4|So.|;22|Bonnie Deas|G|5-9|So.|;24|Addy Brown|F|6-2|Sr.|;30|Timea Gardiner|F|6-3|5th|;33|Amanda Muse|F|6-4|Sr.|",
+UNC:"1|Jordan Zubich|G|5-11|Jr.|Mountain Iron, Minn.;3|Gabby White|G|5-10|So.|Chapel Hill, N.C.;4|Laila Hull|G|6-1|Sr.|Zionsville, Ind.;5|Sophie Burrows|G|6-2|Sr.|Lower Plenty, Australia;7|Nyla Brooks|G|6-1|So.|Waldorf, Md.;8|Achol Akot|F|6-1|Sr.|Ottawa, Ontario;10|Reniya Kelly|G|5-7|Sr.|Hoover, Ala.;11|Kate Harpring|G|5-10|Fr.|Atlanta, Ga.;13|Chloe Clardy|G|5-9|Sr.|Conway, Ark.;15|Sydney Barker|G|5-7|Sr.|Durham, N.C.;21|Ciera Toomey|F|6-4|Sr.|Dunmore, Pa.;26|Taissa Queiroz|G/F|6-1|So.|Belo Horizonte, Brazil;34|Blanca Thomas|C|6-5|Jr.|Charlotte, N.C.;52|Noelle Bofia|C|6-4|Fr.|Phoenix, Ariz.",
+ND:"1|Kelly Ratigan|G|5-8|5th|South Bend, Ind.;2|Jacy Abii|G/F|6-2|Fr.|Dallas, Texas;3|Hannah Hidalgo|G|5-7|Sr.|Merchantville, N.J.;5|Bella Ragone|G|6-2|Fr.|Buford, Ga.;6|Isabella Sangha|F|6-3|Fr.|Boca Raton, Fla.;7|Maya Gin|G|5-9|So.|Clarendon Hills, Ill.;9|Anaya Hardy|F|6-3|Jr.|Detroit, Mich.;10|Jenica Lewis|G|5-10|Fr.|Johnston, Iowa;23|Madison St. Rose|G|5-10|5th|Old Bridge, N.J.;24|Amari Byles|G/F|6-2|Fr.|DeSoto, Texas;30|Bella Veith|G|5-6|Fr.|Cincinnati, Ohio;32|Mia Veith|G|5-6|Fr.|Cincinnati, Ohio;44|Leah Macy|F|6-2|So.|Elizabethtown, Ky.",
+UK:"2|Me'Arah O'Neal|F|6-5|Jr.|Houston, Texas;3|Emily McDonald|G|6-0|Fr.|Buffalo, N.Y.;4|Jemma Amoore|G|5-4|Jr.|Ballarat, Australia;7|Ajša Sivka|G|6-5||Slovenske Konjice, Slovenia;8|Asia Boone|G|5-8|Sr.|San Diego, Calif.;11|Gabby Brooks|G|5-10|Sr.|Harrisonburg, Va.;12|Dominika Paurová|G|6-1|R-So.|Mladá Boleslav, Czech Republic;13|Clara Strack|C|6-5|Sr.|Buffalo, N.Y.;20|Diana Collins|G|5-10|Sr.|Lilburn, Ga.;21|Savvy Swords|F|6-2|Fr.|Sudbury, Ontario;30|Maddyn Greenway|G|5-8|Fr.|Wayzata, Minn.;34|Ayanna Patterson|F|6-2|R-Jr.|Fort Wayne, Ind.",
+TCU:"0|Camille Williams|G|5-11|So.|Fort Worth, Texas;1|Avery Hjelmstad|G|6-1|So.|Edmond, Okla.;3|Bella Hines|G|5-10|So.|Albuquerque, N.M.;6|Jadyn Wooten|G|5-6|Jr.|Overland Park, Kan.;7|Jessie-May Hall|G|5-8|Fr.|Sydney, Australia;11|Lanie Grant|G|5-9|Jr.|Midlothian, Va.;12|Lara Somfai|F|6-3|So.|Mór, Hungary;15|Sarah Portlock|C|6-8|So.|Victoria, Australia;16|Clara Bielefeld|G|6-4|So.|Recklinghausen, Germany;17|Clara Silva|C|6-7|Jr.|Faro, Portugal;18|Laura Vilcinskas|C|6-5|Fr.|De Pinte, Belgium;23|Claudia Contell|G|5-10|Sr.|Valencia, Spain",
+UW:"0|Sayvia Sellers|G|5-7|Sr.|Anchorage, Alaska;1|Brooke Carlson|G|5-8|Jr.|Batavia, Ill.;2|Avery Howell|G|6-0|Jr.|Boise, Idaho;3|Devin Coppinger|G|5-10|Jr.|Everson, Wash.;8|Daniella McLean|F|6-3|So.|Cobourg, Ontario;18|Tilda Trygger|F|6-6|Jr.|Stockholm, Sweden;20|Kaelyn Carroll|F|6-3|So.|Dedham, Mass.;21|Brynn McGaughy|F|6-3|So.|Colfax, Wash.;22|Nina Cain|F|6-2|So.|Sacramento, Calif.;24|Macey Huard|G|6-2|Sr.|Highlands Ranch, Colo.;25|Amayah Garcia|G|5-11|Fr.|Fort Worth, Texas;42|Petra Toman|G|6-2|Jr.|Budapest, Hungary",
+MINN:"0|Tayla Thomas|F|6-3|Jr.|East Orange, N.J.;6|Leah Harmon|G|5-6|Jr.|Paterson, N.J.;10|Mara Braun|G|6-0|5th|Wayzata, Minn.;11|Adit Kuol|F|6-3|Fr.|South Sudan;14|Tori McKinney|G|6-1|Jr.|Minnetonka, Minn.;15|Brynn Senden|G|5-6|Sr.|Wayzata, Minn.;20|Taylor Woodson|F|6-0|Sr.|Minnetonka, Minn.;21|Natalie Kussow|G|5-11|Fr.|Hartland, Wis.;22|Kennedy Klick|G|5-11|Sr.|Brooklyn Park, Minn.;25|Grace Grocholski|G/F|5-10|Sr.|North Prairie, Wis.;30|Zoey Bershers|C|6-3|So.|Glenwood, Ark.;33|Tori Oehrlein|G|5-10|Fr.|Crosby-Ironton, Minn.;35|Makena Christian|G|6-0|So.|Lomira, Wis.;42|Kylee Paben|F|6-0|Fr.|Omaha, Neb.;44|Gracie Merkle|C|6-6|5th|Mount Washington, Ky.",
+OSU:"0|Sydney Mobley|F|6-2|Fr.|Sunbury, Ohio;1|Kylee Kitts|G/F|6-4|R-So.|Oviedo, Fla.;3|Kennedy Cambridge|G|5-9|R-Sr.|Nashville, Tenn.;4|Atlee Vanesko|G|6-0|Fr.|Ocean City, N.J.;5|Ava Watson|G|5-8|Jr.|Buford, Ga.;8|Bryn Martin|G|6-1|So.|Springboro, Ohio;12|Elsa Lemmilä|C|6-6|Jr.|Espoo, Finland;14|Ella Hobbs|F|6-4|R-So.|Concord, N.C.;15|Seini Henry|G|6-0|R-So.|Charlotte, N.C.;22|Jaloni Cambridge|G|5-7|Jr.|Nashville, Tenn.;29|Adriana Díaz|F|6-1|Fr.|La Rioja, Spain",
+MISS:"2|Lauren Jacobs|G|5-9|So.|Columbia, S.C.;4|Knisha Godfrey|G|5-9|5th|Columbus, Ohio;5|Maya Anderson|G/F|6-1|Jr.|Toronto, Ontario;7|Desrae Kyles|C|6-5|Jr.|Benton Harbor, Mich.;12|Charleen Hudson|G|5-6|Fr.|Springdale, Ark.;15|Jaida Civil|G|6-0|So.|Vero Beach, Fla.;20|Emily Howard|C|6-5|5th|Vancouver, B.C.;22|Doneelah Washington|F|6-1|Jr.|Lincoln, Neb.;24|Jade Tillman|G|6-1|Sr.|Rockville, Md.;25|Rachael Okokoh|F|6-4|So.|Montreal, Quebec;30|Jada Richard|G|5-7|Jr.|Opelousas, La.;55|Talaysia Cooper|G|6-0|5th|Turbeville, S.C.",
+MD:"0|Rainey Welson|G|5-10|So.|Greenville, Wis.;1|Lea Bartelme|G|5-8|R-Fr.|Kisovec, Slovenia;2|Oumou 'Mimi' Thiero|F|6-5|Fr.|Sewickley, Pa.;3|Addi Mack|G|5-9|So.|Minneapolis, Minn.;5|Ava McKennie|G/F|6-2|Jr.|McSherrystown, Pa.;6|Marya Boiko|F|6-5|So.|Minsk, Belarus;7|Oluchi Okananwa|G|5-10|Sr.|Boston, Mass.;8|Jordyn Jackson|G|6-1|Fr.|Arlington, Va.;9|Nunu Agara|F|6-2|Sr.|Minneapolis, Minn.;10|Trinity Jones|G|6-1|Fr.|Naperville, Ill.;14|Eva-Grace Yebila|C|6-4|Fr.|London, England;22|Chloe Sotell|G|6-0|Jr.|Stamford, Conn.;24|Bri McDaniel|G|5-10|Gr.|Chicago, Ill.",
+OU:"2|Aaliyah Chavez|G|5-10|So.|Lubbock, Texas;4|Caya Smith|F|6-1|Jr.|Oklahoma City, Okla.;5|Sa'Myah Smith|F|6-2|5th|Texarkana, Texas;6|Sahara Williams|F|5-11|Sr.|Waterloo, Iowa;9|Isimenme Ozzy-Momodu|C|6-3|5th|London, England;10|Emma Tolan|F|5-11|So.|Virginia, Cavan, Ireland;11|Vienna Murray|G|6-1|Fr.|Woodbury, Minn.;16|Sina Höllerl|G|6-0|Fr.|Klosterneuburg, Austria;21|Brooklyn Stewart|F|6-3|So.|Colorado Springs, Colo.;22|Keziah Lofton|G|6-0|So.|Bethany, Okla.;23|Jordan Speiser|G|6-1|So.|Warrenton, Mo.;24|Keeley Parks|G|5-11|So.|Norman, Okla.;26|Daffa Cissoko|C|6-4|So.|Draveil, France;30|LeeLee Bell|F|6-3|Fr.|Minot, N.D.",
+OKST:"2|LA Sneed|G|5-6|So.|San Antonio, Texas;3|Mojca Jelenc|C|6-7|Fr.|Zelezniki, Slovenia;4|Ellie Brueggemann|G|5-11|Sr.|Owasso, Okla.;9|Yuting Deng|G|6-2|Jr.|Hunan Province, China;10|Nene Ndiaye|G|6-1|Sr.|Saly, Senegal;14|Callin Hake|G|5-8|5th|Victoria, Minn.;15|Zoe Canfield|G|5-11|Jr.|Topeka, Kan.;22|Talexa Weeter|G|6-0|Sr.|Goodland, Kan.;23|Liv McGill|G|5-9|Jr.|Minneapolis, Minn.;24|Addisyn Bollinger|G|5-11|Fr.|Lubbock, Texas;32|Stailee Heard|G|5-11|Sr.|Sapulpa, Okla.;55|Audi Crooks|C|6-3|Sr.|Algona, Iowa",
+ILL:"2|Destiny Jackson|G|5-6|So.|Chicago, Ill.;4|Gretchen Dolan|G|5-11|R-Jr.|Buffalo, N.Y.;5|Divine Bourrage|G|5-11|So.|Davenport, Iowa;6|Irene Noya Catoira|F|6-3|Jr.|Vilagarcía de Arousa, Spain;8|Jasmine Brown-Hagger|G|5-9|Sr.|Shorewood, Ill.;9|Lana Brenjo|F|6-4|Fr.|Nevesinje, Bosnia;11|Aaliyah Guyton|G|5-7|Jr.|Peoria, Ill.;12|Mia Zenere|G|5-11|Jr.|Mokena, Ill.;14|Morgan Baptist|F|6-0|Fr.|Kankakee, Ill.;21|Manuella Alves|F|6-3|R-Fr.|Rio de Janeiro, Brazil;23|Berry Wallace|F|6-1|Jr.|Pickerington, Ohio;24|Ona Riopedre|G|6-0|Jr.|Barcelona, Spain;30|Cearah Parchment|F|6-3|So.|Whitby, Ontario;34|Maddie Webber|G|6-0|Sr.|Bridgeville, Pa.;35|Lety Vasconcelos|C|6-7|R-Jr.|Miguel Calmon, Brazil",
+WVU:"1|Nylah Wilson|G|5-9|So.|Richmond, Va.;2|Kennedy Harris|G|5-7|Sr.|Hampton, Va.;3|Gia Cooke|G|5-8|R-Sr.|Upper Marlboro, Md.;4|Madison Parrish|G|5-11|So.|Mason, Ohio;5|Chanté Murray|F|6-1|Fr.|Mississauga, Ontario;7|Hawa Doumbouya|F/C|6-7|R-Jr.|Bronx, N.Y.;8|Khyala Ngodu|C|6-3|Sr.|Fort Lauderdale, Fla.;11|Skylar Forbes|F|6-3|Sr.|Markham, Ontario;23|Marya Hudgins|G|6-0|R-Sr.|Aurora, Colo.;24|Divine Tumba|F|6-2|R-Fr.|Longueuil, Quebec;30|Alexis Bordas|G|5-8|So.|Wheeling, W.Va.;35|Zahirah Walton|G/F|6-0|Sr.|Seattle, Wash.",
+NCST:"2|Qadence Samuels|G|6-0|Sr.|Forestville, Md.;3|Desiree Wooten|G|5-8|5th|Dallas, Texas;5|Annsley Trivette|F|6-3|Fr.|Abingdon, Va.;6|Khady Leye|F|6-2|Jr.|Louga, Senegal;7|Ky'She Lunan|G|5-10|So.|Goodyear, Ariz.;10|Adelaide Jernigan|G|5-11|So.|Winston-Salem, N.C.;11|Maddie Cox|F|6-2|Sr.|Flower Mound, Texas;12|Khamil Pierre|F|6-2|Sr.|Phoenix, Ariz.;21|Audrey Ericksen|G|6-0|Sr.|Cary, N.C.;24|Kamora Pruitt|G|6-2|Fr.|St. Louis, Mo.;35|Zoe Brooks|G|5-10|Sr.|Plainfield, N.J.;77|Favour Ossai|F|6-2|Fr.|Delta, Nigeria"
+};
+
+// [MM-DD, time ET or "", away/first-listed, home/second, network, event, neutral]
+const RAW=[
+["11-01","12:00","ND","Villanova","FS1","Eternal City Tip-Off · Rome",1],
+["11-02","12:00","MD","SC","ESPN","Oui-Play · Paris",1],["11-02","14:30","OU","UNC","ESPN2","Oui-Play · Paris",1],
+["11-02","12:00","Alcorn State","MISS","SECN+",""],["11-02","16:00","USC","UNLV","CBSSN","Hall of Fame Series · Las Vegas"],
+["11-02","17:00","Cornell","UCONN","Peacock / NBCSN",""],["11-02","18:30","Morehead State","UK","SECN+",""],
+["11-02","19:00","SE Louisiana","LSU","SEC Network",""],["11-02","20:00","Towson","IOWA","B1G+",""],
+["11-02","14:30","Lehigh","UCLA","B1G+",""],["11-02","14:00","UC San Diego","UW","TBA",""],
+["11-02","18:00","Harvard","MINN","B1G+",""],["11-02","18:00","Southern","OKST","ESPN+",""],
+["11-03","19:00","Green Bay","DUKE","ACCNX",""],["11-03","19:30","Oral Roberts","TCU","ESPN+",""],["11-03","19:00","Rhode Island","WVU","ESPN networks",""],
+["11-04","19:00","Detroit Mercy","ILL","B1G+",""],
+["11-05","18:30","UCONN","MICH","FS1",""],["11-05","20:00","Eastern Illinois","IOWA","B1G+",""],["11-05","22:00","UC Irvine","UCLA","B1G+",""],
+["11-05","22:00","Pacific","UW","TBA",""],["11-05","19:30","Le Moyne","TCU","TBA",""],["11-05","19:00","George Washington","WVU","ESPN networks",""],
+["11-06","18:00","Morgan State","OKST","ESPN+",""],
+["11-07","15:00","MINN","Marquette","ESPN+",""],["11-07","15:00","Southern","ILL","B1G+",""],
+["11-08","14:00","IOWA","UCONN","FS1",""],
+["11-08","14:00","DUKE","North Texas","ESPNU","The Foundry Classic",1],["11-08","15:00","UK","NCST","ESPN2","Ally Tipoff · Charlotte",1],
+["11-08","17:30","SC","UNC","ESPN","Ally Tipoff · Charlotte",1],["11-08","20:00","Utah State","USC","Big Ten Network",""],
+["11-08","15:00","Tarleton","TCU","TBA",""],["11-08","14:00","WVU","Georgia Tech","ESPN networks",""],
+["11-09","12:00","Northwestern State","OKST","ESPN+",""],
+["11-10","","Charleston","USC","Big Ten Network",""],["11-10","20:00","Southern","MINN","B1G+",""],["11-10","17:00","Iona","TCU","TBA",""],
+["11-11","19:00","South Dakota State","TEX","SEC Network",""],
+["11-12","19:00","SC","Clemson","ESPN or ESPN2",""],["11-12","18:30","UCONN","OSU","FS1",""],["11-12","20:30","Northern Iowa","IOWA","BTN",""],
+["11-12","22:30","Arizona","UCLA","BTN",""],["11-12","22:00","CSU Bakersfield","UW","TBA",""],["11-12","19:30","SE Louisiana","TCU","TBA",""],
+["11-12","18:00","OKST","Tulsa","TBA",""],
+["11-13","17:30","WVU","Northwestern","CBSSN","Greenbrier Tipoff",1],
+["11-14","14:00","MINN","Kansas State","TBA","MarketBeat Invitational · The Pentagon",1],
+["11-15","12:00","Eastern Michigan","UK","SEC Network",""],["11-15","13:00","USC","SC","ABC","\"The Real SC\" · Greenville",1],
+["11-15","15:00","Marshall","DUKE","ACC Network",""],["11-15","17:30","UCONN","LOU","ESPN",""],
+["11-15","13:00","IOWA","VAN","FS1","Sioux City, Iowa",1],["11-15","18:00","Princeton","UCLA","BTN",""],
+["11-15","15:00","SEMO","ILL","B1G+",""],["11-15","15:00","Abilene Christian","TCU","TBA",""],["11-15","14:00","OKST","South Dakota State","CBSSN",""],
+["11-17","","Florida Gulf Coast","SC","TBA",""],["11-17","21:00","Texas Southern","OU","SEC Network",""],
+["11-17","","UW","Washington State","TBA",""],["11-17","10:30","Akron","WVU","ESPN networks",""],
+["11-18","20:00","Kansas","MINN","Peacock",""],["11-18","18:30","ILL","Ball State","TBA",""],["11-18","19:30","UT Arlington","TCU","TBA",""],
+["11-18","19:30","St. John's","OKST","ESPN+",""],
+["11-19","18:00","Texas Tech","UNC","ESPN2","WBCA Showcase",1],["11-19","20:00","Montana State","IOWA","B1G+",""],["11-19","22:00","Cal Poly","UCLA","B1G+",""],
+["11-20","20:00","Seton Hall","UCONN","Peacock / NBCSN",""],["11-20","22:00","Stanford","UW","TBA",""],["11-20","19:30","Little Rock","OKST","ESPN+",""],
+["11-21","17:00","UNC","Alabama","ESPN+","WBCA Showcase",1],["11-21","","SC","Providence","TBA",""],
+["11-22","13:00","OSU","TEX","ESPN","",1],["11-22","17:30","UCLA","Tennessee","ESPN",""],
+["11-22","15:00","Coastal Carolina","NCST","ACC Network",""],["11-22","17:00","Cal Poly","UW","TBA",""],["11-22","15:00","Central Michigan","MINN","B1G+",""],
+["11-22","15:30","TCU","Utah State","TBA","Lone Star Series",1],["11-22","17:00","OKST","Wichita State","TBA","Kansas City",1],
+["11-23","13:30","IOWA","Utah","TBA","Nassau, Bahamas",1],
+["11-24","13:00","Davidson","ND","ESPN+","Battle 4 Atlantis",1],["11-24","15:30","Florida","WVU","ESPN+","Battle 4 Atlantis",1],
+["11-24","20:00","UCONN","SC","FS1","Hall of Fame Women's Showcase · Mohegan Sun",1],
+["11-24","17:00","UCLA","St. John's","Peacock","Hall of Fame Women's Showcase · Uncasville",1],
+["11-25","19:00","SE Louisiana","TEX","SEC Network",""],["11-25","11:00","IOWA","Navy","TBA","Nassau, Bahamas",1],
+["11-26","11:30","WVU","ND","ESPN2","Battle 4 Atlantis",1],["11-26","18:30","MINN","Missouri State","FloCollege","Cancun Challenge",1],
+["11-27","13:30","UW","OKST","BDG Sports Live","Coconut Hoops · Fort Myers",1],["11-27","21:00","MINN","Cincinnati","FloCollege","Cancun Challenge",1],
+["11-27","11:00","ILL","Marquette","TBA","Baha Mar Nassau Championship",1],["11-27","13:30","TCU","Georgia Tech","TBA","Fort Myers Tip-Off",1],
+["11-28","19:00","UCONN","DUKE","FOX","TD Garden · Boston",1],["11-28","","Tennessee State","SC","TBA",""],
+["11-28","13:30","OKST","UMass","BDG Sports Live","Coconut Hoops · Fort Myers",1],["11-28","11:00","TCU","Mississippi State","TBA","Fort Myers Tip-Off",1],
+["11-29","12:00","ETSU","LOU","ACC Network",""],["11-29","13:00","Georgia State","VAN","SEC Network",""],
+["11-29","15:00","Memphis","MISS","SEC Network",""],["11-29","16:00","Brown","UNC","ACC Network",""],
+["11-29","17:00","Penn","UCLA","B1G+",""],["11-29","13:30","UW","UMass","TBA","Coconut Hoops · Fort Myers",1],
+["11-29","11:00","ILL","Saint Joseph's","TBA","Baha Mar Nassau Championship",1],
+["11-30","19:00","Coppin State","WVU","ESPN networks",""],
+["12-01","19:00","IOWA","Drake","TBA",""],["12-01","19:30","Oral Roberts","OKST","ESPN+",""],
+["12-02","18:30","UNLV","UCONN","FS1",""],["12-02","19:15","LSU","UNC","ESPN2","SEC/ACC Challenge"],
+["12-02","19:15","NCST","MISS","ESPNU","SEC/ACC Challenge"],["12-02","21:15","LOU","TEX","ESPN2","SEC/ACC Challenge"],
+["12-02","20:00","St. Thomas","MINN","B1G+",""],
+["12-03","19:00","SC","DUKE","ESPN","SEC/ACC Challenge"],["12-03","19:00","Clemson","UK","ESPN2","SEC/ACC Challenge"],
+["12-03","19:00","OU","Syracuse","ESPNU","SEC/ACC Challenge"],["12-03","21:00","ND","VAN","ESPN","SEC/ACC Challenge"],
+["12-03","19:00","TCU","Memphis","TBA",""],["12-03","19:00","Mount St. Mary's","WVU","ESPN networks",""],
+["12-04","19:00","Harvard","WVU","ESPN networks",""],
+["12-05","16:30","UCONN","MD","FOX","Women's Champions Classic · Barclays Center",1],
+["12-05","18:00","Nebraska","IOWA","BTN",""],["12-05","18:00","USC","UW","TBA",""],["12-05","15:00","ILL","Wisconsin","B1G+",""],
+["12-06","12:00","Florida State","ND","ACC Network",""],["12-06","13:00","TEX","TCU","ESPN2","Lone Star Series",1],
+["12-06","14:00","Virginia Tech","DUKE","The CW",""],["12-06","14:00","Elon","UNC","ACC Network",""],
+["12-06","14:00","South Alabama","VAN","SEC Network",""],["12-06","16:00","OKST","SC","ABC",""],
+["12-06","16:00","EKU","LOU","ACC Network",""],["12-06","18:00","Davidson","NCST","ACC Network",""],
+["12-06","18:00","UCLA","Oregon","BTN",""],["12-06","14:00","MINN","Purdue","BTN",""],
+["12-07","12:00","Chicago State","ILL","B1G+",""],
+["12-09","19:00","UCONN","ND","ESPN",""],["12-09","19:00","SIUE","OU","SEC Network",""],["12-09","21:00","LOU","UK","ESPN",""],
+["12-09","20:00","Iowa State","IOWA","FS1","Cy-Hawk Series"],["12-09","20:00","Northern Iowa","MINN","B1G+",""],
+["12-10","22:00","Southern","UW","TBA",""],["12-10","20:00","ILL","Missouri","BTN","Braggin' Rights · St. Louis",1],["12-10","19:30","UTSA","TCU","TBA",""],
+["12-11","22:00","CSU Bakersfield","UCLA","B1G+",""],
+["12-12","12:00","OKST","OU","ESPN2","Oklahoma City",1],["12-12","14:30","Tennessee","UCONN","FOX",""],["12-12","","Wofford","SC","TBA",""],
+["12-12","17:00","Northern Colorado","UW","TBA",""],["12-12","15:00","UMKC","MINN","B1G+",""],["12-12","18:00","WVU","Villanova","ESPN networks",""],
+["12-13","12:00","Bowling Green","ND","ACC Network",""],["12-13","13:00","LSU","Houston","ESPN","Houston Hoopfest",1],
+["12-13","14:00","Miami","LOU","The CW",""],["12-13","18:00","NCST","UNC","ESPN",""],
+["12-13","13:00","Southern","IOWA","B1G+",""],["12-13","15:00","Evansville","ILL","B1G+",""],["12-13","15:00","Penn State","TCU","TBA",""],
+["12-14","19:30","North Texas","OKST","ESPN+",""],
+["12-15","20:00","Mercyhurst","MINN","B1G+",""],["12-15","19:00","Robert Morris","WVU","ESPN networks",""],
+["12-16","19:00","Creighton","UCONN","Peacock / NBCSN",""],["12-16","","Albany","SC","TBA",""],
+["12-16","19:00","UCLA","DUKE","ION","Scripps Women's Showcase · Phoenix",1],
+["12-17","18:00","Georgia Tech","UNC","ACC Network",""],["12-17","22:00","Santa Clara","UW","TBA",""],
+["12-18","20:30","Belmont","VAN","ESPNU","",1],["12-18","19:00","Western Illinois","ILL","B1G+",""],
+["12-19","18:00","DUKE","TEX","ESPN2","Players Era · Las Vegas",1],["12-19","20:30","SC","UCLA","ESPN","Players Era · Las Vegas",1],
+["12-19","23:00","ND","USC","ESPN","Players Era · Las Vegas",1],
+["12-20","12:00","Navy","NCST","ACC Network",""],["12-20","13:00","UCONN","LSU","ABC","espnW Invitational · Nashville",1],
+["12-20","15:30","UK","Virginia","ESPN2","espnW Invitational · Nashville",1],["12-20","17:00","TEX","UCLA","ESPN","Players Era · Las Vegas",1],
+["12-20","17:30","Clemson","LOU","ESPN2",""],["12-20","19:30","SC","ND","ESPN","Players Era · Las Vegas",1],
+["12-20","22:00","DUKE","USC","ESPN","Players Era · Las Vegas",1],
+["12-20","20:30","Northern Illinois","IOWA","B1G+",""],["12-20","17:00","Portland State","UW","TBA",""],["12-20","11:00","Grambling State","MINN","B1G+",""],
+["12-20","15:00","Wright State","ILL","B1G+",""],["12-20","15:00","Cincinnati","TCU","TBA",""],["12-20","15:00","OKST","Kansas","ESPN+",""],
+["12-20","14:00","WVU","UCF","ESPN networks",""],
+["12-21","16:00","Norfolk State","UNC","ACC Network",""],
+["12-22","12:00","Old Dominion","ILL","B1G+",""],
+["12-23","13:00","UCONN","Villanova","Peacock / NBCSN",""],["12-28","18:00","Syracuse","DUKE","ACC Network",""],
+["12-28","20:00","UNCW","UNC","ACC Network",""],["12-28","","Gardner-Webb","SC","TBA",""],
+["12-29","13:00","IOWA","ILL","Peacock",""],["12-29","","UW","Nebraska","TBA",""],
+["12-30","16:00","MINN","MD","B1G+",""],["12-30","21:00","Northwestern","UCLA","B1G+",""],["12-30","19:30","TCU","Iowa State","TBA",""],
+["12-30","19:30","Arizona","OKST","ESPN+",""],["12-30","19:00","Kansas","WVU","ESPN networks",""],
+["12-31","17:00","UCONN","Xavier","FS1",""],["12-31","18:00","UNC","Syracuse","ACC Network",""],
+["12-31","19:00","Alabama","SC","SEC Network",""],["12-31","20:00","OU","MISS","ESPN2",""],
+["12-31","20:00","DUKE","Virginia","ACC Network",""],["12-31","21:00","Arkansas","VAN","SEC Network",""],
+["01-01","14:00","IOWA","Michigan State","BTN",""],
+["01-02","","MD","OSU","Big Ten Network",""],["01-02","20:00","Nebraska","UCLA","BTN",""],["01-02","17:00","Wisconsin","UW","TBA",""],
+["01-02","18:00","Indiana","MINN","BTN",""],["01-02","14:00","ILL","Rutgers","B1G+",""],["01-02","19:00","Texas Tech","TCU","TBA",""],
+["01-03","12:00","Auburn","UK","SEC Network",""],["01-03","13:00","VAN","LSU","ABC",""],
+["01-03","14:00","California","LOU","ACC Network",""],["01-03","14:00","UNC","Clemson","The CW",""],
+["01-03","15:00","SC","TEX","ABC",""],["01-03","15:00","DUKE","NCST","ESPN",""],["01-03","16:00","Missouri","OU","SEC Network",""],
+["01-03","16:00","UCONN","DePaul","NBC",""],["01-03","17:00","MISS","Tennessee","ESPN",""],["01-03","18:00","ND","Miami","ACC Network",""],
+["01-03","20:00","WVU","OKST","ESPN2",""],
+["01-05","20:00","Rutgers","IOWA","B1G+",""],["01-05","19:00","UCLA","Purdue","B1G+",""],["01-05","20:00","Penn State","MINN","B1G+",""],
+["01-06","19:30","Utah","TCU","TBA",""],["01-06","19:30","Colorado","OKST","ESPN+",""],["01-06","20:00","WVU","Houston","ESPN networks",""],
+["01-07","18:00","LOU","Florida State","ACC Network",""],["01-07","19:00","Tennessee","TEX","ESPN2",""],
+["01-07","19:00","SC","Mississippi State","SEC Network",""],["01-07","19:00","Georgetown","UCONN","TNT",""],
+["01-07","20:00","Wake Forest","UNC","ACC Network",""],["01-07","21:00","Texas A&M","LSU","SEC Network",""],
+["01-07","21:00","UW","ILL","Peacock",""],
+["01-08","18:00","UCLA","Indiana","Peacock",""],
+["01-09","12:00","IOWA","MINN","FOX",""],["01-09","20:00","OKST","Iowa State","FS1",""],
+["01-10","12:00","DUKE","ND","ABC",""],["01-10","13:00","UCONN","Creighton","Peacock / NBCSN",""],
+["01-10","14:00","TEX","UK","ABC",""],["01-10","14:00","LSU","Florida","SEC Network",""],["01-10","14:00","NCST","Stanford","ACC Network",""],
+["01-10","15:00","UNC","LOU","ESPN or ESPN2",""],["01-10","16:00","Arkansas","SC","SEC Network",""],
+["01-10","17:00","OU","Tennessee","ESPN",""],["01-10","18:00","Mississippi State","VAN","SEC Network",""],
+["01-10","","UW","Northwestern","TBA",""],["01-10","14:30","Purdue","ILL","BTN",""],["01-10","15:00","TCU","WVU","ESPN2",""],
+["01-11","19:00","Alabama","MISS","SEC Network",""],
+["01-12","22:30","MINN","UCLA","BTN",""],
+["01-13","19:00","Marquette","UCONN","truTV",""],["01-13","18:30","ILL","OSU","B1G+",""],["01-13","19:30","Kansas","OKST","ESPN+",""],
+["01-13","17:00","Kansas State","WVU","CBSSN",""],
+["01-14","19:30","OU","SC","ESPN",""],["01-14","19:30","Arkansas","UK","SEC Network",""],["01-14","21:30","Texas A&M","VAN","SEC Network",""],
+["01-14","20:00","Northwestern","IOWA","B1G+",""],["01-14","21:00","MD","UW","TBA",""],["01-14","21:00","Baylor","TCU","TBA",""],
+["01-15","22:00","Penn State","UCLA","TBA",""],["01-15","22:00","MINN","USC","B1G+",""],
+["01-16","14:00","OKST","BYU","CBSSN",""],
+["01-17","12:00","Stanford","DUKE","ACC Network",""],["01-17","13:00","VAN","TEX","ABC",""],["01-17","14:00","LSU","Arkansas","SEC Network",""],
+["01-17","14:00","LOU","Virginia Tech","The CW",""],["01-17","15:00","ND","Syracuse","ESPN or ESPN2",""],
+["01-17","16:00","SC","Missouri","SEC Network",""],["01-17","18:00","Boston College","UNC","ACC Network",""],
+["01-17","18:00","Indiana","IOWA","BTN",""],["01-17","17:00","Purdue","UW","TBA",""],["01-17","15:00","Michigan State","ILL","B1G+",""],
+["01-17","16:00","TCU","Arizona","TBA",""],["01-17","17:00","WVU","Baylor","ESPN networks",""],
+["01-18","14:30","UCONN","Seton Hall","FOX","Prudential Center"],["01-18","12:00","UCLA","OU","FOX","Coretta Scott King Classic · Newark",1],
+["01-19","21:00","OKST","Utah","ESPN+",""],
+["01-20","","UW","Michigan State","TBA",""],["01-20","20:00","MICH","ILL","Peacock",""],["01-20","19:00","TCU","Arizona State","TBA",""],
+["01-20","19:00","Colorado","WVU","ESPN networks",""],
+["01-21","18:00","DUKE","Boston College","ACC Network",""],["01-21","19:00","ND","LOU","ESPN",""],
+["01-21","19:00","Auburn","MISS","SEC Network",""],["01-21","20:00","Tennessee","UK","ESPNU",""],
+["01-21","20:00","UNC","California","ACC Network",""],["01-21","21:00","TEX","Texas A&M","SEC Network",""],
+["01-21","","OSU","MD","FS1",""],["01-21","","Florida","SC","TBA",""],["01-21","19:00","UCLA","Rutgers","B1G+",""],
+["01-21","20:30","Wisconsin","MINN","BTN",""],
+["01-23","","UW","MICH","TBA",""],["01-23","14:00","ILL","Northwestern","B1G+",""],["01-23","20:00","BYU","TCU","TBA",""],
+["01-23","19:30","Cincinnati","OKST","ESPN+",""],["01-23","14:00","Iowa State","WVU","ESPN networks",""],
+["01-24","12:00","Clemson","DUKE","ESPN / ESPN2 / ESPNU",""],["01-24","12:00","Wake Forest","NCST","ACC Network",""],
+["01-24","12:00","UCONN","St. John's","TNT","Madison Square Garden"],["01-24","14:00","UNC","Stanford","ESPN / ESPN2 / ESPNU",""],
+["01-24","14:00","LOU","SMU","The CW",""],["01-24","14:00","UK","OU","ESPN / ESPN2 / ESPNU",""],
+["01-24","15:00","Florida","MISS","SEC Network",""],["01-24","17:00","TEX","Mississippi State","SEC Network",""],
+["01-24","18:00","IOWA","Oregon","BTN",""],["01-24","12:00","UCLA","MD","BTN",""],["01-24","14:00","MINN","OSU","BTN",""],
+["01-26","19:00","Nebraska","ILL","B1G+",""],
+["01-27","21:00","IOWA","UW","Peacock",""],["01-27","","WVU","Texas Tech","ESPN networks",""],
+["01-28","18:00","ND","UNC","ESPN",""],["01-28","18:30","Tennessee","SC","SEC Network",""],["01-28","18:30","DePaul","UCONN","FS1",""],
+["01-28","20:00","DUKE","Florida State","ACC Network",""],["01-28","20:30","Alabama","UK","SEC Network",""],["01-28","21:00","VAN","OU","ESPN2",""],
+["01-28","21:00","Oregon","MINN","BTN",""],["01-28","20:00","TCU","OKST","ESPN",""],
+["01-30","","MICH","USC","FOX",""],["01-30","15:00","ILL","UCLA","Peacock",""],["01-30","14:00","Cincinnati","WVU","ESPN networks",""],
+["01-31","12:00","Providence","UCONN","TNT",""],["01-31","13:00","Stanford","ND","The CW",""],["01-31","14:00","OU","Texas A&M","SEC Network",""],
+["01-31","15:00","UK","SC","ESPN",""],["01-31","17:00","DUKE","UNC","ESPN",""],
+["01-31","15:00","Wisconsin","IOWA","B1G+",""],["01-31","14:00","Colorado","TCU","TBA",""],["01-31","15:00","OKST","Houston","ESPN+",""],
+["02-01","18:00","Virginia","NCST","ESPN2",""],["02-01","20:00","MISS","LSU","ESPN2",""],
+["02-02","22:00","MICH","UCLA","FS1",""],["02-02","22:00","ILL","USC","Peacock",""],
+["02-03","22:00","WVU","Arizona State","ESPNU",""],
+["02-04","19:00","SC","VAN","ESPN",""],["02-04","19:00","TEX","Auburn","SEC Network",""],["02-04","19:00","UCONN","Butler","truTV",""],
+["02-04","20:00","LSU","UK","ESPN2",""],["02-04","20:00","SMU","ND","ACC Network",""],["02-04","21:00","Georgia","MISS","SEC Network",""],
+["02-04","20:30","IOWA","Nebraska","Peacock",""],["02-04","","UW","Oregon","TBA",""],["02-04","19:30","MINN","Wisconsin","B1G+",""],
+["02-04","20:00","TCU","Kansas State","TBA",""],["02-04","18:30","OKST","UCF","ESPN+",""],
+["02-06","","WVU","Arizona","ESPN networks",""],
+["02-07","12:00","UK","Georgia","SEC Network",""],["02-07","12:00","ND","Clemson","ESPN or ESPN2",""],["02-07","12:00","NCST","Syracuse","ACC Network",""],
+["02-07","14:00","LSU","Missouri","SEC Network",""],["02-07","14:00","LOU","Virginia","ESPN or ESPN2",""],
+["02-07","14:00","Virginia Tech","UNC","ACC Network",""],["02-07","14:00","Miami","DUKE","The CW",""],
+["02-07","14:30","UCONN","Marquette","TNT",""],["02-07","16:00","MISS","Mississippi State","SEC Network",""],
+["02-07","","Tennessee","VAN","ESPN",""],["02-07","20:00","USC","UCLA","FOX",""],
+["02-07","12:00","IOWA","MICH","FOX",""],["02-07","18:00","Indiana","UW","TBA",""],["02-07","15:00","Rutgers","MINN","B1G+",""],
+["02-07","16:00","Northwestern","ILL","BTN",""],["02-07","15:00","Houston","TCU","TBA",""],["02-07","18:00","Arizona State","OKST","ESPN",""],
+["02-08","19:00","SC","OU","ESPN2",""],["02-08","19:30","Arkansas","TEX","SEC Network",""],
+["02-09","19:00","Utah","WVU","ESPN networks",""],
+["02-10","18:00","Villanova","UCONN","Peacock / NBCSN",""],["02-10","","UW","OSU","TBA",""],["02-10","21:00","TCU","Kansas","TBA",""],
+["02-10","22:30","OKST","Colorado","FS1",""],
+["02-11","18:00","Texas A&M","SC","SEC Network",""],["02-11","18:00","Virginia","ND","ESPN2",""],["02-11","18:00","Syracuse","LOU","ACC Network",""],
+["02-11","19:00","TEX","LSU","ESPN",""],["02-11","20:00","DUKE","Georgia Tech","ACC Network",""],["02-11","20:30","VAN","Alabama","SEC Network",""],
+["02-11","19:00","USC","IOWA","FS1",""],["02-11","21:00","UCLA","Wisconsin","FS1",""],["02-11","20:00","MINN","Nebraska","BTN",""],
+["02-13","12:00","Xavier","UCONN","FS1",""],["02-13","","UW","Penn State","TBA",""],["02-13","15:00","Oregon","ILL","B1G+",""],
+["02-14","12:00","OU","Florida","SEC Network",""],["02-14","13:00","SC","MISS","ESPNU",""],["02-14","16:00","Texas A&M","TEX","SEC Network",""],
+["02-14","14:00","UCLA","IOWA","FOX",""],["02-14","14:00","MINN","Michigan State","B1G+",""],
+["02-15","18:00","VAN","UK","ESPN2",""],["02-15","15:00","WVU","TCU","FOX",""],["02-15","13:00","Kansas State","OKST","FOX",""],
+["02-17","22:00","Rutgers","UW","TBA",""],["02-17","20:00","MICH","MINN","B1G+",""],["02-17","19:00","ILL","MD","B1G+",""],
+["02-18","18:00","UNC","Pittsburgh","ACC Network",""],["02-18","19:00","LOU","DUKE","ESPN",""],
+["02-18","19:00","UCONN","Georgetown","Peacock / NBCSN",""],["02-18","20:00","ND","NCST","ESPN2",""],["02-18","","Michigan State","USC","TBA",""],
+["02-18","18:00","IOWA","Penn State","BTN",""],["02-18","22:30","OSU","UCLA","BTN",""],
+["02-20","16:00","UW","MINN","FS1",""],["02-20","14:00","TCU","Houston","TBA",""],["02-20","14:00","Texas Tech","WVU","ESPN networks",""],
+["02-21","12:00","MISS","VAN","ESPN",""],["02-21","12:00","Florida State","UNC","The CW",""],["02-21","12:00","St. John's","UCONN","FS1",""],
+["02-21","13:00","UK","Tennessee","SEC Network",""],["02-21","14:00","NCST","LOU","ESPN",""],
+["02-21","15:00","LSU","SC","ABC",""],["02-21","15:00","Florida","TEX","SEC Network",""],
+["02-21","16:00","OSU","USC","NBC / Peacock",""],["02-21","18:00","DUKE","Wake Forest","ACC Network",""],
+["02-21","14:00","Purdue","IOWA","B1G+",""],["02-21","15:00","Michigan State","UCLA","BTN",""],["02-21","14:00","ILL","Indiana","FS1",""],
+["02-21","16:00","OKST","Baylor","ESPN or ESPN2",""],
+["02-23","19:30","UCF","TCU","TBA",""],["02-23","19:00","BYU","WVU","ESPN networks",""],
+["02-24","18:30","OKST","Texas Tech","CBSSN",""],
+["02-25","18:00","LSU","Tennessee","ESPN",""],["02-25","18:00","DUKE","SMU","ACC Network",""],["02-25","19:00","UCONN","Providence","TNT",""],
+["02-25","20:00","TEX","OU","ESPN2",""],["02-25","20:00","Virginia","UNC","ACC Network",""],["02-25","21:00","MISS","Alabama","SEC Network",""],
+["02-25","19:30","MD","IOWA","Peacock",""],["02-25","21:30","UCLA","USC","Peacock",""],["02-25","22:30","Oregon","UW","TBA",""],
+["02-25","20:00","MINN","Northwestern","B1G+",""],["02-25","20:30","Penn State","ILL","BTN",""],
+["02-27","14:30","Iowa State","OKST","FS1",""],["02-27","14:00","WVU","Cincinnati","ESPN networks",""],
+["02-28","12:00","SC","Georgia","SEC Network",""],["02-28","12:00","LOU","ND","ESPN",""],["02-28","12:00","Clemson","NCST","The CW",""],
+["02-28","14:00","OU","LSU","ESPN or ESPN2",""],["02-28","14:00","TEX","MISS","ESPN or ESPN2",""],
+["02-28","14:00","Mississippi State","UK","SEC Network",""],["02-28","14:00","Butler","UCONN","FS1",""],
+["02-28","16:00","UNC","DUKE","ESPN",""],["02-28","","USC","Oregon","Big Ten Network",""],
+["02-28","12:00","IOWA","OSU","FOX",""],["02-28","14:00","UCLA","UW","BTN",""],["02-28","15:00","ILL","MINN","Peacock",""],
+["02-28","16:00","TCU","Baylor","TBA",""],
+["11-02","12:00","Lipscomb","VAN","SECN+",""],["11-02","17:00","Bellarmine","LOU","ACCNX",""],["11-02","17:00","Wofford","NCST","ACCNX",""],
+["11-02","18:30","UIC","OSU","B1G+",""],["11-04","18:00","Campbell","NCST","ACC Network",""],["11-04","20:00","Fairleigh Dickinson","TEX","SECN+",""],
+["11-04","20:00","Stetson","LOU","ACC Network",""],["11-18","19:00","MISS","OSU","FS1",""],["12-05","14:00","MICH","OU","FOX","",1]
+];
+
+
+const games=[];const seen=new Set();
+for(const [md,t,a,h,net,ev,n] of RAW){
+  const [m,d]=md.split("-").map(Number);const y=m>=10?2026:2027;
+  const iso=`${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+  const key=iso+"|"+[a,h].sort().join("|");if(seen.has(key))continue;seen.add(key);
+  games.push({iso,t,a,h,net,ev,n:!!n,rr:!!(T[a]&&T[h])});
+}
+games.sort((x,y)=>(x.iso+(x.t||"99")).localeCompare(y.iso+(y.t||"99")));
+games.forEach((g,i)=>g.i=i);
+
+const RES={},ODDS={};
+const resFor=g=>RES[g.iso+"_"+g.a]||RES[g.iso+"_"+g.h]||null;
+function scores(g,r){
+  if(!r||r.status!=="final")return null;
+  const sa=Number(r.away&&r.away.score),sh=Number(r.home&&r.home.score);
+  const flip=r.away&&r.away.key&&r.away.key===g.h;
+  return flip?{a:sh,h:sa,boxA:r.box&&r.box.home,boxH:r.box&&r.box.away}:{a:sa,h:sh,boxA:r.box&&r.box.away,boxH:r.box&&r.box.home};
+}
+function oddsFor(g){
+  const o=ODDS[g.iso+"_"+g.a]||ODDS[g.iso+"_"+g.h];if(!o)return null;
+  const flip=o.away&&o.away.key===g.h;const A=flip?o.home:o.away,H=flip?o.away:o.home;
+  const num=v=>v===null||v===undefined||v===""||isNaN(Number(v))?null:Number(v);
+  const sa=num(A&&A.spread),sh=num(H&&H.spread);
+  return {none:!!o.none,sa:sa??(sh!==null?-sh:null),sh:sh??(sa!==null?-sa:null),ma:num(A&&A.ml),mh:num(H&&H.ml),tot:num(o.total),book:o.book||"",asOf:o.asOf||""};
+}
+const sgn=v=>v===null?"—":(v>0?"+":v<0?"−":"")+Math.abs(v);
+const pk=v=>v===null?"—":v===0?"PK":sgn(v);
+function favLine(g,o){if(!o||o.sa===null)return "";const k=o.sa<=o.sh?g.a:g.h;return `${short(k)} ${pk(Math.min(o.sa,o.sh))}`}
+function atsResult(g,o,s){
+  if(!o||o.none||!s)return "";const out=[];
+  if(o.sa!==null){const m=s.a+o.sa-s.h;out.push(m===0?"Push":`${short(m>0?g.a:g.h)} covered`)}
+  if(o.tot!==null){const t=s.a+s.h;out.push(t===o.tot?"Total push":t>o.tot?"Over":"Under")}
+  return out.join(" · ");
+}
+
+const nm=k=>T[k]?T[k][1]:k, rk=k=>T[k]?T[k][0]:null;
+let POLL={ok:false};
+const ALIAS={"connecticut":"UCONN","uconn":"UCONN","southern california":"USC","usc":"USC","n.c. state":"NCST","nc state":"NCST","north carolina state":"NCST","mississippi":"MISS","ole miss":"MISS","unc":"UNC","lsu":"LSU","tcu":"TCU"};
+function keyOf(name){const n=String(name||"").trim().toLowerCase();if(ALIAS[n])return ALIAS[n];for(const k in T)if(T[k][1].toLowerCase()===n)return k;return null}
+function pollRows(){
+  if(POLL.ok)return POLL.teams.map(t=>({rank:+t.rank,name:t.name,k:keyOf(t.name),record:t.record||"",prev:t.prev===null||t.prev===undefined||t.prev===""?null:+t.prev,points:t.points,first:t.first}));
+  return Object.keys(T).map(k=>({rank:T[k][0],name:T[k][1],k,record:"",prev:undefined}));
+}
+function pollRank(k){if(!POLL.ok)return T[k]?T[k][0]:null;const r=POLL.teams.find(t=>keyOf(t.name)===k);return r?+r.rank:null}
+function teamStats(k){
+  const S={w:0,l:0,hw:0,hl:0,aw:0,al:0,nw:0,nl:0,rw:0,rl:0,pf:0,pa:0,gp:0,ats:[0,0,0],ou:[0,0,0],streak:"",last:null,rrLeft:0,players:{},hi:null,lo:null};
+  let run=0,rt="";
+  games.forEach(g=>{if(g.a!==k&&g.h!==k)return;const s=scores(g,resFor(g));const home=g.h===k,opp=home?g.a:g.h;
+    if(!s){if(g.rr&&g.iso>=todayISO)S.rrLeft++;return}
+    const me=home?s.h:s.a,th=home?s.a:s.h,win=me>th;
+    S.gp++;S.pf+=me;S.pa+=th;win?S.w++:S.l++;
+    if(g.n)win?S.nw++:S.nl++;else if(home)win?S.hw++:S.hl++;else win?S.aw++:S.al++;
+    if(T[opp])win?S.rw++:S.rl++;
+    const t=win?"W":"L";if(t===rt)run++;else{rt=t;run=1}
+    S.last={g,me,th,win,opp};
+    const mg=me-th;if(!S.hi||mg>S.hi.m)S.hi={m:mg,g,opp,me,th};if(!S.lo||mg<S.lo.m)S.lo={m:mg,g,opp,me,th};
+    const o=oddsFor(g);if(o&&!o.none){if(o.sa!==null){const my=home?o.sh:o.sa;const m=me+my-th;S.ats[m>0?0:m<0?1:2]++}if(o.tot!==null){const tt=me+th;S.ou[tt>o.tot?0:tt<o.tot?1:2]++}}
+    const box=home?s.boxH:s.boxA;
+    if(Array.isArray(box))box.forEach(p=>{if(!p||!p[0])return;const P=S.players[p[0]]=S.players[p[0]]||{gp:0,min:0,pts:0,reb:0,ast:0,stl:0,blk:0,fgm:0,fga:0,tpm:0,tpa:0,ftm:0,fta:0};
+      P.gp++;P.min+=+p[1]||0;P.pts+=+p[2]||0;P.reb+=+p[3]||0;P.ast+=+p[4]||0;P.stl+=+p[5]||0;P.blk+=+p[6]||0;
+      const sp=v=>String(v||"0-0").split("-").map(x=>+x||0);const [a,b]=sp(p[7]),[c,d]=sp(p[8]),[e2,f]=sp(p[9]);
+      P.fgm+=a;P.fga+=b;P.tpm+=c;P.tpa+=d;P.ftm+=e2;P.fta+=f});
+  });
+  if(rt)S.streak=run>1?(rt==="W"?"Won ":"Lost ")+run+" straight":(rt==="W"?"Won last game":"Lost last game");
+  return S;
+}
+const rec2=(w,l)=>w+l?`${w}–${l}`:"—";
+const avg=(x,n)=>n?(x/n).toFixed(1):"—";
+const pct=(m,a)=>a?(100*m/a).toFixed(1):"—";
+function statsHTML(k,S){
+  const tg=games.filter(g=>g.a===k||g.h===k),first=tg.find(g=>!scores(g,resFor(g)));
+  if(!S.gp){const rrN=tg.filter(g=>g.rr).length,neutral=tg.filter(g=>g.n).length,home=tg.filter(g=>g.h===k&&!g.n).length;
+    return `<div class="splits"><div class="ob"><span>Listed games</span><b>${tg.length}</b></div><div class="ob"><span>vs. Top 25</span><b>${rrN}</b></div><div class="ob"><span>Home / away / neutral</span><b>${home}/${tg.length-home-neutral}/${neutral}</b></div></div>
+    <div class="empty">Season stats fill in after ${esc(nm(k))}'s first game${first?` on ${fmtD(first.iso,{month:"long",day:"numeric"})} ${first.h===k?"vs.":first.n?"vs.":"at"} ${esc(nm(first.h===k?first.a:first.h))}`:""}: scoring, splits, betting record and every player's averages.</div>`}
+  const pl=Object.entries(S.players).sort((a,b)=>b[1].pts/b[1].gp-a[1].pts/a[1].gp);
+  const ats=S.ats[0]+S.ats[1]+S.ats[2],ou=S.ou[0]+S.ou[1]+S.ou[2];
+  return `<div class="splits">
+    <div class="ob"><span>Points / game</span><b>${avg(S.pf,S.gp)}</b><small>${S.gp} game${S.gp>1?"s":""}</small></div>
+    <div class="ob"><span>Allowed / game</span><b>${avg(S.pa,S.gp)}</b><small>Opponents</small></div>
+    <div class="ob"><span>Avg. margin</span><b>${(S.pf-S.pa>0?"+":"")+avg(S.pf-S.pa,S.gp)}</b><small>Per game</small></div></div>
+  <h5 class="sh">Splits</h5>
+  <div class="tblwrap"><table><tbody>
+    <tr><td class="pl">Overall</td><td class="n">${rec2(S.w,S.l)}</td></tr>
+    <tr><td class="pl">Home</td><td class="n">${rec2(S.hw,S.hl)}</td></tr>
+    <tr><td class="pl">Away</td><td class="n">${rec2(S.aw,S.al)}</td></tr>
+    <tr><td class="pl">Neutral site</td><td class="n">${rec2(S.nw,S.nl)}</td></tr>
+    <tr><td class="pl">vs. Top 25</td><td class="n">${rec2(S.rw,S.rl)}</td></tr>
+    <tr><td class="pl">Against the spread</td><td class="n">${ats?`${S.ats[0]}–${S.ats[1]}${S.ats[2]?"–"+S.ats[2]:""}`:"—"}</td></tr>
+    <tr><td class="pl">Over / under</td><td class="n">${ou?`${S.ou[0]} over · ${S.ou[1]} under`:"—"}</td></tr>
+    ${S.hi?`<tr><td class="pl">Biggest win</td><td class="n">${S.hi.m>0?`+${S.hi.m} vs. ${esc(nm(S.hi.opp))}`:"—"}</td></tr>`:""}
+    ${S.lo&&S.lo.m<0?`<tr><td class="pl">Worst loss</td><td class="n">${S.lo.m} vs. ${esc(nm(S.lo.opp))}</td></tr>`:""}
+  </tbody></table></div>
+  <h5 class="sh">Player averages</h5>
+  ${pl.length?`<div class="tblwrap"><table><thead><tr><th>Player</th><th class="n">GP</th><th class="n">MIN</th><th class="n">PTS</th><th class="n">REB</th><th class="n">AST</th><th class="n">STL</th><th class="n">BLK</th><th class="n">FG%</th><th class="n">3P%</th><th class="n">FT%</th></tr></thead><tbody>${
+    pl.map(([n,P])=>`<tr><td class="pl">${esc(n)}</td><td class="n">${P.gp}</td><td class="n">${avg(P.min,P.gp)}</td><td class="n"><b>${avg(P.pts,P.gp)}</b></td><td class="n">${avg(P.reb,P.gp)}</td><td class="n">${avg(P.ast,P.gp)}</td><td class="n">${avg(P.stl,P.gp)}</td><td class="n">${avg(P.blk,P.gp)}</td><td class="n">${pct(P.fgm,P.fga)}</td><td class="n">${pct(P.tpm,P.tpa)}</td><td class="n">${pct(P.ftm,P.fta)}</td></tr>`).join("")}</tbody></table></div>
+  <p class="note">Averages come from the box scores added each morning.</p>`:`<div class="empty">Player averages appear once box scores are in.</div>`}`;
+}
+const tcol=k=>T[k]?T[k][3]:"#7A8597";
+function txtOn(hex){const c=hex.replace("#","");const r=parseInt(c.substr(0,2),16),g=parseInt(c.substr(2,2),16),b=parseInt(c.substr(4,2),16);return (0.299*r+0.587*g+0.114*b)>160?"#0E1B2E":"#FFFFFF"}
+const lead=g=>{const ks=[g.a,g.h].filter(k=>T[k]);ks.sort((p,q)=>rk(p)-rk(q));return ks[0]};
+const confVar=k=>`var(${CONF[T[k][2]]})`;
+function fmtT(t){if(!t)return"TBA";let [h,m]=t.split(":").map(Number);const ap=h>=12?"PM":"AM";h=h%12||12;return `${h}:${String(m).padStart(2,"0")} ${ap}`}
+function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function short(k){return T[k]?(k==="UCONN"?"UConn":T[k][1].length<=9?T[k][1]:k):k}
+const shortOpp=k=>T[k]?short(k):k.split(" ").map(w=>w.length>7?w.slice(0,6)+".":w).join(" ");
+const etDate=g=>new Date(`${g.iso}T${g.t||"12:00"}:00${g.iso>="2026-11-01"&&g.iso<"2027-03-14"?"-05:00":"-04:00"}`);
+const fmtD=(iso,o)=>new Date(iso+"T12:00").toLocaleDateString("en-US",o);
+const pair=g=>`--ca:${tcol(g.a)};--cb:${tcol(g.h)}`;
+
+const $=id=>document.getElementById(id);
+const MONTHS=[[2026,10],[2026,11],[2027,0],[2027,1]];
+const st={team:"ALL",rr:false,mi:0,sel:null,dir:0,dr:null};
+try{const s=JSON.parse(localStorage.getItem("t25cal")||"{}");if(s.team&&(s.team==="ALL"||T[s.team]))st.team=s.team;st.rr=!!s.rr}catch(e){}
+function save(){try{localStorage.setItem("t25cal",JSON.stringify({team:st.team,rr:st.rr}))}catch(e){}}
+const todayISO=new Date().toLocaleDateString("en-CA",{timeZone:"America/New_York"});
+const visible=()=>games.filter(g=>(st.team==="ALL"||g.a===st.team||g.h===st.team)&&(!st.rr||g.rr));
+let toastT;function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("on"),1800)}
+
+/* hero */
+$("meta").innerHTML=`<span><b>${games.length}</b> games</span><span><b>${games.filter(g=>g.rr).length}</b> ranked-vs-ranked</span><span><b>25</b> teams · 5 conferences</span>`;
+let nextG=null;
+function pickNext(){const now=Date.now();nextG=games.find(g=>g.rr&&etDate(g).getTime()+2*36e5>now)||null}
+let lastNext=null,lastDig=[];
+function renderNext(){
+  pickNext();const el=$("next");if(!nextG){el.hidden=true;return}
+  const g=nextG,ms=etDate(g)-Date.now();
+  if(lastNext===g&&ms>0){const d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4),sx=Math.floor(ms%6e4/1e3);const v=[String(d),String(h).padStart(2,"0"),String(m).padStart(2,"0"),String(sx).padStart(2,"0")];
+    el.querySelectorAll(".clock b").forEach((b,i)=>{if(v[i]!==lastDig[i]){b.textContent=v[i];b.classList.remove("tick");void b.offsetWidth;b.classList.add("tick")}});lastDig=v;return}
+  lastNext=g;
+  const live=ms<=0,d=Math.max(0,Math.floor(ms/864e5)),h=Math.max(0,Math.floor(ms%864e5/36e5)),m=Math.max(0,Math.floor(ms%36e5/6e4));
+  el.innerHTML=`<div class="lbl">${live?"Tipping now":"Next Top 25 clash"}</div>
+  <div class="mu"><small>${rk(g.a)}</small>${esc(nm(g.a))} ${g.n?"vs.":"at"} <small>${rk(g.h)}</small>${esc(nm(g.h))}</div>
+  <div class="sub">${fmtD(g.iso,{weekday:"short",month:"short",day:"numeric"})} · ${fmtT(g.t)} ET · ${esc(g.net)}${g.ev?" · "+esc(g.ev):""}</div>
+  ${live?"":`<div class="clock"><div><b>${d}</b><span>days</span></div><div><b>${String(h).padStart(2,"0")}</b><span>hrs</span></div><div><b>${String(m).padStart(2,"0")}</b><span>min</span></div><div><b>${String(Math.floor(ms%6e4/1e3)).padStart(2,"0")}</b><span>sec</span></div></div>`}`;
+  lastDig=[String(d),String(h).padStart(2,"0"),String(m).padStart(2,"0"),String(Math.max(0,Math.floor(ms%6e4/1e3))).padStart(2,"0")];
+}
+$("next").onclick=()=>nextG&&openGame(nextG);
+
+/* clash rail */
+function renderRail(){
+  const now=Date.now();
+  const list=games.filter(g=>g.rr&&(st.team==="ALL"||g.a===st.team||g.h===st.team)&&etDate(g).getTime()>now-864e5*3);
+  $("rail").innerHTML=list.length?list.map((g,ii)=>{const s=scores(g,resFor(g));return `<button class="clash" data-i="${g.i}" style="${pair(g)};--i:${Math.min(ii,10)}">
+    <div class="d">${fmtD(g.iso,{weekday:"short",month:"short",day:"numeric"})}${s?" · Final":""}</div>
+    <div class="t" style="--c:${tcol(g.a)}"><i></i><small>${rk(g.a)}</small>${esc(short(g.a))}${s?` <span style="margin-left:auto">${s.a}</span>`:""}</div>
+    <div class="t" style="--c:${tcol(g.h)}"><i></i><small>${rk(g.h)}</small>${esc(short(g.h))}${s?` <span style="margin-left:auto">${s.h}</span>`:""}</div>
+    <div class="n"><span>${g.ev?esc(g.ev.split(" · ")[0]):g.n?"Neutral":"At "+esc(short(g.h))}</span><b>${esc(g.net)}</b></div></button>`}).join("")
+    :`<div class="empty" style="flex:1">No ranked-vs-ranked games left${st.team!=="ALL"?" for "+esc(nm(st.team)):""}.</div>`;
+}
+$("rail").addEventListener("click",e=>{const b=e.target.closest(".clash");if(b)openGame(games[+b.dataset.i])});
+$("rl").onclick=()=>$("rail").scrollBy({left:-480,behavior:"smooth"});
+$("rr2").onclick=()=>$("rail").scrollBy({left:480,behavior:"smooth"});
+/* click-and-drag scrolling with momentum (mouse/pen; touch already scrolls natively) */
+function dragScroll(el){
+  let down=false,moved=false,x0=0,s0=0,lastX=0,lastT=0,v=0,raf=0;
+  el.addEventListener("pointerdown",e=>{if(e.pointerType==="touch"||e.button!==0)return;cancelAnimationFrame(raf);down=true;moved=false;x0=lastX=e.clientX;s0=el.scrollLeft;lastT=performance.now();v=0});
+  addEventListener("pointermove",e=>{if(!down)return;const dx=e.clientX-x0;
+    if(!moved&&Math.abs(dx)>5){moved=true;el.classList.add("dragging");try{el.setPointerCapture(e.pointerId)}catch(_){}}
+    if(!moved)return;e.preventDefault();el.scrollLeft=s0-dx;const t=performance.now();v=(e.clientX-lastX)/Math.max(1,t-lastT);lastX=e.clientX;lastT=t});
+  const up=()=>{if(!down)return;down=false;if(!moved)return;
+    const glide=()=>{v*=0.94;el.scrollLeft-=v*16;if(Math.abs(v)>0.02)raf=requestAnimationFrame(glide);else el.classList.remove("dragging")};
+    if(matchMedia("(prefers-reduced-motion:reduce)").matches||Math.abs(v)<0.05)el.classList.remove("dragging");else raf=requestAnimationFrame(glide);
+    el._justDragged=true;setTimeout(()=>el._justDragged=false,0)};
+  addEventListener("pointerup",up);addEventListener("pointercancel",up);
+  el.addEventListener("click",e=>{if(el._justDragged){e.stopPropagation();e.preventDefault()}},true);
+  el.addEventListener("dragstart",e=>e.preventDefault());
+}
+dragScroll($("rail"));dragScroll($("chips"));
+
+/* chips + months */
+function renderChips(){
+  const all=`<button class="chip all" data-k="ALL" aria-pressed="${st.team==="ALL"}"><i></i>All 25</button>`;
+  $("chips").innerHTML=all+Object.keys(T).map((k,ii)=>`<button class="chip" data-k="${k}" aria-pressed="${st.team===k}" style="--i:${ii+1};--tc:${T[k][3]};--tt:${txtOn(T[k][3])}"><i></i><small>${T[k][0]}</small>${esc(short(k))}</button>`).join("");
+}
+$("chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;setTeam(b.dataset.k===st.team&&b.dataset.k!=="ALL"?"ALL":b.dataset.k)});
+function setTeam(k){st.team=k;save();renderChips();pickStart();renderAll();toast(k==="ALL"?"Showing all Top 25 games":`Showing ${nm(k)}'s games`);
+  const c=$("chips").querySelector(`[data-k="${k}"]`);c&&c.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"})}
+function renderMonths(){
+  const el=$("months");
+  el.innerHTML=MONTHS.map(([y,m],i)=>`<button role="tab" data-mi="${i}" aria-selected="${i===st.mi}">${new Date(y,m,1).toLocaleDateString("en-US",{month:"short"})}</button>`).join("")+`<span class="pill"></span>`;
+  requestAnimationFrame(movePill);
+}
+function movePill(){const el=$("months"),b=el.querySelector(`[data-mi="${st.mi}"]`),p=el.querySelector(".pill");if(!b||!p)return;p.style.left=b.offsetLeft+"px";p.style.width=b.offsetWidth+"px";
+  el.querySelectorAll("button").forEach(x=>x.setAttribute("aria-selected",x.dataset.mi==st.mi))}
+$("months").addEventListener("click",e=>{const b=e.target.closest("[data-mi]");if(b)goMonth(+b.dataset.mi)});
+function goMonth(i,keepSel){if(i<0||i>=MONTHS.length||i===st.mi)return;st.dir=i>st.mi?1:-1;st.mi=i;st.anim=true;st.animDay=true;
+  if(!keepSel){const [y,m]=MONTHS[i];const pre=`${y}-${String(m+1).padStart(2,"0")}`;const g=visible().find(g=>g.iso.startsWith(pre)&&g.iso>=todayISO)||visible().find(g=>g.iso.startsWith(pre));st.sel=g?g.iso:pre+"-01"}
+  movePill();renderGrid();renderDay()}
+$("rrsw").onclick=()=>{st.rr=!st.rr;save();$("rrsw").setAttribute("aria-checked",st.rr);pickStart();renderAll()};
+$("legend").innerHTML=Object.entries(CONF).map(([c,v])=>`<span><i style="background:var(${v})"></i>${c}</span>`).join("")+`<span><i style="background:var(--ball)"></i>Clash</span>`;
+
+function pickStart(){const v=visible();const g=v.find(g=>g.iso>=todayISO)||v[0];if(!g)return;st.sel=g.iso;
+  const [y,m]=g.iso.split("-").map(Number);const i=MONTHS.findIndex(([yy,mm])=>yy===y&&mm===m-1);if(i>=0)st.mi=i}
+
+/* grid */
+let byDay={};
+function renderGrid(){
+  const [y,m]=MONTHS[st.mi];const v=visible();byDay={};v.forEach(g=>(byDay[g.iso]=byDay[g.iso]||[]).push(g));
+  let h=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(d=>`<div class="dow">${d}</div>`).join("");
+  const first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
+  for(let i=0;i<first;i++)h+=`<div class="cell out" aria-hidden="true"></div>`;
+  for(let d=1;d<=days;d++){
+    const iso=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;const gs=byDay[iso]||[];const rrN=gs.filter(g=>g.rr).length;
+    const ordered=[...gs].sort((p,q)=>(q.rr-p.rr)||(rk(lead(p))-rk(lead(q))));
+    const pills=ordered.slice(0,3).map(g=>`<div class="mp${g.rr?" rr":""}${scores(g,resFor(g))?" fin":""}" style="--c:${confVar(lead(g))}">${esc(shortOpp(g.a))} ${g.n?"vs":"@"} ${esc(shortOpp(g.h))}</div>`).join("");
+    const dots=ordered.map(g=>`<i style="--c:${g.rr?"var(--ball)":confVar(lead(g))}"></i>`).join("");
+    h+=`<button style="--i:${first+d}" class="cell${gs.length?"":" none"}${iso===st.sel?" sel":""}${iso===todayISO?" today":""}${rrN?" has-rr":""}" data-iso="${iso}" aria-label="${fmtD(iso,{month:"long",day:"numeric"})}, ${gs.length} games">
+      <span class="dn"><span>${d}</span>${gs.length?`<small>${rrN?rrN+" clash":gs.length+" gm"}</small>`:""}</span>${pills}${gs.length>3?`<span class="more">+${gs.length-3} more</span>`:""}<span class="dots">${dots}</span></button>`;
+  }
+  const el=$("grid");el.innerHTML=h;el.classList.remove("in-l","in-r","anim");
+  if(st.anim){el.style.setProperty("--dx",(st.dir*40)+"px");void el.offsetWidth;el.classList.add("anim");st.anim=false;st.dir=0}
+}
+$("grid").addEventListener("click",e=>{const c=e.target.closest(".cell[data-iso]");if(!c)return;hideFly();st.sel=c.dataset.iso;
+  $("grid").querySelectorAll(".cell.sel").forEach(x=>x.classList.remove("sel"));c.classList.add("sel");st.animDay=true;renderDay();
+  const day=document.querySelector(".day");day.classList.remove("flash");void day.offsetWidth;day.classList.add("flash");
+  const barH=document.querySelector(".bar").offsetHeight;const y=day.getBoundingClientRect().top+scrollY-barH-12;
+  scrollTo({top:y,behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"})});
+
+/* day hover flyout */
+const fine=matchMedia("(hover:hover) and (pointer:fine)");let flyT;
+$("grid").addEventListener("mouseover",e=>{if(!fine.matches)return;const c=e.target.closest(".cell[data-iso]");if(!c||c===$("fly")._c)return;
+  clearTimeout(flyT);flyT=setTimeout(()=>showFly(c),140)});
+$("grid").addEventListener("mouseleave",hideFly);
+function showFly(c){const gs=byDay[c.dataset.iso]||[];const f=$("fly");f._c=c;if(gs.length<1){f.classList.remove("on");return}
+  f.innerHTML=`<h4>${fmtD(c.dataset.iso,{weekday:"short",month:"short",day:"numeric"})} · ${gs.length} game${gs.length>1?"s":""}</h4>`+gs.slice(0,9).map(g=>{const s=scores(g,resFor(g));return `<div class="r"><span>${s?"Final":fmtT(g.t)}</span><b>${rk(g.a)?rk(g.a)+" ":""}${esc(nm(g.a))}${s?" "+s.a:""} ${g.n?"vs":"@"} ${rk(g.h)?rk(g.h)+" ":""}${esc(nm(g.h))}${s?" "+s.h:""}</b></div>`}).join("")+(gs.length>9?`<div class="r"><span></span><b style="color:var(--muted)">+${gs.length-9} more · click the day</b></div>`:"");
+  const r=c.getBoundingClientRect(),w=290;let x=r.right+8;if(x+w>innerWidth-8)x=r.left-w-8;if(x<8)x=8;
+  f.style.left=x+"px";f.style.top="0px";f.classList.add("on");const fh=f.offsetHeight;let y=r.top;if(y+fh>innerHeight-8)y=innerHeight-fh-8;f.style.top=Math.max(8,y)+"px"}
+function hideFly(){clearTimeout(flyT);const f=$("fly");f.classList.remove("on");f._c=null}
+addEventListener("scroll",hideFly,{passive:true});
+
+/* day rundown */
+function gameDays(){return [...new Set(visible().map(g=>g.iso))]}
+function renderDay(){
+  const gs=(visible().filter(g=>g.iso===st.sel));
+  $("dtitle").innerHTML=st.sel?`${fmtD(st.sel,{weekday:"long",month:"long",day:"numeric"})}<small>${gs.length?`${gs.length} game${gs.length>1?"s":""}${gs.some(g=>g.rr)?" · "+gs.filter(g=>g.rr).length+" Top 25 clash"+(gs.filter(g=>g.rr).length>1?"es":""):""}`:"No games"}</small>`:"Pick a day";
+  const days=gameDays();$("dprev").disabled=!days.some(d=>d<st.sel);$("dnext").disabled=!days.some(d=>d>st.sel);
+  const dl=$("dlist");dl.classList.remove("anim");if(st.animDay){void dl.offsetWidth;dl.classList.add("anim");st.animDay=false}
+  $("dlist").innerHTML=gs.length?gs.map((g,i)=>{const s=scores(g,resFor(g)),o=oddsFor(g);
+    const aw=s&&s.a>s.h,hw=s&&s.h>s.a;
+    const foot=[];if(o&&o.none)foot.push("No line posted");else if(o){if(o.sa!==null)foot.push(`<b>${esc(favLine(g,o))}</b>`);if(o.ma!==null&&o.mh!==null)foot.push(`ML ${sgn(o.ma)} / ${sgn(o.mh)}`);if(o.tot!==null)foot.push(`O/U ${o.tot}`)}
+    const ats=s&&atsResult(g,o,s);if(ats)foot.push(`<span class="ats">${esc(ats)}</span>`);
+    if(g.ev)foot.unshift(esc(g.ev));
+    return `<button class="game" data-i="${g.i}" style="--i:${i};${pair(g)}">
+      <div class="top"><span class="${s?"fin":""}">${s?"Final":fmtT(g.t)+(g.t?" ET":"")}</span>${g.rr?`<span class="tagx">Top 25 clash</span>`:`<span>${g.n?"Neutral":"At "+esc(shortOpp(g.h))}</span>`}</div>
+      <div style="display:grid;gap:4px;min-width:0">
+        <div class="tm${s&&!aw?" l":""}"><span class="rk">${rk(g.a)||""}</span><span class="nm">${esc(nm(g.a))}</span></div>
+        <div class="tm${s&&!hw?" l":""}"><span class="rk">${rk(g.h)||""}</span><span class="nm">${esc(nm(g.h))}</span></div>
+      </div>
+      ${s?`<div style="display:grid;gap:4px"><span class="sc${aw?"":" l"}">${s.a}</span><span class="sc${hw?"":" l"}">${s.h}</span></div>`:`<span class="net">${esc(g.net)}</span>`}
+      ${foot.length?`<div class="foot">${foot.join("<span>·</span>")}</div>`:""}</button>`}).join("")
+    :`<div class="empty">No Top 25 games on this day${st.team!=="ALL"?" for "+esc(nm(st.team)):""}. Use the arrows to jump to the next game day.</div>`;
+}
+$("dlist").addEventListener("click",e=>{const b=e.target.closest(".game");if(b)openGame(games[+b.dataset.i])});
+function stepDay(dir){const days=gameDays();const t=dir>0?days.find(d=>d>st.sel):[...days].reverse().find(d=>d<st.sel);if(!t)return;st.sel=t;
+  const [y,m]=t.split("-").map(Number);const i=MONTHS.findIndex(([yy,mm])=>yy===y&&mm===m-1);if(i>=0&&i!==st.mi){st.dir=i>st.mi?1:-1;st.mi=i;st.anim=true;movePill()}st.animDay=true;renderGrid();renderDay()}
+$("dprev").onclick=()=>stepDay(-1);$("dnext").onclick=()=>stepDay(1);
+
+/* drawer */
+function openDrawer(){const d=$("drawer"),s=$("scrim");d.classList.remove("entering");void d.offsetWidth;d.classList.add("entering");clearTimeout(d._et);d._et=setTimeout(()=>d.classList.remove("entering"),1400);if(!d.hidden&&d.classList.contains("on"))return;d.hidden=false;s.hidden=false;requestAnimationFrame(()=>{d.classList.add("on");s.classList.add("on")});document.body.style.overflow="hidden"}
+function closeDrawer(){const d=$("drawer"),s=$("scrim");d.classList.remove("on");s.classList.remove("on");document.body.style.overflow="";st.dr=null;setTimeout(()=>{if(!st.dr){d.hidden=true;s.hidden=true}},300)}
+$("scrim").onclick=closeDrawer;
+function openGame(g){hideFly();st.dr={type:"game",g,tab:"info"};renderDrawer();openDrawer()}
+function openTeam(k,back){if(!T[k])return;st.dr={type:"team",k,tab:"sched",back};renderDrawer();openDrawer()}
+function tabsHTML(tabs,cur){return `<div class="tabs" role="tablist">${tabs.map(([id,l])=>`<button role="tab" data-tab="${id}" aria-selected="${cur===id}">${esc(l)}</button>`).join("")}<span class="ul"></span></div>`}
+function placeUl(){const t=$("drawer").querySelector(".tabs");if(!t)return;const b=t.querySelector('[aria-selected="true"]'),u=t.querySelector(".ul");if(b&&u){u.style.left=b.offsetLeft+"px";u.style.width=b.offsetWidth+"px"}}
+
+function rosterTable(k){
+  if(!T[k])return `<div class="rhead"><b>${esc(k)}</b></div><p class="note">Unranked opponent. <a class="btn" href="https://www.google.com/search?q=${encodeURIComponent(k+" women's basketball roster 2026-27")}" target="_blank" rel="noopener">Find their roster ↗</a></p>`;
+  const link=`<a href="https://${T[k][4]}" target="_blank" rel="noopener">Official roster with photos ↗</a>`;
+  if(!R[k])return `<div class="rhead"><b>${esc(T[k][1])}</b>${link}</div><p class="note">${esc(T[k][1])}'s site hasn't posted a readable 2026-27 roster yet. The official page has it.</p>`;
+  const rows=R[k].split(";").map(s=>s.split("|"));
+  return `<div class="rhead"><b>${esc(T[k][1])}</b>${link}</div><div class="tblwrap"><table><thead><tr><th>#</th><th>Player</th><th>Pos</th><th class="n">Ht</th><th>Yr</th><th>Hometown</th></tr></thead><tbody>${
+    rows.map(r=>`<tr><td class="num">${esc(r[0])}</td><td class="pl">${esc(r[1])}</td><td>${esc(r[2])}</td><td class="n">${esc(r[3])}</td><td>${esc(r[4]||"—")}</td><td>${esc(r[5]||"—")}</td></tr>`).join("")}</tbody></table></div>`;
+}
+function boxTable(label,rows){
+  if(!Array.isArray(rows)||!rows.length)return "";
+  const cols=["MIN","PTS","REB","AST","STL","BLK","FG","3PT","FT"];
+  const tot=[0,0,0,0,0,0];rows.forEach(r=>{for(let i=0;i<6;i++)tot[i]+=Number(r[i+1])||0});
+  return `<div class="rhead"><b>${esc(label)}</b></div><div class="tblwrap"><table><thead><tr><th>Player</th>${cols.map(c=>`<th class="n">${c}</th>`).join("")}</tr></thead><tbody>${
+    rows.map(r=>`<tr><td class="pl">${esc(r[0])}</td>${r.slice(1,10).map(v=>`<td class="n">${esc(v)}</td>`).join("")}</tr>`).join("")
+  }<tr class="tot"><td>Team</td>${tot.map(v=>`<td class="n">${v}</td>`).join("")}<td class="n"></td><td class="n"></td><td class="n"></td></tr></tbody></table></div>`;
+}
+function record(k){let w=0,l=0;games.forEach(g=>{if(g.a!==k&&g.h!==k)return;const s=scores(g,resFor(g));if(!s)return;const mine=g.a===k?s.a:s.h,their=g.a===k?s.h:s.a;mine>their?w++:l++});return {w,l}}
+
+function renderDrawer(){
+  const D=st.dr;if(!D)return;const el=$("drawer");let html="";
+  if(D.type==="game"){
+    const g=D.g,s=scores(g,resFor(g)),o=oddsFor(g),aw=s&&s.a>s.h,hw=s&&s.h>s.a;
+    el.setAttribute("aria-label",`${nm(g.a)} ${g.n?"vs.":"at"} ${nm(g.h)}`);
+    const tabs=[["info","Matchup"],["a",shortOpp(g.a)],["h",shortOpp(g.h)],["box","Box score"]];
+    let body="";
+    if(D.tab==="info"){
+      const ob=o&&!o.none?`<div class="oddsbox">
+        <div class="ob"><span>Spread</span><b>${esc(favLine(g,o)||"—")}</b><small>${o.sa!==null?`${esc(shortOpp(g.a))} ${pk(o.sa)} · ${esc(shortOpp(g.h))} ${pk(o.sh)}`:"Not offered"}</small></div>
+        <div class="ob"><span>Moneyline</span><b>${o.ma!==null?sgn(o.ma):"—"} / ${o.mh!==null?sgn(o.mh):"—"}</b><small>${esc(shortOpp(g.a))} / ${esc(shortOpp(g.h))}</small></div>
+        <div class="ob"><span>Total</span><b>${o.tot!==null?o.tot:"—"}</b><small>${s&&o.tot!==null?(s.a+s.h>o.tot?"Went over":s.a+s.h<o.tot?"Stayed under":"Push"):"Over / under"}</small></div></div>
+        <p class="note">${esc(o.book||"Sportsbook")}${o.asOf?" · as of "+esc(new Date(o.asOf).toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit",timeZone:"America/New_York"}))+" ET":""}${s&&atsResult(g,o,s)?" · <b style='color:var(--ball)'>"+esc(atsResult(g,o,s))+"</b>":""}</p>`
+        :`<div class="oddsbox"><div class="ob" style="grid-column:1/-1"><span>Betting line</span><b>${o&&o.none?"No line posted":"Not posted yet"}</b><small>${o&&o.none?"The books didn't post a line for this one.":"Lines usually go up a day or two before tip."}</small></div></div>`;
+      body=`<dl class="facts"><dt>Date</dt><dd>${fmtD(g.iso,{weekday:"long",month:"long",day:"numeric",year:"numeric"})}</dd><dt>Tip</dt><dd>${g.t?fmtT(g.t)+" ET":"Time TBA"}</dd><dt>Watch</dt><dd><b>${esc(g.net)}</b></dd>
+        <dt>Site</dt><dd>${g.n?"Neutral site":"Home of "+esc(nm(g.h))}${g.ev?" · "+esc(g.ev):""}</dd></dl>${ob}
+        <div class="actions">${[g.a,g.h].filter(k=>T[k]).map(k=>`<button class="btn" data-team="${k}">${esc(nm(k))} schedule →</button>`).join("")}</div>`;
+    }else if(D.tab==="a")body=rosterTable(g.a);
+    else if(D.tab==="h")body=rosterTable(g.h);
+    else body=s&&(s.boxA||s.boxH)?boxTable(nm(g.a),s.boxA)+`<div style="height:16px"></div>`+boxTable(nm(g.h),s.boxH)
+      :`<div class="empty">${s?"Final score is in; the player box score hasn't been added yet.":"The box score shows up here the morning after this game goes final."}</div>`;
+    const side=(k,sc,win,right)=>`<button class="side" ${T[k]?`data-team="${k}"`:"disabled"}><span class="rk">${rk(k)?"No. "+rk(k):"Unranked"}</span><span class="nm">${esc(nm(k))}</span>${sc!==undefined?`<span class="scr${win?"":" l"}">${sc}</span>`:""}</button>`;
+    html=`<div class="grab"></div><div class="dhead" style="${pair(g)}">
+      <div class="dtop"><span>${s?"Final":fmtD(g.iso,{weekday:"short",month:"short",day:"numeric"})+" · "+fmtT(g.t)+(g.t?" ET":"")} · ${esc(g.net)}</span><button class="xbtn" data-x aria-label="Close">×</button></div>
+      <div class="vs">${side(g.a,s?s.a:undefined,aw)}<span class="mid">${g.n?"VS":"AT"}</span>${side(g.h,s?s.h:undefined,hw)}</div></div>
+      ${tabsHTML(tabs,D.tab)}<div class="dbody"><div class="pane">${body}</div></div>`;
+  }else{
+    const k=D.k,[r,n,c,col]=T[k],tg=games.filter(g=>g.a===k||g.h===k),S=teamStats(k),pr=pollRank(k);
+    const nextGame=tg.find(g=>!scores(g,resFor(g))&&g.iso>=todayISO);
+    el.setAttribute("aria-label",n);
+    let body="";
+    if(D.tab==="sched")body=`<div class="stat3">
+      <div class="ob" style="--i:0"><span>${POLL.ok?"AP poll":"AP preseason"}</span><b>${pr?"No. "+pr:"Unranked"}</b><small>${POLL.ok?esc(POLL.week||""):"Oct. 20"}</small></div>
+      <div class="ob" style="--i:1"><span>Record</span><b>${S.w}–${S.l}</b><small>${S.streak||"No games yet"}</small></div>
+      <div class="ob" style="--i:2"><span>vs. Top 25</span><b>${S.rw}–${S.rl}</b><small>${S.rrLeft} clash${S.rrLeft===1?"":"es"} left</small></div></div>
+      <div class="sched">${tg.map(g=>{const s=scores(g,resFor(g)),home=g.h===k,opp=home?g.a:g.h;let rs=`<span class="rs" style="font-family:var(--body);font-size:12px;font-weight:600;color:var(--muted)">${fmtT(g.t)}</span>`;
+        if(s){const me=home?s.h:s.a,th=home?s.a:s.h;rs=`<span class="rs ${me>th?"w":"lo"}">${me>th?"W":"L"} ${me}–${th}</span>`}
+        return `<button class="sr" data-i="${g.i}" style="--i:${Math.min(tg.indexOf(g),14)}"><span class="dt">${fmtD(g.iso,{month:"short",day:"numeric"})}</span><span class="op"><small>${g.n?"vs":home?"vs":"at"}</small>${rk(opp)?`<small>${rk(opp)}</small>`:""}${esc(nm(opp))}</span>${rs}</button>`}).join("")}</div>`;
+    else if(D.tab==="stats")body=statsHTML(k,S);
+    else body=rosterTable(k);
+    html=`<div class="grab"></div><div class="dhead" style="--ca:${col};--cb:color-mix(in srgb,${col} 55%,#000)">
+      <div class="dtop"><span>${D.back?`<button class="xbtn" data-back aria-label="Back" style="display:inline-grid;margin-right:6px">‹</button>`:""}${c}</span><button class="xbtn" data-x aria-label="Close">×</button></div>
+      <div class="vs" style="grid-template-columns:1fr"><div class="side"><span class="rk">${pr?"No. "+pr:"Unranked"} · ${POLL.ok?"AP poll":"AP preseason"}${S.gp?" · "+S.w+"–"+S.l:""}</span><span class="nm">${esc(n)}</span>${nextGame?`<span class="rk" style="display:block;margin-top:8px">Next: ${fmtD(nextGame.iso,{month:"short",day:"numeric"})} ${nextGame.h===k||nextGame.n?"vs.":"at"} ${esc(nm(nextGame.h===k?nextGame.a:nextGame.h))} · ${esc(nextGame.net)}</span>`:""}</div></div></div>
+      ${tabsHTML([["sched","Game log"],["stats","Stats"],["roster","Roster"]],D.tab)}<div class="dbody"><div class="pane">${body}
+      <div class="actions"><button class="btn pri" data-filter="${k}">Show only ${esc(short(k))} on the calendar</button><a class="btn" href="https://${T[k][4]}" target="_blank" rel="noopener">Official roster ↗</a></div></div></div>`;
+  }
+  if(D.dir){html=html.replace('<div class="pane">',`<div class="pane ${D.dir>0?"fr":"fl"}">`);D.dir=0}
+  const oldUl=el.querySelector(".tabs .ul");const from=oldUl?[oldUl.style.left,oldUl.style.width]:null;
+  el.innerHTML=html;const nu=el.querySelector(".tabs .ul");if(nu&&from){nu.style.transition="none";nu.style.left=from[0];nu.style.width=from[1];void nu.offsetWidth;nu.style.transition=""}requestAnimationFrame(placeUl);
+}
+$("drawer").addEventListener("click",e=>{
+  if(e.target.closest("[data-x]"))return closeDrawer();
+  if(e.target.closest("[data-back]")&&st.dr.back){st.dr=st.dr.back;return renderDrawer()}
+  const tb=e.target.closest("[data-tab]");if(tb){const all=[...tb.parentNode.querySelectorAll("[data-tab]")].map(b=>b.dataset.tab);const di=all.indexOf(tb.dataset.tab)-all.indexOf(st.dr.tab);if(!di)return;st.dr.tab=tb.dataset.tab;st.dr.dir=di>0?1:-1;return renderDrawer()}
+  const tm=e.target.closest("[data-team]");if(tm){return openTeam(tm.dataset.team,st.dr.type==="game"?{...st.dr}:null)}
+  const sr=e.target.closest(".sr");if(sr){st.dr={type:"game",g:games[+sr.dataset.i],tab:"info",back:null};return renderDrawer()}
+  const f=e.target.closest("[data-filter]");if(f){closeDrawer();setView("cal");setTeam(f.dataset.filter);document.querySelector(".bar").scrollIntoView({behavior:"smooth"})}
+});
+/* swipe down to close on phones */
+(()=>{let y0=null;const d=$("drawer");d.addEventListener("touchstart",e=>{if(e.target.closest(".dbody")&&d.querySelector(".dbody").scrollTop>0)return;y0=e.touches[0].clientY},{passive:true});
+  d.addEventListener("touchmove",e=>{if(y0===null||innerWidth>=900)return;const dy=e.touches[0].clientY-y0;if(dy>0)d.style.transform=`translateY(${dy}px)`},{passive:true});
+  d.addEventListener("touchend",e=>{if(y0===null)return;const dy=(e.changedTouches[0].clientY-y0);d.style.transform="";y0=null;if(dy>110&&innerWidth<900)closeDrawer()})})();
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){if(st.dr)closeDrawer();hideFly();return}
+  if(st.dr||st.view!=="cal"||/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName))return;
+  if(e.key==="ArrowRight"&&e.shiftKey)goMonth(st.mi+1);else if(e.key==="ArrowLeft"&&e.shiftKey)goMonth(st.mi-1);
+  else if(e.key==="ArrowRight")stepDay(1);else if(e.key==="ArrowLeft")stepDay(-1);
+});
+addEventListener("resize",()=>{movePill();placeUl();moveVPill()});
+
+/* views + rankings */
+st.view="cal";st.conf="ALL";
+function moveVPill(){const v=$("views"),b=v.querySelector(`[data-v="${st.view}"]`),p=v.querySelector(".vpill");if(b&&p){p.style.left=b.offsetLeft+"px";p.style.width=b.offsetWidth+"px"}}
+function setView(v){if(v===st.view)return;st.view=v;$("views").querySelectorAll("[data-v]").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===v));moveVPill();
+  const cal=$("vCal"),rank=$("vRank");cal.hidden=v!=="cal";rank.hidden=v!=="rank";const on=v==="cal"?cal:rank;on.classList.remove("viewin");void on.offsetWidth;on.classList.add("viewin");
+  if(v==="rank")renderRank();else{st.anim=true;st.animDay=true;renderGrid();renderDay();movePill()}hideFly()}
+$("views").addEventListener("click",e=>{const b=e.target.closest("[data-v]");if(b)setView(b.dataset.v)});
+const CONFS=["ALL","SEC","ACC","Big Ten","Big 12","Big East"];
+function renderConfs(){$("confs").innerHTML=CONFS.map(c=>`<button data-c="${c}" aria-pressed="${st.conf===c}" style="--cc:${c==="ALL"?"var(--ink)":`var(${CONF[c]})`}">${c==="ALL"?"All":`<i></i>${c}`}</button>`).join("")}
+$("confs").addEventListener("click",e=>{const b=e.target.closest("[data-c]");if(!b)return;st.conf=b.dataset.c;renderConfs();renderRank()});
+function renderRank(){
+  $("pollMeta").textContent=POLL.ok?`${POLL.week||"Latest poll"}${POLL.asOf?" · released "+fmtD(POLL.asOf,{month:"long",day:"numeric",year:"numeric"}):""} · tap a team for its game log, stats and roster`:"Preseason poll · Oct. 20, 2026 · weekly polls start Nov. 9 · tap a team for its game log, stats and roster";
+  const rows=pollRows().filter(r=>st.conf==="ALL"||(r.k&&T[r.k][2]===st.conf));
+  $("rlist").innerHTML=rows.length?rows.map((r,i)=>{
+    const k=r.k,col=k?T[k][3]:"#7A8597",S=k?teamStats(k):null,tg=k?games.filter(g=>g.a===k||g.h===k):[],nx=tg.find(g=>!scores(g,resFor(g))&&g.iso>=todayISO);
+    let mv="";if(POLL.ok){if(r.prev===null)mv=`<span class="mv nw">NEW</span>`;else if(r.prev>r.rank)mv=`<span class="mv up">▲ ${r.prev-r.rank}</span>`;else if(r.prev<r.rank)mv=`<span class="mv dn">▼ ${r.rank-r.prev}</span>`;else mv=`<span class="mv eq">—</span>`}
+    const recTxt=r.record||(S&&S.gp?`${S.w}–${S.l}`:"0–0");
+    const last=S&&S.last?`<b class="${S.last.win?"w":"lo"}">${S.last.win?"W":"L"} ${S.last.me}–${S.last.th}</b><small>${S.last.g.h===k?"vs.":S.last.g.n?"vs.":"at"} ${esc(nm(S.last.opp))}</small>`:`<b style="color:var(--muted)">—</b><small>No games yet</small>`;
+    const nxt=nx?`<b>${fmtD(nx.iso,{month:"short",day:"numeric"})} ${nx.h===k?"vs.":nx.n?"vs.":"at"} ${esc(nm(nx.h===k?nx.a:nx.h))}</b><small>${fmtT(nx.t)}${nx.t?" ET":""} · ${esc(nx.net)}</small>`:`<b style="color:var(--muted)">—</b><small>${k?"Season complete":"Not tracked here"}</small>`;
+    return `<button class="rrow" style="--i:${i};--tc:${col}" ${k?`data-team="${k}"`:"disabled"}>
+      <span class="no">${r.rank}${mv}</span><span class="rbar"></span>
+      <span class="tn"><b>${esc(k?T[k][1]:r.name)}</b><small>${k?T[k][2]:""}${r.first?` · ${r.first} first-place vote${r.first>1?"s":""}`:""}${r.points?` · ${r.points} pts`:""}</small><small class="mob">${nx?"Next: "+fmtD(nx.iso,{month:"short",day:"numeric"})+" "+(nx.h===k||nx.n?"vs.":"at")+" "+esc(nm(nx.h===k?nx.a:nx.h)):""}</small></span>
+      <span class="rec">${recTxt}<small>${S&&S.streak?S.streak:k?(T[k][0]!==r.rank&&POLL.ok?"Preseason No. "+T[k][0]:"Record"):"Record"}</small></span>
+      <span class="c2">${last}</span><span class="c2">${nxt}</span><span class="chev">›</span></button>`}).join("")
+    :`<div class="empty">No ranked teams from this conference.</div>`;
+}
+$("rlist").addEventListener("click",e=>{const b=e.target.closest(".rrow[data-team]");if(b)openTeam(b.dataset.team,null)});
+renderConfs();requestAnimationFrame(moveVPill);
+if(location.hash==="#rankings")setView("rank");
+
+function renderAll(){st.anim=true;st.animDay=true;renderRail();renderMonths();renderGrid();renderDay()}
+$("rrsw").setAttribute("aria-checked",st.rr);
+renderChips();$("chips").classList.add("anim");setTimeout(()=>$("chips").classList.remove("anim"),2000);pickStart();renderNext();renderAll();setInterval(renderNext,1000);
+
+/* live results + odds from the shared store */
+(async()=>{try{
+  const db=await window.claude?.use?.("db");if(!db)return;
+  const sub=(name,map)=>db.collection(name).limit(1000).onSnapshot(snap=>{for(const k in map)delete map[k];snap.docs.forEach(d=>{if(d.exists)map[d.id]=d.data()});
+    renderRail();renderGrid();renderDay();if(st.view==="rank")renderRank();if(st.dr)renderDrawer()},()=>{});
+  sub("results",RES);sub("odds",ODDS);
+  db.doc("rankings/ap").onSnapshot(snap=>{const d=snap.exists?snap.data():null;POLL=d&&Array.isArray(d.teams)&&d.teams.length?{ok:true,...d}:{ok:false};
+    if(st.view==="rank")renderRank();if(st.dr)renderDrawer()},()=>{});
+}catch(e){}})();
+</script>
+</body></html>
