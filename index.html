@@ -136,7 +136,7 @@ button{cursor:pointer}
 main{padding-block:16px 40px}
 .cal{overflow:hidden;padding:14px;margin:-14px}
 .grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
-.grid.anim .cell{animation:cellIn .55s cubic-bezier(.22,.61,.36,1) backwards;animation-delay:calc(var(--i)*16ms)}
+.grid.anim .cell{animation:cellIn .4s cubic-bezier(.22,.61,.36,1) backwards;animation-delay:calc(var(--i)*7ms)}
 @keyframes cellIn{from{opacity:0;transform:translateX(var(--dx,0)) translateY(6px)}}
 .cell.sel::after{content:"";position:absolute;inset:-3px;border-radius:12px;border:2px solid var(--ball);pointer-events:none;animation:ring .8s cubic-bezier(.2,.8,.2,1) forwards}
 @keyframes ring{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(1.1)}}
@@ -213,9 +213,9 @@ main{padding-block:16px 40px}
 .scrim{position:fixed;inset:0;z-index:20;background:rgba(6,11,19,.5);opacity:0;transition:opacity .22s}
 .scrim.on{opacity:1}
 .drawer{position:fixed;z-index:21;background:var(--surface);box-shadow:-20px 0 50px rgba(0,0,0,.2);display:flex;flex-direction:column;
-  inset:auto 0 0 0;max-height:92vh;border-radius:18px 18px 0 0;transform:translateY(100%);transition:transform .3s cubic-bezier(.3,.7,.2,1)}
+  top:8vh;right:0;bottom:0;left:0;border-radius:18px 18px 0 0;transform:translateY(100%);transition:transform .3s cubic-bezier(.22,.61,.36,1)}
 .drawer.on{transform:none}
-@media (min-width:900px){.drawer{inset:0 0 0 auto;width:500px;max-height:none;border-radius:18px 0 0 18px;transform:translateX(100%)}}
+@media (min-width:900px){.drawer{top:0;right:0;bottom:0;left:calc(100% - 500px);border-radius:18px 0 0 18px;transform:translateX(100%)}}
 .grab{width:42px;height:5px;border-radius:9px;background:var(--line);margin:8px auto 0;flex:none}
 @media (min-width:900px){.grab{display:none}}
 .dhead{flex:none;position:relative;color:#fff;padding:18px max(18px,env(safe-area-inset-right,0px)) 16px 18px;overflow:hidden;background:linear-gradient(115deg,var(--ca) 0 49.6%,var(--cb) 50.4% 100%);border-radius:inherit;border-bottom-left-radius:0;border-bottom-right-radius:0}
@@ -249,7 +249,7 @@ main{padding-block:16px 40px}
 .drawer.entering .vs .side:first-child{animation:fromL .6s .12s cubic-bezier(.22,.61,.36,1) backwards}
 .drawer.entering .vs .side:last-child{animation:fromR .6s .12s cubic-bezier(.22,.61,.36,1) backwards}
 .drawer.entering .vs .mid{animation:vsPop .55s .32s cubic-bezier(.22,.61,.36,1) backwards}
-.drawer.entering .dhead{animation:wipe .6s cubic-bezier(.2,.8,.2,1) backwards}
+.drawer.entering .dhead{animation:fade .45s cubic-bezier(.22,.61,.36,1) backwards}
 .drawer.entering .sched .sr,.drawer.entering .oddsbox .ob{animation:rise .5s cubic-bezier(.22,.61,.36,1) backwards;animation-delay:calc(var(--i,0)*40ms + .25s)}
 @keyframes fromL{from{opacity:0;transform:translateX(-16px)}}
 @keyframes fromR{from{opacity:0;transform:translateX(16px)}}
@@ -258,7 +258,9 @@ main{padding-block:16px 40px}
 .vs .side .scr{animation:none}
 .drawer.entering .vs .side .scr{animation:scoreIn .7s .4s cubic-bezier(.22,.61,.36,1) backwards}
 @keyframes scoreIn{from{opacity:0;transform:translateY(6px)}}
-.drawer{transition:transform .38s cubic-bezier(.22,.61,.36,1)}
+.drawer{transition:transform .38s cubic-bezier(.22,.61,.36,1),left .38s cubic-bezier(.22,.61,.36,1),top .38s cubic-bezier(.22,.61,.36,1),border-radius .38s cubic-bezier(.22,.61,.36,1),padding-top .38s cubic-bezier(.22,.61,.36,1)}
+.drawer .dhead>*,.drawer>.tabs,.drawer>.dbody{transition:opacity .16s ease}
+.drawer.morph .dhead>*,.drawer.morph>.tabs,.drawer.morph>.dbody{opacity:0}
 @keyframes fade{from{opacity:0;transform:translateY(4px)}}
 .facts{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 16px;margin:0;font-size:14px}
 .facts dt{color:var(--muted);font-weight:600;font-size:13px}
@@ -467,11 +469,15 @@ footer{font-size:12px;color:var(--muted);padding-block:0 34px;max-width:80ch}
 @keyframes spin{to{transform:rotate(360deg)}}
 .oddsmv{font-size:11.5px;color:var(--muted);font-weight:600}
 .rk-dim{color:var(--muted)}
+img.lg,img.face,img.ph-img{transition:opacity .3s ease}
+img.lg[data-l],img.face[data-l],img.ph-img[data-l]{opacity:0}
+.pane.fadein{animation:softin .32s cubic-bezier(.22,.61,.36,1)}
+@keyframes softin{from{opacity:0}}
 
 /* full-screen side panel */
 .dact{display:flex;gap:8px;flex:none}
 .xbtn svg{width:16px;height:16px}
-.drawer.full{left:0;right:0;top:0;bottom:0;width:auto;max-height:none;border-radius:0;padding-top:env(safe-area-inset-top,0px)}
+.drawer.full{left:0;top:0;border-radius:0;padding-top:env(safe-area-inset-top,0px)}
 .drawer.full .grab{display:none}
 .drawer.full .dhead{border-radius:0;margin:0}
 .drawer.full .dhead>*{max-width:1100px;margin-left:auto;margin-right:auto}
@@ -1077,9 +1083,10 @@ let rT=0;function scheduleRender(){if(rT)return;rT=setTimeout(()=>{rT=0;renderSo
 
 /* logos and headshots from ESPN's image server */
 const isDark=()=>{const t=document.documentElement.dataset.theme;return t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches};
-function logo(id,px,light){if(!id)return "";const v=!light&&isDark()?"500-dark":"500";
-  return `<img class="lg" src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/${v}/${id}.png&amp;w=${px*2}&amp;h=${px*2}&amp;scale=crop&amp;cquality=80" width="${px}" height="${px}" alt="" loading="lazy" onerror="if(!this.dataset.f){this.dataset.f=1;this.src=this.src.replace('500-dark','500')}else this.style.visibility='hidden'">`}
-function face(id,name,cls,big){return id?`<img class="${cls||"face"}" src="https://a.espncdn.com/combiner/i?img=/i/headshots/womens-college-basketball/players/full/${id}.png&amp;w=${big?240:96}&amp;h=${big?176:70}&amp;scale=crop" alt="" loading="lazy" onerror="this.style.visibility='hidden'">`:`<span class="${cls||"face"}"></span>`}
+const IMGOK={};
+function logo(id,px,light){if(!id)return "";const v=!light&&isDark()?"500-dark":"500",ik=`${v}/${id}/${px}`,fresh=!IMGOK[ik];
+  return `<img class="lg" src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/${v}/${id}.png&amp;w=${px*2}&amp;h=${px*2}&amp;scale=crop&amp;cquality=80" width="${px}" height="${px}" alt="" loading="lazy" data-k="${ik}"${fresh?" data-l":""} onload="IMGOK[this.dataset.k]=1;this.removeAttribute('data-l')" onerror="this.removeAttribute('data-l');if(!this.dataset.f){this.dataset.f=1;this.src=this.src.replace('500-dark','500')}else this.style.visibility='hidden'">`}
+function face(id,name,cls,big){const ik="f"+id+(big?"b":"");return id?`<img class="${cls||"face"}" data-k="${ik}" src="https://a.espncdn.com/combiner/i?img=/i/headshots/womens-college-basketball/players/full/${id}.png&amp;w=${big?240:96}&amp;h=${big?176:70}&amp;scale=crop" alt="" loading="lazy"${IMGOK[ik]?"":" data-l"} onload="IMGOK[this.dataset.k]=1;this.removeAttribute('data-l')" onerror="this.style.visibility='hidden'">`:`<span class="${cls||"face"}"></span>`}
 const idOf=(g,side)=>{const k=side==="a"?g.a:g.h;if(EID[k])return EID[k];const r=EV[g.i];return r?(side==="a"?r.A.id:r.H.id):null};
 const loadnote=t=>`<div class="loadnote"><span class="spin"></span>${t}</div>`;
 const tcol=k=>T[k]?T[k][3]:"#7A8597";
@@ -1451,7 +1458,9 @@ function playerHTML(D){
 }
 const FS_ICON={on:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>',off:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>'};
 const dact=()=>`<span class="dact"><button class="xbtn" data-full aria-label="${st.full?"Exit full screen":"Full screen"}" title="${st.full?"Exit full screen":"Full screen"} (F)">${st.full?FS_ICON.off:FS_ICON.on}</button><button class="xbtn" data-x aria-label="Close">×</button></span>`;
-function toggleFull(){st.full=!st.full;store.set("ncaawb-full",st.full);$("drawer").classList.toggle("full",st.full);renderDrawer(true);requestAnimationFrame(placeUl);toast(st.full?"Full screen":"Side panel")}
+let fullT=0;function toggleFull(){const d=$("drawer"),rm=matchMedia("(prefers-reduced-motion: reduce)").matches;clearTimeout(fullT);
+  const swap=()=>{st.full=!st.full;store.set("ncaawb-full",st.full);d.classList.toggle("full",st.full);renderDrawer(true);requestAnimationFrame(placeUl)};
+  if(rm){swap();return}d.classList.add("morph");fullT=setTimeout(()=>{swap();fullT=setTimeout(()=>{d.classList.remove("morph");placeUl()},220)},140)}
 const perName=p=>p<=4?["","1st","2nd","3rd","4th"][p]+" quarter":p===5?"Overtime":(p-4)+" overtime";
 function playsHTML(g,r,S,D){
   if(!S)return loadnote("Loading play-by-play from ESPN…");
@@ -1511,11 +1520,13 @@ function renderDrawer(quiet){
       ${tabsHTML([["sched","Game log"],["stats","Stats"],["roster","Roster"]],D.tab)}<div class="dbody"><div class="pane">${body}
       <div class="actions"><button class="btn pri" data-filter="${k}">Show only ${esc(short(k))} on the calendar</button><a class="btn" href="https://${T[k][4]}" target="_blank" rel="noopener">Official roster ↗</a></div></div></div>`;
   }
-  if(quiet)html=html.replace('<div class="pane">','<div class="pane still">');
+  const hadLoad=quiet&&!!el.querySelector(".pane .loadnote"),nowLoad=html.includes('class="loadnote"');
+  if(quiet)html=html.replace('<div class="pane">',`<div class="pane ${hadLoad&&!nowLoad?"fadein":"still"}">`);
   else if(D.dir)html=html.replace('<div class="pane">',`<div class="pane ${D.dir>0?"fr":"fl"}">`);
   D.dir=0;
   const oldUl=el.querySelector(".tabs .ul");const from=oldUl?[oldUl.style.left,oldUl.style.width]:null;
   el.innerHTML=html;const nu=el.querySelector(".tabs .ul");if(nu&&from){nu.style.transition="none";nu.style.left=from[0];nu.style.width=from[1];void nu.offsetWidth;nu.style.transition=""}requestAnimationFrame(placeUl);
+  el.querySelectorAll("img[data-l]").forEach(i=>{if(i.complete&&i.naturalWidth)i.removeAttribute("data-l")});
   if(quiet&&keep){const b=el.querySelector(".dbody");if(b)b.scrollTop=keep}
 }
 $("drawer").addEventListener("click",e=>{
