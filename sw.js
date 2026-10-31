@@ -1,6 +1,6 @@
 /* Top 25 Hoops service worker: the app opens without signal and shows the last scores you loaded.
    The page itself is always fetched fresh when there's a connection, so updates show up right away. */
-const SHELL = 'ncaawb-shell-v1';
+const SHELL = 'ncaawb-shell-v2';
 const DATA = 'ncaawb-data-v1';
 const IMG = 'ncaawb-img-v1';
 const SHELL_FILES = ['./', 'manifest.webmanifest', 'favicon.svg', 'icon-192.png', 'apple-touch-icon.png'];
@@ -13,7 +13,7 @@ self.addEventListener('activate', e => {
 });
 
 // scores, polls, summaries and rosters: network first, fall back to the last saved copy
-const SAVE = /site\.api\.espn\.com\/apis\/site\/v2\/sports\/basketball\/womens-college-basketball\/(scoreboard|rankings|summary|teams\/\d+\/roster)/;
+const SAVE = /site\.api\.espn\.com\/apis\/(site\/v2|v2)\/sports\/basketball\/womens-college-basketball\/(scoreboard|rankings|summary|standings|teams\/\d+\/roster)/;
 // team logos and player photos rarely change: saved copy first
 const PIC = /^https:\/\/a\.espncdn\.com\/combiner\/i\?img=\/i\/(teamlogos|headshots)\//;
 
@@ -54,3 +54,14 @@ async function trim(name, max) {
   try { const c = await caches.open(name); const keys = await c.keys(); for (const k of keys.slice(0, Math.max(0, keys.length - max))) await c.delete(k); } catch (e) {}
   trimming[name] = false;
 }
+
+// tapping a game alert opens (or focuses) the site on that game
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const game = e.notification.data && e.notification.data.game;
+  e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
+    const c = list[0];
+    if (c) { c.postMessage({ game }); return c.focus(); }
+    return self.clients.openWindow(`./?game=${encodeURIComponent(game || '')}`);
+  }));
+});

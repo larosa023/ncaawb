@@ -469,6 +469,137 @@ footer{font-size:12px;color:var(--muted);padding-block:0 34px;max-width:80ch}
 @keyframes spin{to{transform:rotate(360deg)}}
 .oddsmv{font-size:11.5px;color:var(--muted);font-weight:600}
 .rk-dim{color:var(--muted)}
+.months{max-width:100%;overflow-x:auto;scrollbar-width:none}
+.months::-webkit-scrollbar{display:none}
+@media (max-width:520px){.months button{padding:6px 10px;font-size:15px}}
+@media (max-width:640px){.tool kbd{display:none}.views{gap:8px}}
+
+/* ---------- views bar: six views + tools ---------- */
+.views{flex-wrap:wrap}
+.vt{max-width:100%;overflow-x:auto;scrollbar-width:none;flex:0 1 auto;min-width:0}
+.vt::-webkit-scrollbar{display:none}
+.vt button{font-size:18px;padding:8px 14px;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.vcount{display:none;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--live);color:#fff;font-family:var(--body);font-size:11px;font-weight:700;align-items:center;justify-content:center;letter-spacing:0}
+.vcount.on{display:inline-flex}
+.vtools{display:flex;gap:8px;align-items:center}
+.tool{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:7px 11px;font-size:13px;font-weight:600;color:var(--ink)}
+.tool:hover{border-color:var(--ink)}
+.tool svg{width:16px;height:16px}
+.tool.has{color:var(--ball);border-color:color-mix(in srgb,var(--ball) 50%,var(--line))}
+.tool kbd{font-family:var(--body);font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:0 5px}
+@media (max-width:640px){.tool span,.tool kbd,.thm{font-size:0;gap:0}.thm svg,.tool svg{width:18px;height:18px}.vt button{font-size:16px;padding:7px 11px}}
+/* ---------- favorites ---------- */
+.star{color:var(--ball);font-size:.85em;margin-left:4px}
+.chip .star{margin:0 0 0 2px}
+.chip.fav i{display:none}
+.mp.fav{font-weight:800}
+.game.fav{box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ball) 45%,transparent)}
+.mtgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.mt{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 10px;font-weight:600;font-size:13.5px;text-align:left;transition:border-color .2s,background .2s}
+.mt .lg{width:22px;height:22px}
+.mt span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mt b{color:var(--muted);font-weight:400;font-size:16px}
+.mt.on{border-color:var(--ball);background:color-mix(in srgb,var(--ball) 9%,var(--surface))}
+.mt.on b{color:var(--ball)}
+.mt:hover{border-color:var(--ink)}
+.alrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.alrow:last-child{border-bottom:0}
+.alrow b{display:block;font-weight:600}
+.alrow small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.alnote{font-size:13px;border-radius:10px;padding:10px 12px;background:var(--raise);color:var(--muted);margin-top:12px;line-height:1.5}
+.alnote.warn{color:var(--live)}
+.favbtn{margin-top:10px;margin-right:6px}
+/* ---------- shared view header ---------- */
+.pv{padding-block:18px 40px}
+/* ---------- live multi-view ---------- */
+.lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:12px;margin-top:16px}
+.lcard{position:relative;display:flex;flex-direction:column;gap:8px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px 16px;overflow:hidden;transition:border-color .2s,box-shadow .3s,transform .3s}
+.lcard::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--ca) 0 50%,var(--cb) 50% 100%)}
+.lcard:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(14,27,46,.14)}
+.lcard.on{border-color:color-mix(in srgb,var(--live) 45%,var(--line))}
+.lc-top{display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+.lc-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.lc-t{display:flex;align-items:center;gap:10px;min-width:0;font-weight:600;font-size:16px}
+.lc-t .lg{width:30px;height:30px}
+.lc-t span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lc-t small{color:var(--muted);font-size:11.5px;font-weight:700;margin-right:5px}
+.lc-row b{font-family:var(--display);font-weight:900;font-size:34px;line-height:1}
+.lc-row b.l,.lc-row.l .lc-t{color:var(--muted)}
+.lc-bar{height:4px;border-radius:4px;background:var(--raise);overflow:hidden}
+.lc-bar i{display:block;height:100%;width:calc(var(--p,0)*100%);background:var(--live);transition:width .6s}
+.lc-wp{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);font-weight:600}
+.lc-wp svg{flex:1;height:30px;min-width:0}
+.lc-play{font-size:13px;color:var(--ink);background:var(--raise);border-radius:8px;padding:7px 9px;line-height:1.35}
+.lc-play small{display:block;color:var(--muted);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.lc-foot{font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.lc-foot b{color:var(--ink);font-weight:600}
+/* ---------- standings ---------- */
+.stab td,.stab th{padding:9px 10px}
+.stab td.tm2{min-width:190px}
+.stab .tw{display:flex;align-items:center;gap:9px;font-weight:600}
+.stab .tw .lg{width:22px;height:22px}
+.stab .tw small{color:var(--muted);font-weight:700;font-size:11px;min-width:14px}
+.stab tr.mine{background:color-mix(in srgb,var(--ball) 7%,transparent)}
+.stab tr.click{cursor:pointer}
+.stab td.pos{color:var(--muted);font-family:var(--display);font-weight:800;font-size:15px;width:1%}
+.stab .w{color:var(--win);font-weight:600}.stab .lo{color:var(--ball);font-weight:600}
+/* ---------- leaders ---------- */
+.ldgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:12px;margin-top:16px}
+.lcat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 14px 10px}
+.lcat h4{margin:0 0 8px;font-family:var(--display);font-weight:800;font-size:19px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.lcat h4 small{font-family:var(--body);font-size:12px;color:var(--muted);font-weight:600;text-transform:none}
+.lrow{display:grid;grid-template-columns:20px 36px minmax(0,1fr) auto;align-items:center;gap:10px;width:100%;background:none;border:0;padding:6px 4px;border-radius:9px;text-align:left;color:inherit;transition:background .2s}
+.lrow:hover{background:var(--raise)}
+.lrow .rnk{font-family:var(--display);font-weight:800;color:var(--muted);font-size:15px}
+.lrow .face{width:36px;height:36px}
+.lrow b{display:block;font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lrow small{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:12px}
+.lrow small .lg{width:14px;height:14px}
+.lrow strong{font-family:var(--display);font-weight:900;font-size:22px}
+.lrow:first-of-type strong{color:var(--ball)}
+.lmore{display:block;width:100%;margin-top:4px;background:none;border:0;color:var(--muted);font-weight:600;font-size:12.5px;padding:6px;border-radius:8px}
+.lmore:hover{color:var(--ink);background:var(--raise)}
+/* ---------- bracket ---------- */
+.bscroll{overflow-x:auto;margin-top:14px;padding-bottom:8px}
+.bgrid{display:grid;grid-template-columns:repeat(4,minmax(190px,1fr));grid-template-rows:auto repeat(16,40px);column-gap:22px;min-width:860px}
+.bh{grid-row:1;font-family:var(--display);font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding-bottom:8px}
+.bc{position:relative;align-self:center;display:flex;flex-direction:column;gap:2px;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px 9px;transition:border-color .2s,box-shadow .2s}
+button.bc:hover{border-color:var(--ink);box-shadow:0 6px 16px rgba(14,27,46,.12)}
+.bc.live{border-color:color-mix(in srgb,var(--live) 55%,var(--line))}
+.bc.fav{box-shadow:inset 3px 0 0 var(--ball)}
+.bc.tbd{opacity:.55}
+.bc .bs{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.bc .bs.lv{color:var(--live)}
+.br2{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;min-width:0}
+.br2 small{width:16px;color:var(--muted);font-size:11px;font-weight:700;text-align:right;flex:none}
+.br2 .lg{width:16px;height:16px}
+.br2 span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.br2 b{font-family:var(--display);font-weight:800;font-size:15px}
+.br2.l{color:var(--muted)}
+.bgrid .bc:not(.last)::after{content:"";position:absolute;left:100%;top:50%;width:22px;border-top:1px solid var(--line)}
+.ffgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px;margin-top:14px;align-items:center}
+.ffgrid .bc{padding:10px 12px}
+.ffgrid h5{margin:0 0 6px;font-family:var(--display);font-weight:800;font-size:15px;text-transform:uppercase;color:var(--muted);letter-spacing:.05em}
+.f4row{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:10px}
+.champ{border-color:var(--ball)!important}
+/* ---------- search ---------- */
+.sov{position:fixed;inset:0;z-index:40;background:rgba(6,11,19,.5);display:flex;justify-content:center;align-items:flex-start;padding:calc(10vh + env(safe-area-inset-top,0px)) 16px 16px;opacity:0;transition:opacity .2s ease}
+.sov.on{opacity:1}
+.sbox{width:min(600px,100%);background:var(--surface);border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.35);overflow:hidden;transform:translateY(-6px);transition:transform .25s cubic-bezier(.22,.61,.36,1)}
+.sov.on .sbox{transform:none}
+.sin{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.sin svg{width:20px;height:20px;color:var(--muted);flex:none}
+.sin input{flex:1;min-width:0;border:0;background:none;font-size:17px;outline:none;color:var(--ink)}
+.sin button{border:1px solid var(--line);background:var(--raise);border-radius:7px;font-size:12px;font-weight:600;padding:3px 8px;color:var(--muted)}
+.sres{max-height:min(60vh,520px);overflow:auto;padding:6px}
+.sres h6{margin:10px 8px 4px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.sitem{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:8px;border-radius:10px;text-align:left;color:inherit}
+.sitem:hover,.sitem:focus-visible{background:var(--raise);outline:none}
+.sitem .lg{width:28px;height:28px}
+.sitem .face{width:34px;height:34px}
+.sitem b{display:block;font-weight:600}
+.sitem small{display:block;color:var(--muted);font-size:12.5px}
+.sempty{padding:18px 12px;color:var(--muted);font-size:14px}
 img.lg,img.face,img.ph-img{transition:opacity .3s ease}
 img.lg[data-l],img.face[data-l],img.ph-img[data-l]{opacity:0}
 .pane.fadein{animation:softin .32s cubic-bezier(.22,.61,.36,1)}
@@ -534,12 +665,16 @@ span.ph-img{display:block;background:rgba(255,255,255,.25)}
   </div>
 </section>
 
-<nav class="wrap views" aria-label="View"><div class="vt" id="views" role="tablist"><button role="tab" data-v="cal" aria-selected="true">Calendar</button><button role="tab" data-v="rank" aria-selected="false">AP Top 25</button><span class="vpill"></span></div><button class="thm" id="thm" aria-label="Color theme"></button></nav>
+<nav class="wrap views" aria-label="View"><div class="vt" id="views" role="tablist"><button role="tab" data-v="cal" aria-selected="true">Calendar</button><button role="tab" data-v="live" aria-selected="false">Live<span class="vcount" id="vlivec"></span></button><button role="tab" data-v="rank" aria-selected="false">AP Top 25</button><button role="tab" data-v="stand" aria-selected="false">Standings</button><button role="tab" data-v="lead" aria-selected="false">Leaders</button><button role="tab" data-v="brk" aria-selected="false">Bracket</button><span class="vpill"></span></div><div class="vtools"><button class="tool" id="srch" aria-label="Search teams and players"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span><kbd>/</kbd></button><button class="tool" id="myteams" aria-label="My teams and alerts"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.1l-5.7 3.2 1.2-6.4-4.7-4.4 6.4-.8z"/></svg><span>My teams</span></button><button class="thm" id="thm" aria-label="Color theme"></button></div></nav>
 <section class="wrap rankv" id="vRank" hidden>
   <div class="rkhead"><div><h2>AP Top 25</h2><p id="pollMeta"></p></div><div class="confs" id="confs" role="group" aria-label="Conference"></div></div>
   <div class="rcols" aria-hidden="true"><span>Rank</span><span></span><span>Team</span><span>Record</span><span>Last game</span><span>Up next</span><span></span></div>
   <div class="rlist" id="rlist"></div>
 </section>
+<section class="wrap pv" id="vLive" hidden><div class="rkhead"><div><h2 id="liveTitle">Live</h2><p id="liveMeta"></p></div></div><div class="lgrid" id="lgrid"></div></section>
+<section class="wrap pv" id="vStand" hidden><div class="rkhead"><div><h2>Standings</h2><p id="standMeta"></p></div><div class="confs" id="sconfs" role="group" aria-label="Conference"></div></div><div id="slist" style="margin-top:16px"></div></section>
+<section class="wrap pv" id="vLead" hidden><div class="rkhead"><div><h2>Stat leaders</h2><p id="leadMeta"></p></div><div class="confs" id="lconfs" role="group" aria-label="Conference"></div></div><div class="ldgrid" id="ldgrid"></div></section>
+<section class="wrap pv" id="vBrk" hidden><div class="rkhead"><div><h2>NCAA Tournament</h2><p id="brkMeta"></p></div><div class="confs" id="byears" role="group" aria-label="Season"></div></div><div class="confs" id="bregs" role="group" aria-label="Region" style="margin-top:14px"></div><div id="bbody"></div></section>
 <div id="vCal">
 <div class="wrap">
   <div class="railhead"><h2>Top 25 clashes</h2><div class="ctl"><button class="ib" id="rl" aria-label="Scroll back">‹</button><button class="ib" id="rr2" aria-label="Scroll forward">›</button></div></div>
@@ -564,8 +699,9 @@ span.ph-img{display:block;background:rgba(255,255,255,.25)}
   </section>
 </main>
 </div>
-<footer class="wrap">Scores, box scores, play-by-play, rosters, betting lines and the AP poll come live from ESPN's public feeds. Scores refresh every 15 seconds while games are on. Odds are DraftKings lines via ESPN, for information only. Calendar of announced games compiled from ESPN, conference and school releases (Oct. 2026); times and networks update from ESPN as they're set. All times Eastern. "Today" rolls over at 4 AM ET so late games stay on the night they were played.</footer>
+<footer class="wrap">Scores, box scores, play-by-play, rosters, betting lines and the AP poll come live from ESPN's public feeds. Scores refresh every 15 seconds while games are on. Odds are DraftKings lines via ESPN, for information only. The calendar started from announced schedules (Oct. 2026) and fills in from ESPN as games are added, including conference tournaments and the NCAA Tournament; times and networks update as they're set. Standings, stat leaders, search and the bracket also come from ESPN. All times Eastern. "Today" rolls over at 4 AM ET so late games stay on the night they were played.</footer>
 
+<div class="sov" id="sov" hidden><div class="sbox" role="dialog" aria-modal="true" aria-label="Search"><div class="sin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="sq" type="search" placeholder="Search teams and players" autocomplete="off" spellcheck="false"><button id="sx" type="button">Esc</button></div><div class="sres" id="sres"></div></div></div>
 <div class="fly" id="fly" aria-hidden="true"></div>
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Game details" hidden></aside>
@@ -875,7 +1011,7 @@ function compact(e){
   return {id:e.id,date:e.date,tv:c.timeValid!==false,
     st:{s:t.state,n:t.name||"",d:t.shortDetail||"",desc:t.description||"",p:s.period||0,c:s.displayClock||""},
     net:[...new Set((c.broadcasts||[]).flatMap(b=>b.names||[]))].join(" / "),
-    ven:c.venue?.fullName||"",city:[c.venue?.address?.city,c.venue?.address?.state].filter(Boolean).join(", "),att:c.attendance||0,
+    ven:c.venue?.fullName||"",city:[c.venue?.address?.city,c.venue?.address?.state].filter(Boolean).join(", "),att:c.attendance||0,note:c.notes?.[0]?.headline||"",neu:!!c.neutralSite,
     odds:parseOdds(c.odds?.[0]),
     c:(c.competitors||[]).map(x=>({id:x.team?.id||"",ha:x.homeAway,sc:x.score===undefined||x.score===""?null:+x.score,
       rk:x.curatedRank&&x.curatedRank.current<=25?x.curatedRank.current:null,
@@ -886,20 +1022,34 @@ const etHM=d=>new Date(d).toLocaleTimeString("en-GB",{timeZone:"America/New_York
 /* line an ESPN game up with one of ours: A is our first-listed team, H the second */
 function orient(g,e){
   const ia=EID[g.a],ih=EID[g.h];let A=ia?e.c.find(c=>c.id===ia):null,H=ih?e.c.find(c=>c.id===ih):null;
+  if(!A&&!H){A=e.c.find(c=>c.loc===g.a);H=e.c.find(c=>c.loc===g.h)}
   if(!A&&!H)return null;if(!A)A=e.c.find(c=>c!==H);if(!H)H=e.c.find(c=>c!==A);if(!A||!H)return null;
   const s=e.st;
   return {id:e.id,date:e.date,state:s.s,name:s.n,desc:s.desc,det:s.d,p:s.p,clk:s.c,cx:s.s!=="in"&&/POSTPON|CANCEL|SUSPEND|DELAY|FORFEIT/.test(s.n),A,H,odds:e.odds,ven:e.ven,city:e.city,att:e.att,net:e.net};
 }
 const evFor=(g,evs)=>{const ia=EID[g.a],ih=EID[g.h];return evs.find(e=>e.c.some(c=>c.id&&(c.id===ia||c.id===ih)))};
+function shortNote(n){return String(n||"").replace(/^NCAA Women's Basketball Championship/,"NCAA Tournament").replace(/Regional (\d+) in ([^-]+?)\s*-/,(m,a,b)=>b.trim()+" Regional ·").replace(/\s+-\s+/g," · ").trim()}
+function gameFromEvent(iso,e){const A=e.c.find(c=>c.ha==="away")||e.c[0],H=e.c.find(c=>c.ha==="home")||e.c[1];if(!A||!H)return null;
+  const ka=KEY_BY_ID[A.id]||A.loc,kh=KEY_BY_ID[H.id]||H.loc;
+  return {iso,t:e.tv&&e.date?etHM(e.date):"",a:ka,h:kh,net:e.net||"TBA",ev:shortNote(e.note),n:!!e.neu,rr:!!(T[ka]&&T[kh]),eid:e.id,dyn:true}}
+/* keep games in date order; renumber and carry live data across */
+function reindex(){const ev={},fl={};games.forEach(g=>{if(EV[g.i])ev[g.i]=EV[g.i];if(FLASH[g.i])fl[g.i]=FLASH[g.i]});
+  for(const k in EV)if(/^\d+$/.test(k))delete EV[k];for(const k in FLASH)if(/^\d+$/.test(k))delete FLASH[k];
+  games.sort((x,y)=>(x.iso+(x.t||"99")).localeCompare(y.iso+(y.t||"99")));
+  games.forEach((g,i)=>{if(ev[g.i])EV[i]=ev[g.i];if(fl[g.i])FLASH[i]=fl[g.i];g.i=i})}
 function applyDay(iso,evs){
-  const miss=[];
+  const miss=[],used=new Set();let added=0;
   for(const g of games){
-    if(g.iso!==iso)continue;const e=evFor(g,evs),o=e&&orient(g,e);if(!o){miss.push(g);continue}
+    if(g.iso!==iso)continue;const e=g.eid?evs.find(x=>x.id===g.eid):evFor(g,evs),o=e&&orient(g,e);if(!o){miss.push(g);continue}
+    used.add(e.id);g.eid=e.id;
     const old=EV[g.i];if(old&&old.state==="in"&&o.state==="in"&&(old.A.sc!==o.A.sc||old.H.sc!==o.H.sc))FLASH[g.i]=Date.now();
     EV[g.i]=o;
     if(e.tv&&o.state==="pre"&&e.date)g.t=etHM(e.date);
     if(e.net&&(!g.net||/^TBA$|networks|\bor\b/i.test(g.net)))g.net=e.net;
   }
+  for(const e of evs){if(used.has(e.id)||!e.c.some(c=>KEY_BY_ID[c.id])||games.some(g=>g.eid===e.id))continue;
+    const g=gameFromEvent(iso,e);if(!g)continue;g.i=games.length;games.push(g);const o=orient(g,e);if(o)EV[g.i]=o;added++}
+  if(added)reindex();
   return miss;
 }
 const resFor=g=>EV[g.i]||null;
@@ -1031,6 +1181,7 @@ async function ensureSum(g,{force=false,quiet=false}={}){
   catch(e){if(!SUM[r.id]||SUM[r.id].err)SUM[r.id]={at:Date.now(),err:true,b:{},ts:{},ld:{},wp:[],plays:[]}}
   finally{delete sumLoading[r.id]}
   if(!quiet&&st.dr&&st.dr.type==="game"&&st.dr.g===g)renderDrawer(true);
+  return true;
 }
 async function ensureRoster(id){
   if(!id||ROS[id])return;ROS[id]={loading:true};
@@ -1056,21 +1207,22 @@ function espnRec(k){let best=null;games.forEach(g=>{const r=EV[g.i];if(!r||r.sta
 
 /* scoreboard days: finished days are kept in the browser so they load once */
 const shiftISO=(iso,n)=>{const d=new Date(iso+"T12:00:00Z");d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)};
-function persistDays(){const o={};for(const d in DAYS)if(DAYS[d].done&&DAYS[d].ev.length)o[d]=DAYS[d].ev;store.set("ncaawb-days-v1",o)}
+function persistDays(){const o={};for(const d in DAYS)if(DAYS[d].done&&(DAYS[d].ev.length||d<todayISO))o[d]=DAYS[d].ev;store.set("ncaawb-days-v1",o)}
+const POST0="2027-03-01",POST1="2027-04-06",isPost=iso=>iso>=POST0&&iso<=POST1;
 async function loadDay(iso,{full=false,fresh=false}={}){
+  if(!games.some(g=>g.iso===iso&&!g.dyn))full=true;
   const d=await getJSON(`${API}/scoreboard?dates=${iso.replace(/-/g,"")}${full?"&groups=50&limit=500":""}`,{fresh});
-  const mine=games.filter(g=>g.iso===iso);
-  const ev=(d.events||[]).map(compact).filter(e=>mine.some(g=>e.c.some(c=>c.id&&(c.id===EID[g.a]||c.id===EID[g.h]))));
-  const miss=applyDay(iso,ev);
+  const ev=(d.events||[]).map(compact).filter(e=>e.c.some(c=>KEY_BY_ID[c.id]));
+  const miss=applyDay(iso,ev),mine=games.filter(g=>g.iso===iso);
   // teams that fall out of the poll drop off ESPN's Top 25 scoreboard, so look them up in the full one
   if(miss.length&&!full&&iso<=todayISO)return loadDay(iso,{full:true,fresh});
-  const done=mine.every(g=>{const r=EV[g.i];return r&&(r.state==="post"||r.cx)})||iso<shiftISO(todayISO,-3);
+  const done=(mine.length?mine.every(g=>{const r=EV[g.i];return r&&(r.state==="post"||r.cx)}):iso<todayISO)||iso<shiftISO(todayISO,-3);
   DAYS[iso]={at:Date.now(),ev,full,done};if(done)persistDays();
   NET.last=Date.now();NET.fails=0;return DAYS[iso];
 }
 const dayLoading={};
 async function ensureDay(iso){
-  if(dayLoading[iso]||!games.some(g=>g.iso===iso))return;dayLoading[iso]=1;
+  if(dayLoading[iso]||(!games.some(g=>g.iso===iso)&&!isPost(iso)))return;dayLoading[iso]=1;
   try{await loadDay(iso,{full:!!(DAYS[iso]&&DAYS[iso].full)})}catch(e){DAYS[iso]={at:Date.now(),ev:(DAYS[iso]&&DAYS[iso].ev)||[],fail:true}}
   delete dayLoading[iso];scheduleRender();
 }
@@ -1103,38 +1255,44 @@ const fmtD=(iso,o)=>new Date(iso+"T12:00").toLocaleDateString("en-US",o);
 const pair=g=>`--ca:${tcol(g.a)};--cb:${tcol(g.h)}`;
 
 const $=id=>document.getElementById(id);
-const MONTHS=[[2026,10],[2026,11],[2027,0],[2027,1]];
+const MONTHS=[[2026,10],[2026,11],[2027,0],[2027,1],[2027,2],[2027,3]];
 const st={team:"ALL",rr:false,mi:0,sel:null,dir:0,dr:null,full:false};
 try{st.full=localStorage.getItem("ncaawb-full")==="true"}catch(e){}
-try{const s=JSON.parse(localStorage.getItem("t25cal")||"{}");if(s.team&&(s.team==="ALL"||T[s.team]))st.team=s.team;st.rr=!!s.rr}catch(e){}
+try{const s=JSON.parse(localStorage.getItem("t25cal")||"{}");if(s.team&&(s.team==="ALL"||s.team==="FAV"||T[s.team]))st.team=s.team;st.rr=!!s.rr}catch(e){}
 function save(){try{localStorage.setItem("t25cal",JSON.stringify({team:st.team,rr:st.rr}))}catch(e){}}
 /* "today" rolls over at 4 AM ET so late games stay on the night they were played */
 const etToday=()=>new Date(Date.now()-4*36e5).toLocaleDateString("en-CA",{timeZone:"America/New_York"});
 let todayISO=etToday();
-const visible=()=>games.filter(g=>(st.team==="ALL"||g.a===st.team||g.h===st.team)&&(!st.rr||g.rr));
+let FAV=new Set((store.get("ncaawb-fav",[])||[]).filter(k=>T[k]));
+const isFavG=g=>FAV.has(g.a)||FAV.has(g.h);
+if(st.team==="FAV"&&!FAV.size)st.team="ALL";
+const visible=()=>games.filter(g=>(st.team==="ALL"||(st.team==="FAV"?isFavG(g):(g.a===st.team||g.h===st.team)))&&(!st.rr||g.rr));
+const favStar=k=>FAV.has(k)?'<span class="star" aria-label="My team">★</span>':"";
 let toastT;function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("on"),1800)}
 
 /* hero */
 $("meta").innerHTML=`<span><b>${games.length}</b> games</span><span><b>${games.filter(g=>g.rr).length}</b> ranked-vs-ranked</span><span><b>25</b> teams · 5 conferences</span><span id="livec"></span>`;
 let nextG=null;
-function pickNext(){const now=Date.now();nextG=games.find(g=>g.rr&&!scores(g,resFor(g))&&!(EV[g.i]&&EV[g.i].cx)&&(liveOf(g)||etDate(g).getTime()+3*36e5>now))||null}
+function pickNext(){const now=Date.now(),ok=g=>!scores(g,resFor(g))&&!(EV[g.i]&&EV[g.i].cx)&&(liveOf(g)||etDate(g).getTime()+3*36e5>now);
+  nextG=(FAV.size&&games.find(g=>isFavG(g)&&ok(g)))||games.find(g=>g.rr&&ok(g))||null}
 let lastNext=null,lastDig=[],lastSig="";
 function renderNext(force){
   pickNext();const el=$("next");if(!nextG){el.hidden=true;return}el.hidden=false;
   const g=nextG,ms=etDate(g)-Date.now(),L=liveOf(g);
-  const sig=[g.i,L?L.a+"-"+L.h+"|"+L.txt:"",ms<=0,g.t,g.net,rk(g.a),rk(g.h)].join("|");
+  const sig=[g.i,L?L.a+"-"+L.h+"|"+L.txt:"",ms<=0,g.t,g.net,rk(g.a),rk(g.h),isFavG(g)].join("|");
   if(!force&&lastNext===g&&sig===lastSig){if(!L&&ms>0){const d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4),sx=Math.floor(ms%6e4/1e3);const v=[String(d),String(h).padStart(2,"0"),String(m).padStart(2,"0"),String(sx).padStart(2,"0")];
     el.querySelectorAll(".clock b").forEach((b,i)=>{if(v[i]!==lastDig[i]){b.textContent=v[i];b.classList.remove("tick");void b.offsetWidth;b.classList.add("tick")}});lastDig=v}return}
   lastNext=g;lastSig=sig;
   const d=Math.max(0,Math.floor(ms/864e5)),h=Math.max(0,Math.floor(ms%864e5/36e5)),m=Math.max(0,Math.floor(ms%36e5/6e4)),bp=bumped(g)?" bump":"";
-  el.innerHTML=`<div class="lbl">${L?"Live now · "+esc(L.txt):ms<=0?"Tipping now":"Next Top 25 clash"}</div>
+  const fk=isFavG(g)?(FAV.has(g.a)?g.a:g.h):null;
+  el.innerHTML=`<div class="lbl">${fk?"★ ":""}${L?"Live now · "+esc(L.txt):ms<=0?"Tipping now":fk?`Next ${esc(short(fk))} game`:"Next Top 25 clash"}</div>
   <div class="mu">${rk(g.a)?`<small>${rk(g.a)}</small>`:""}${esc(nm(g.a))} ${g.n?"vs.":"at"} ${rk(g.h)?`<small>${rk(g.h)}</small>`:""}${esc(nm(g.h))}</div>
   <div class="sub">${fmtD(g.iso,{weekday:"short",month:"short",day:"numeric"})} · ${fmtT(g.t)}${g.t?" ET":""} · ${esc(g.net)}${g.ev?" · "+esc(g.ev):""}</div>
   ${L?`<div class="score"><div class="${L.a<L.h?"l":""}"><small>${esc(short(g.a))}</small><span class="${bp}">${L.a}</span></div><div class="${L.h<L.a?"l":""}"><small>${esc(short(g.h))}</small><span class="${bp}">${L.h}</span></div></div><div class="bar2" style="--p:${L.prog}"><i></i></div>`
    :ms<=0?"":`<div class="clock"><div><b>${d}</b><span>days</span></div><div><b>${String(h).padStart(2,"0")}</b><span>hrs</span></div><div><b>${String(m).padStart(2,"0")}</b><span>min</span></div><div><b>${String(Math.floor(ms%6e4/1e3)).padStart(2,"0")}</b><span>sec</span></div></div>`}`;
   lastDig=[String(d),String(h).padStart(2,"0"),String(m).padStart(2,"0"),String(Math.max(0,Math.floor(ms%6e4/1e3))).padStart(2,"0")];
 }
-function renderLiveMeta(){const n=games.filter(g=>EV[g.i]&&EV[g.i].state==="in").length,el=$("livec");if(el)el.innerHTML=n?`<button class="livebtn" id="golive" type="button"><i class="dot"></i>${n} live now</button>`:""}
+function renderLiveMeta(){const n=games.filter(g=>EV[g.i]&&EV[g.i].state==="in").length,el=$("livec"),vc=$("vlivec");if(vc){vc.textContent=n||"";vc.classList.toggle("on",n>0)}if(el)el.innerHTML=n?`<button class="livebtn" id="golive" type="button"><i class="dot"></i>${n} live now</button>`:""}
 $("meta").addEventListener("click",e=>{if(e.target.closest("#golive"))goToday()});
 function goToday(){if(st.view!=="cal")setView("cal");st.sel=todayISO;const [y,m]=todayISO.split("-").map(Number);const i=MONTHS.findIndex(([yy,mm])=>yy===y&&mm===m-1);
   if(i>=0&&i!==st.mi){st.dir=i>st.mi?1:-1;st.mi=i;st.anim=true;movePill()}st.animDay=true;renderGrid();renderDay();
@@ -1176,10 +1334,14 @@ dragScroll($("rail"));dragScroll($("chips"));
 /* chips + months */
 function renderChips(){
   const all=`<button class="chip all" data-k="ALL" aria-pressed="${st.team==="ALL"}"><i></i>All 25</button>`;
-  $("chips").innerHTML=all+Object.keys(T).map((k,ii)=>`<button class="chip" data-k="${k}" aria-pressed="${st.team===k}" style="--i:${ii+1};--tc:${T[k][3]};--tt:${txtOn(T[k][3])}"><i></i><small>${rk(k)||"–"}</small>${esc(short(k))}</button>`).join("");
+  const my=FAV.size?`<button class="chip all fav" data-k="FAV" aria-pressed="${st.team==="FAV"}"><span class="star">★</span>My teams</button>`:"";
+  const keys=Object.keys(T).sort((a,b)=>(FAV.has(b)-FAV.has(a))||(T[a][0]-T[b][0]));
+  $("chips").innerHTML=all+my+keys.map((k,ii)=>`<button class="chip" data-k="${k}" aria-pressed="${st.team===k}" style="--i:${ii+1};--tc:${T[k][3]};--tt:${txtOn(T[k][3])}"><i></i><small>${rk(k)||"–"}</small>${esc(short(k))}${favStar(k)}</button>`).join("");
 }
+function toggleFav(k){if(!T[k])return;FAV.has(k)?FAV.delete(k):FAV.add(k);store.set("ncaawb-fav",[...FAV]);if(st.team==="FAV"&&!FAV.size)st.team="ALL";
+  renderChips();renderSoft();$("myteams").classList.toggle("has",FAV.size>0);toast(FAV.has(k)?`${nm(k)} added to My teams`:`${nm(k)} removed from My teams`)}
 $("chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;setTeam(b.dataset.k===st.team&&b.dataset.k!=="ALL"?"ALL":b.dataset.k)});
-function setTeam(k){st.team=k;save();renderChips();pickStart();renderAll();toast(k==="ALL"?"Showing all Top 25 games":`Showing ${nm(k)}'s games`);
+function setTeam(k){st.team=k;save();renderChips();pickStart();renderAll();toast(k==="ALL"?"Showing all Top 25 games":k==="FAV"?"Showing your teams' games":`Showing ${nm(k)}'s games`);
   const c=$("chips").querySelector(`[data-k="${k}"]`);c&&c.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"})}
 function renderMonths(){
   const el=$("months");
@@ -1191,11 +1353,14 @@ function movePill(){const el=$("months"),b=el.querySelector(`[data-mi="${st.mi}"
 $("months").addEventListener("click",e=>{const b=e.target.closest("[data-mi]");if(b)goMonth(+b.dataset.mi)});
 function goMonth(i,keepSel){if(i<0||i>=MONTHS.length||i===st.mi)return;st.dir=i>st.mi?1:-1;st.mi=i;st.anim=true;st.animDay=true;
   if(!keepSel){const [y,m]=MONTHS[i];const pre=`${y}-${String(m+1).padStart(2,"0")}`;const g=visible().find(g=>g.iso.startsWith(pre)&&g.iso>=todayISO)||visible().find(g=>g.iso.startsWith(pre));st.sel=g?g.iso:pre+"-01"}
-  movePill();renderGrid();renderDay()}
+  movePill();renderGrid();renderDay();ensureMonth()}
+/* postseason months: look up each day ESPN may have scheduled */
+function ensureMonth(){const [y,m]=MONTHS[st.mi],pre=`${y}-${String(m+1).padStart(2,"0")}`,lim=shiftISO(todayISO,7);
+  for(let d=1;d<=31;d++){const iso=`${pre}-${String(d).padStart(2,"0")}`;if(isPost(iso)&&iso<=lim&&!DAYS[iso])ensureDay(iso)}}
 $("rrsw").onclick=()=>{st.rr=!st.rr;save();$("rrsw").setAttribute("aria-checked",st.rr);pickStart();renderAll()};
 $("legend").innerHTML=Object.entries(CONF).map(([c,v])=>`<span><i style="background:var(${v})"></i>${c}</span>`).join("")+`<span><i style="background:var(--ball)"></i>Clash</span>`;
 
-function pickStart(){const v=visible();const g=v.find(g=>g.iso>=todayISO)||v[0];if(!g)return;st.sel=g.iso;
+function pickStart(){const v=visible();const g=v.find(g=>g.iso>=todayISO)||v[v.length-1];if(!g)return;st.sel=g.iso;
   const [y,m]=g.iso.split("-").map(Number);const i=MONTHS.findIndex(([yy,mm])=>yy===y&&mm===m-1);if(i>=0)st.mi=i}
 
 /* grid */
@@ -1207,8 +1372,8 @@ function renderGrid(){
   for(let i=0;i<first;i++)h+=`<div class="cell out" aria-hidden="true"></div>`;
   for(let d=1;d<=days;d++){
     const iso=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;const gs=byDay[iso]||[];const rrN=gs.filter(g=>g.rr).length,lvN=gs.filter(g=>liveOf(g)).length;
-    const ordered=[...gs].sort((p,q)=>(!!liveOf(q)-!!liveOf(p))||(q.rr-p.rr)||((rk(lead(p))||99)-(rk(lead(q))||99)));
-    const pills=ordered.slice(0,3).map(g=>`<div class="mp${g.rr?" rr":""}${scores(g,resFor(g))?" fin":liveOf(g)?" live":""}" style="--c:${confVar(lead(g))}">${esc(shortOpp(g.a))} ${g.n?"vs":"@"} ${esc(shortOpp(g.h))}</div>`).join("");
+    const ordered=[...gs].sort((p,q)=>(!!liveOf(q)-!!liveOf(p))||(isFavG(q)-isFavG(p))||(q.rr-p.rr)||((rk(lead(p))||99)-(rk(lead(q))||99)));
+    const pills=ordered.slice(0,3).map(g=>`<div class="mp${g.rr?" rr":""}${scores(g,resFor(g))?" fin":liveOf(g)?" live":""}${isFavG(g)?" fav":""}" style="--c:${confVar(lead(g))}">${isFavG(g)?"★ ":""}${esc(shortOpp(g.a))} ${g.n?"vs":"@"} ${esc(shortOpp(g.h))}</div>`).join("");
     const dots=ordered.map(g=>`<i style="--c:${liveOf(g)?"var(--live)":g.rr?"var(--ball)":confVar(lead(g))}"></i>`).join("");
     h+=`<button style="--i:${first+d}" class="cell${gs.length?"":" none"}${iso===st.sel?" sel":""}${iso===todayISO?" today":""}${rrN?" has-rr":""}${lvN?" has-live":""}" data-iso="${iso}" aria-label="${fmtD(iso,{month:"long",day:"numeric"})}, ${gs.length} games${lvN?", "+lvN+" live":""}">
       <span class="dn"><span>${d}</span>${gs.length?`<small>${lvN?lvN+" live":rrN?rrN+" clash":gs.length+" gm"}</small>`:""}</span>${pills}${gs.length>3?`<span class="more">+${gs.length-3} more</span>`:""}<span class="dots">${dots}</span></button>`;
@@ -1253,11 +1418,11 @@ function renderDay(){
     if(v&&r&&(r.A.top||r.H.top))foot.unshift(`Top scorers <span class="ldr">${[r.A.top,r.H.top].filter(Boolean).map(t=>`${esc(t.n)} ${esc(t.v)}`).join(", ")}</span>`);
     else if(g.ev)foot.unshift(esc(g.ev));
     const stt=s?`<span class="fin">${finTxt(r)}</span>`:L?`<span class="lv"><i class="dot"></i>${esc(L.txt)}</span>`:r&&r.cx?`<span class="lv">${esc(r.desc||"Postponed")}</span>`:`<span>${fmtT(g.t)+(g.t?" ET":"")}</span>`;
-    return `<button class="game${L?" is-live":""}" data-i="${g.i}" style="--i:${i};${pair(g)}">
-      <div class="top">${stt}${g.rr?`<span class="tagx">Top 25 clash</span>`:`<span>${g.n?"Neutral":"At "+esc(shortOpp(g.h))}</span>`}</div>
+    return `<button class="game${L?" is-live":""}${isFavG(g)?" fav":""}" data-i="${g.i}" style="--i:${i};${pair(g)}">
+      <div class="top">${stt}${g.dyn&&/Tournament/.test(g.ev||"")?`<span class="tagx">${esc(g.ev.replace(/ · [^·]+ Regional/,""))}</span>`:g.rr?`<span class="tagx">Top 25 clash</span>`:`<span>${g.n?"Neutral":"At "+esc(shortOpp(g.h))}</span>`}</div>
       <div style="display:grid;gap:4px;min-width:0">
-        <div class="tm${s&&!aw?" l":""}">${logo(idOf(g,"a"),20)}<span class="rk">${rk(g.a)||""}</span><span class="nm">${esc(nm(g.a))}</span></div>
-        <div class="tm${s&&!hw?" l":""}">${logo(idOf(g,"h"),20)}<span class="rk">${rk(g.h)||""}</span><span class="nm">${esc(nm(g.h))}</span></div>
+        <div class="tm${s&&!aw?" l":""}">${logo(idOf(g,"a"),20)}<span class="rk">${rk(g.a)||""}</span><span class="nm">${esc(nm(g.a))}${favStar(g.a)}</span></div>
+        <div class="tm${s&&!hw?" l":""}">${logo(idOf(g,"h"),20)}<span class="rk">${rk(g.h)||""}</span><span class="nm">${esc(nm(g.h))}${favStar(g.h)}</span></div>
       </div>
       ${v?`<div style="display:grid;gap:4px"><span class="sc${s&&!aw?" l":""}${L?" lvs":""}${bp}">${v.a}</span><span class="sc${s&&!hw?" l":""}${L?" lvs":""}${bp}">${v.h}</span></div>`:`<span class="net">${esc(g.net)}</span>`}
       ${foot.length?`<div class="foot">${foot.join("<span>·</span>")}</div>`:""}${L?`<span class="prog" style="--p:${L.prog}"></span>`:""}</button>`}).join("")
@@ -1491,12 +1656,13 @@ function renderDrawer(quiet){
     else if(D.tab==="team")body=compareHTML(g,r,S);
     else if(D.tab==="plays")body=playsHTML(g,r,S,D);
     else body=rosterView(D.tab==="a"?g.a:g.h,idOf(g,D.tab));
-    const side=(k,id,sc,dim)=>`<button class="side" ${T[k]?`data-team="${k}"`:"disabled"}><span class="lgw">${logo(id,36,true)}</span><span class="rk">${rk(k)?"No. "+rk(k):"Unranked"}</span><span class="nm">${esc(nm(k))}</span>${sc!==undefined?`<span class="scr${dim?" l":""}${bumped(g)?" bump":""}">${sc}</span>`:""}</button>`;
+    const side=(k,id,sc,dim)=>`<button class="side" ${T[k]?`data-team="${k}"`:"disabled"}><span class="lgw">${logo(id,36,true)}</span><span class="rk">${g.bracket?((k===g.a?seedOf(g,"a"):seedOf(g,"h"))?(k===g.a?seedOf(g,"a"):seedOf(g,"h"))+" seed":""):rk(k)?"No. "+rk(k):"Unranked"}</span><span class="nm">${esc(nm(k))}</span>${sc!==undefined?`<span class="scr${dim?" l":""}${bumped(g)?" bump":""}">${sc}</span>`:""}</button>`;
     const top=s?finTxt(r):L?`<span class="lv"><i class="dot"></i>${esc(L.txt)}</span>`:r&&r.cx?esc(r.desc):fmtD(g.iso,{weekday:"short",month:"short",day:"numeric"})+" · "+fmtT(g.t)+(g.t?" ET":"");
     html=`<div class="grab"></div><div class="dhead" style="${pair(g)}">
       <div class="dtop"><span>${D.back?`<button class="xbtn" data-back aria-label="Back" style="display:inline-grid;margin-right:6px">‹</button>`:""}${top} · ${esc(g.net)}</span>${dact()}</div>
       <div class="vs">${side(g.a,idOf(g,"a"),v?v.a:undefined,s&&!aw)}<span class="mid">${g.n?"VS":"AT"}</span>${side(g.h,idOf(g,"h"),v?v.h:undefined,s&&!hw)}</div></div>
       ${tabsHTML(tabs,D.tab)}<div class="dbody"><div class="pane">${body}</div></div>`;
+  }else if(D.type==="my"){html=myHTML()
   }else if(D.type==="player"){html=playerHTML(D)
   }else{
     const k=D.k,[r0,n,c,col]=T[k],tg=games.filter(g=>g.a===k||g.h===k),S=teamStats(k),pr=pollRank(k),rec=espnRec(k)||`${S.w}–${S.l}`;
@@ -1516,7 +1682,7 @@ function renderDrawer(quiet){
     else body=rosterView(k,EID[k]);
     html=`<div class="grab"></div><div class="dhead" style="--ca:${col};--cb:color-mix(in srgb,${col} 55%,#000)">
       <div class="dtop"><span>${D.back?`<button class="xbtn" data-back aria-label="Back" style="display:inline-grid;margin-right:6px">‹</button>`:""}${c}</span>${dact()}</div>
-      <div class="vs" style="grid-template-columns:1fr"><div class="side"><span class="lgw">${logo(EID[k],36,true)}</span><span class="rk" style="display:block">${pr?"No. "+pr:"Unranked"} · ${POLL.ok&&!POLL.pre?"AP poll":"AP preseason"}${rec&&rec!=="0–0"?" · "+rec:""}</span><span class="nm">${esc(n)}</span>${nextGame?`<span class="rk" style="display:block;margin-top:8px">Next: ${fmtD(nextGame.iso,{month:"short",day:"numeric"})} ${nextGame.h===k||nextGame.n?"vs.":"at"} ${esc(nm(nextGame.h===k?nextGame.a:nextGame.h))} · ${esc(nextGame.net)}</span>`:""}</div></div></div>
+      <div class="vs" style="grid-template-columns:1fr"><div class="side"><span class="lgw">${logo(EID[k],36,true)}</span><span class="rk" style="display:block">${pr?"No. "+pr:"Unranked"} · ${POLL.ok&&!POLL.pre?"AP poll":"AP preseason"}${rec&&rec!=="0–0"?" · "+rec:""}</span><span class="nm">${esc(n)}</span><button class="tlink favbtn" data-fav="${k}">${FAV.has(k)?"★ In My teams":"☆ Add to My teams"}</button>${nextGame?`<span class="rk" style="display:block;margin-top:8px">Next: ${fmtD(nextGame.iso,{month:"short",day:"numeric"})} ${nextGame.h===k||nextGame.n?"vs.":"at"} ${esc(nm(nextGame.h===k?nextGame.a:nextGame.h))} · ${esc(nextGame.net)}</span>`:""}</div></div></div>
       ${tabsHTML([["sched","Game log"],["stats","Stats"],["roster","Roster"]],D.tab)}<div class="dbody"><div class="pane">${body}
       <div class="actions"><button class="btn pri" data-filter="${k}">Show only ${esc(short(k))} on the calendar</button><a class="btn" href="https://${T[k][4]}" target="_blank" rel="noopener">Official roster ↗</a></div></div></div>`;
   }
@@ -1532,6 +1698,9 @@ function renderDrawer(quiet){
 $("drawer").addEventListener("click",e=>{
   if(e.target.closest("[data-x]"))return closeDrawer();
   if(e.target.closest("[data-full]"))return toggleFull();
+  const fv=e.target.closest("[data-fav]");if(fv){toggleFav(fv.dataset.fav);return renderDrawer(true)}
+  const al=e.target.closest("[data-al]");if(al)return setAlert(al.dataset.al);
+  const bp=e.target.closest("[data-bgo]");if(bp){const g=BG[bp.dataset.bgo];if(g){st.dr={type:"game",g,tab:"info",back:{...st.dr}};return renderDrawer()}}
   const pf=e.target.closest("[data-pf]");if(pf){st.dr.pf=pf.dataset.pf;return renderDrawer(true)}
   const pl=e.target.closest("[data-player]");if(pl)return openPlayer(pl.dataset.player,{...st.dr},pl.textContent.trim());
   const se=e.target.closest("[data-season]");if(se){st.dr.season=se.dataset.season;return renderDrawer(true)}
@@ -1550,6 +1719,8 @@ $("drawer").addEventListener("click",e=>{
   d.addEventListener("touchend",e=>{if(y0===null)return;const dy=(e.changedTouches[0].clientY-y0);d.style.transform="";y0=null;if(dy>110&&innerWidth<900)closeDrawer()})})();
 
 document.addEventListener("keydown",e=>{
+  if(!$("sov").hidden){if(e.key==="Escape"){closeSearch();e.preventDefault()}return}
+  if(e.key==="/"&&!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();return openSearch()}
   if(e.key==="Escape"){if(st.dr)closeDrawer();hideFly();return}
   if(st.dr&&(e.key==="f"||e.key==="F")&&!e.metaKey&&!e.ctrlKey&&!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName))return toggleFull();
   if(st.dr||st.view!=="cal"||/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName))return;
@@ -1558,12 +1729,241 @@ document.addEventListener("keydown",e=>{
 });
 addEventListener("resize",()=>{movePill();placeUl();moveVPill()});
 
+
+/* ================= My teams + alerts ================= */
+let ALERT=Object.assign({tip:false,close:false,final:false,clash:false},store.get("ncaawb-alerts",{})||{});
+const SENT=store.get("ncaawb-sent",{})||{};let primed=false,pendingGame=null;
+const canNotify=()=>"Notification" in window;
+const alertsWanted=()=>ALERT.tip||ALERT.close||ALERT.final;
+const alertsLive=()=>alertsWanted()&&canNotify()&&Notification.permission==="granted";
+function myHTML(){
+  const perm=canNotify()?Notification.permission:"unsupported";
+  const sw=(id,b,sm)=>`<div class="alrow"><div><b>${b}</b><small>${sm}</small></div><button class="switch" role="switch" data-al="${id}" aria-checked="${!!ALERT[id]}" aria-label="${b}"><span class="tr"></span></button></div>`;
+  const note=perm==="unsupported"?`<div class="alnote warn">This browser can't show notifications. On iPhone, add the site to your Home Screen first (Share, then Add to Home Screen) and open it from there.</div>`
+    :perm==="denied"?`<div class="alnote warn">Notifications are blocked for this site. Turn them on in your browser's site settings, then come back here.</div>`
+    :`<div class="alnote">Alerts come from this site while it's open in a browser tab or as an app on your home screen, and cover today's games for your teams${ALERT.clash?" and every Top 25 clash":""}. On iPhone, add the site to your Home Screen first.${perm==="default"&&alertsWanted()?" Your browser will ask for permission.":""}</div>`;
+  return `<div class="grab"></div><div class="dhead" style="--ca:#0E1B2E;--cb:#E25A17">
+    <div class="dtop"><span>Top 25 Hoops</span>${dact()}</div>
+    <div class="phd"><div style="min-width:0"><h3>My teams</h3><div class="pmeta">${FAV.size?`${FAV.size} team${FAV.size>1?"s":""} starred · they lead the team list, get a star on the calendar, and the top card follows their next game`:"Star the teams you follow. They lead the team list, get a star on the calendar, and the top card follows their next game."}</div></div></div></div>
+    <div class="dbody"><div class="pane">
+      <h5 class="sh" style="margin-top:0">Teams</h5>
+      <div class="mtgrid">${Object.keys(T).map(k=>`<button class="mt${FAV.has(k)?" on":""}" data-fav="${k}" aria-pressed="${FAV.has(k)}">${logo(EID[k],22)}<span>${esc(nm(k))}</span><b>${FAV.has(k)?"★":"☆"}</b></button>`).join("")}</div>
+      <h5 class="sh">Alerts</h5>
+      ${sw("tip","Tip-off","When one of your teams' games starts")}
+      ${sw("close","Close game","Within 5 points in the last 3 minutes or overtime")}
+      ${sw("final","Final score","When the game ends")}
+      ${sw("clash","Every Top 25 clash","Also alert for all ranked-vs-ranked games, not just your teams")}
+      ${note}
+      ${FAV.size||ALERT.clash?"":`<div class="alnote">Star at least one team above so alerts have games to follow.</div>`}
+    </div></div>`;
+}
+async function setAlert(id){
+  ALERT[id]=!ALERT[id];store.set("ncaawb-alerts",ALERT);
+  if(ALERT[id]&&id!=="clash"&&canNotify()&&Notification.permission==="default"){try{await Notification.requestPermission()}catch(e){}}
+  if(alertsLive()&&ALERT[id])toast("Alerts on");if(st.dr&&st.dr.type==="my")renderDrawer(true);
+}
+function openMy(){st.dr={type:"my",back:null};renderDrawer();openDrawer()}
+$("myteams").onclick=openMy;$("myteams").classList.toggle("has",FAV.size>0);
+function isClose(r){if((r.p||0)<4)return false;const [m,s2]=String(r.clk||"").split(":").map(Number);const secs=isNaN(s2)?(m||0):m*60+s2;return (r.p>4||secs<=180)&&Math.abs((r.A.sc||0)-(r.H.sc||0))<=5}
+function checkAlerts(){
+  const now=Date.now(),tg=games.filter(g=>g.iso===todayISO&&(isFavG(g)||(ALERT.clash&&g.rr)));
+  for(const g of tg){const r=EV[g.i];if(!r||r.cx)continue;const kinds=[];
+    if(r.state!=="pre")kinds.push("tip");if(r.state==="in"&&isClose(r))kinds.push("close");if(r.state==="post")kinds.push("final");
+    for(const t of kinds){const key=r.id+":"+t;if(SENT[key])continue;SENT[key]=now;if(primed&&ALERT[t]&&alertsLive())notify(g,r,t)}}
+  primed=true;for(const k in SENT)if(now-SENT[k]>4*864e5)delete SENT[k];store.set("ncaawb-sent",SENT);
+}
+function notify(g,r,t){
+  const a=short(g.a),h=short(g.h),sa=r.A.sc??0,sh=r.H.sc??0;
+  const title=t==="tip"?`Tip-off: ${nm(g.a)} ${g.n?"vs.":"at"} ${nm(g.h)}`:t==="close"?`Close game: ${a} ${sa}, ${h} ${sh}`:`Final${r.p>4?" (OT)":""}: ${a} ${sa}, ${h} ${sh}`;
+  const body=t==="tip"?`On ${g.net}. Tap for the live score.`:t==="close"?`${stText(r)} · ${g.net}`:`${sa>sh?nm(g.a):nm(g.h)} wins. Tap for the box score.`;
+  const opt={body,icon:"/icon-192.png",badge:"/icon-192.png",tag:r.id+":"+t,data:{game:r.id}};
+  const plain=()=>{try{const n=new Notification(title,opt);n.onclick=()=>{focus();openByEvent(r.id)}}catch(e){}};
+  if(navigator.serviceWorker&&navigator.serviceWorker.controller)navigator.serviceWorker.ready.then(x=>x.showNotification(title,opt)).catch(plain);else plain();
+}
+function openByEvent(eid){const g=games.find(x=>EV[x.i]&&EV[x.i].id===String(eid))||BG[eid];if(g){pendingGame=null;openGame(g);return true}pendingGame=String(eid);return false}
+try{const q=new URLSearchParams(location.search).get("game");if(q)pendingGame=q}catch(e){}
+navigator.serviceWorker&&navigator.serviceWorker.addEventListener("message",e=>{if(e.data&&e.data.game)openByEvent(e.data.game)});
+
+/* ================= Live: every game today side by side ================= */
+function spark(wp,g,r){if(!wp||wp.length<4)return "";const W=120,H=30,n=wp.length,homeIsH=r.H.ha==="home";
+  const pts=wp.map((p,i)=>`${(i/(n-1)*W).toFixed(1)},${((homeIsH?1-p:p)*H).toFixed(1)}`).join(" "),last=wp[n-1],pH=homeIsH?last:1-last,fav=pH>=.5?g.h:g.a;
+  return `<div class="lc-wp"><span>Win prob.</span><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="${H/2}" x2="${W}" y2="${H/2}" stroke="var(--line)" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/><polyline points="${pts}" fill="none" stroke="var(--live)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></svg><span><b style="color:var(--ink)">${esc(short(fav))} ${Math.round(Math.max(pH,1-pH)*100)}%</b></span></div>`}
+function renderLive(){
+  const el=$("lgrid");if(!el)return;let day=todayISO,gs=games.filter(g=>g.iso===day),nextDay=false;
+  if(!gs.length){const nx=games.find(g=>g.iso>todayISO);if(nx){day=nx.iso;gs=games.filter(g=>g.iso===day);nextDay=true}}
+  const rank=g=>{const r=EV[g.i];return liveOf(g)?0:r&&r.state==="post"?2:1};
+  gs.sort((x,y)=>(rank(x)-rank(y))||(isFavG(y)-isFavG(x))||(x.t||"99").localeCompare(y.t||"99"));
+  const lv=gs.filter(g=>liveOf(g)).length;
+  $("liveTitle").textContent=nextDay?"Next game day":lv?"Live now":"Today";
+  $("liveMeta").textContent=nextDay?`No Top 25 games today. Next up: ${fmtD(day,{weekday:"long",month:"long",day:"numeric"})}.`:
+    `${fmtD(day,{weekday:"long",month:"long",day:"numeric"})} · ${gs.length} game${gs.length===1?"":"s"}${lv?` · ${lv} live`:""} · scores update every 15 seconds`;
+  el.innerHTML=gs.length?gs.map(g=>{const r=EV[g.i],s=scores(g,r),L=liveOf(g),v=s||L,S=r?SUM[r.id]:null,bp=bumped(g)?" bump":"";
+    if(L&&r)ensureSum(g,{quiet:true}).then(f=>{if(f&&st.view==="live")scheduleRender()});
+    const stt=s?`<span class="fin" style="color:var(--win)">${finTxt(r)}</span>`:L?`<span class="lv"><i class="dot"></i>${esc(L.txt)}</span>`:r&&r.cx?esc(r.desc):`${fmtT(g.t)}${g.t?" ET":""}`;
+    const row=(k,side,sc,lose)=>`<div class="lc-row${lose?" l":""}"><span class="lc-t">${logo(idOf(g,side),30)}<span>${rk(k)?`<small>${rk(k)}</small>`:""}${esc(nm(k))}${favStar(k)}</span></span>${v?`<b class="${lose?"l":""}${bp}">${sc}</b>`:""}</div>`;
+    const lastPlay=L&&S&&S.plays&&S.plays.length?S.plays[S.plays.length-1]:null;
+    const tops=r&&(r.A.top||r.H.top)&&v?[r.A.top,r.H.top].filter(Boolean).map(t=>`<b>${esc(t.n)}</b> ${esc(t.v)}`).join(" · "):"";
+    return `<button class="lcard${L?" on":""}" data-i="${g.i}" style="${pair(g)}"><div class="lc-top"><span>${stt}</span><span>${esc(g.net)}</span></div>
+      ${row(g.a,"a",v?v.a:"",s&&s.a<s.h)}${row(g.h,"h",v?v.h:"",s&&s.h<s.a)}
+      ${L?`<div class="lc-bar" style="--p:${L.prog}"><i></i></div>`:""}${L&&S?spark(S.wp,g,r):""}
+      ${lastPlay?`<div class="lc-play"><small>Latest · ${esc(lastPlay.clk)}</small>${esc(lastPlay.t)}</div>`:""}
+      ${tops?`<div class="lc-foot">Top scorers: ${tops}</div>`:g.ev?`<div class="lc-foot">${esc(g.ev)}</div>`:""}</button>`}).join("")
+    :`<div class="empty" style="grid-column:1/-1">No more Top 25 games on the calendar.</div>`;
+}
+$("lgrid").addEventListener("click",e=>{const b=e.target.closest(".lcard");if(b)openGame(games[+b.dataset.i])});
+
+/* ================= Standings ================= */
+const API2="https://site.api.espn.com/apis/v2/sports/basketball/womens-college-basketball";
+const SCONF={sec:"SEC",acc:"ACC",big10:"Big Ten",big12:"Big 12",bige:"Big East"};
+let STAND=null,standLoading=false;st.sconf="SEC";
+function parseStand(d){const out={season:d.season?.displayName||"",confs:{}};
+  (d.children||[]).forEach(c=>{const cn=SCONF[String(c.abbreviation||"").toLowerCase()];if(!cn)return;
+    const rows=(c.standings?.entries||[]).map(e=>{const v={};(e.stats||[]).forEach(x=>{v[x.type]=x.displayValue});const t=e.team||{};
+      return {id:t.id||"",loc:t.location||t.displayName||"",k:KEY_BY_ID[t.id]||null,conf:v.vsconf||"",all:v.total||"",gb:v.vsconf_gamesbehind??v.gamesbehind??"",streak:v.streak||"",home:v.home||"",road:v.road||"",top:v.vsaprankedteams||"",seed:+(v.playoffseed||99),pf:v.avgpointsfor||"",pa:v.avgpointsagainst||""}});
+    rows.sort((a,b)=>a.seed-b.seed);out.confs[cn]=rows});return out}
+async function loadStand(){if(standLoading)return;standLoading=true;try{STAND=parseStand(await getJSON(`${API2}/standings`,{fresh:true}));STAND.at=Date.now()}catch(e){if(!STAND)STAND={err:true}}standLoading=false;if(st.view==="stand")renderStand()}
+function renderStand(){
+  $("sconfs").innerHTML=Object.values(SCONF).map(c=>`<button data-sc="${c}" aria-pressed="${st.sconf===c}" style="--cc:var(${CONF[c]})"><i></i>${c}</button>`).join("");
+  const el=$("slist");
+  if(!STAND){$("standMeta").textContent="Conference standings from ESPN";el.innerHTML=loadnote("Loading standings from ESPN…");return}
+  if(STAND.err){$("standMeta").textContent="";el.innerHTML=`<div class="empty">Couldn't load standings from ESPN. <button class="btn" id="sretry" style="margin-left:6px">Try again</button></div>`;return}
+  const rows=STAND.confs[st.sconf]||[],gp=r=>String(r.all).split("-").reduce((a,b)=>a+(+b||0),0),stale=todayISO<"2026-12-20"&&rows.some(r=>String(r.conf).split("-").reduce((a,b)=>a+(+b||0),0)>=10);
+  $("standMeta").textContent=`${STAND.season||""} · ${st.sconf} · conference record first · tap a ranked team for its page${stale?" · ESPN still shows last season's final standings until conference play starts":""}`;
+  const strk=v=>`<span class="${/^W/.test(v)?"w":/^L/.test(v)?"lo":""}">${esc(v)}</span>`;
+  el.innerHTML=rows.length?`<div class="tblwrap"><table class="stab"><thead><tr><th></th><th>Team</th><th class="n">Conf</th><th class="n">GB</th><th class="n">Overall</th><th class="n">Streak</th><th class="n">Home</th><th class="n">Away</th><th class="n">vs. AP 25</th><th class="n">PPG</th><th class="n">Opp PPG</th></tr></thead><tbody>${
+    rows.map((r,i)=>{const rr=r.k?rk(r.k):(RANK[r.loc]||null);return `<tr class="${r.k?"click":""}${r.k&&FAV.has(r.k)?" mine":""}"${r.k?` data-team="${r.k}"`:""}><td class="pos">${i+1}</td><td class="tm2"><span class="tw">${logo(r.id,22)}<small>${rr||""}</small>${esc(r.k?nm(r.k):r.loc)}${r.k?favStar(r.k):""}</span></td><td class="n"><b>${esc(r.conf.replace("-","–"))}</b></td><td class="n">${esc(r.gb==="0"?"—":r.gb)}</td><td class="n">${esc(r.all.replace("-","–"))}</td><td class="n">${strk(r.streak)}</td><td class="n">${esc(r.home.replace("-","–"))}</td><td class="n">${esc(r.road.replace("-","–"))}</td><td class="n">${esc(r.top.replace("-","–"))}</td><td class="n">${esc(r.pf)}</td><td class="n">${esc(r.pa)}</td></tr>`}).join("")}</tbody></table></div>`
+    :`<div class="empty">ESPN hasn't posted ${esc(st.sconf)} standings yet.</div>`;
+}
+$("sconfs").addEventListener("click",e=>{const b=e.target.closest("[data-sc]");if(!b)return;st.sconf=b.dataset.sc;renderStand()});
+$("slist").addEventListener("click",e=>{if(e.target.closest("#sretry")){STAND=null;renderStand();return loadStand()}const t=e.target.closest("[data-team]");if(t)openTeam(t.dataset.team,null)});
+
+/* ================= Stat leaders (Top 25 players) ================= */
+let LEAD=store.get("ncaawb-lead-v1",null),leadLoading=false;st.lconf="ALL";st.lopen={};
+function parseLead(d){const idx={};(d.categories||[]).forEach(c=>{idx[c.name]=c.names||[]});
+  return (d.athletes||[]).filter(x=>x.athlete&&KEY_BY_ID[x.athlete.teamId]).map(x=>{const v={};(x.categories||[]).forEach(c=>{const nms=idx[c.name]||[];(c.totals||c.values||[]).forEach((val,i)=>{if(nms[i])v[nms[i]]=parseFloat(val)})});
+    return {id:x.athlete.id,n:x.athlete.displayName||"",k:KEY_BY_ID[x.athlete.teamId],gp:v.gamesPlayed||0,min:v.avgMinutes,pts:v.avgPoints,reb:v.avgRebounds,ast:v.avgAssists,stl:v.avgSteals,blk:v.avgBlocks,tpm:v.avgThreePointFieldGoalsMade,tpa:v.avgThreePointFieldGoalsAttempted,fg:v.fieldGoalPct,fga:v.avgFieldGoalsAttempted,tp:v.threePointFieldGoalPct,ft:v.freeThrowPct,fta:v.avgFreeThrowsAttempted,dd:v.doubleDouble}})}
+async function loadLeaders(){if(leadLoading)return;leadLoading=true;
+  const get=y=>getJSON(`${WEB}/statistics/byathlete?region=us&lang=en&contentorigin=espn&isqualified=false&page=1&limit=1000&sort=offensive.avgPoints:desc&season=${y}`,{timeout:30000}).then(parseLead);
+  try{let y=2027,rows=await get(y);if(rows.length<25){y=2026;rows=await get(y)}LEAD={at:Date.now(),season:y,rows};store.set("ncaawb-lead-v1",LEAD)}catch(e){if(!LEAD)LEAD={err:true}}
+  leadLoading=false;if(st.view==="lead")renderLead()}
+const LCATS=[["pts","Points","per game"],["reb","Rebounds","per game"],["ast","Assists","per game"],["stl","Steals","per game"],["blk","Blocks","per game"],["tpm","3-pointers made","per game"],["fg","Field goal %","5+ attempts a game",r=>r.fga>=5],["tp","3-point %","2+ attempts a game",r=>r.tpa>=2],["ft","Free throw %","2+ attempts a game",r=>r.fta>=2],["dd","Double-doubles","season total"],["min","Minutes","per game"]];
+function renderLead(){
+  $("lconfs").innerHTML=CONFS.map(c=>`<button data-lc="${c}" aria-pressed="${st.lconf===c}" style="--cc:${c==="ALL"?"var(--ink)":`var(${CONF[c]})`}">${c==="ALL"?"All 25":`<i></i>${c}`}</button>`).join("");
+  const el=$("ldgrid");
+  if(!LEAD){$("leadMeta").textContent="Top 25 players from ESPN";el.innerHTML=loadnote("Loading stat leaders from ESPN…");return}
+  if(LEAD.err){el.innerHTML=`<div class="empty" style="grid-column:1/-1">Couldn't load stat leaders from ESPN. <button class="btn" id="lretry" style="margin-left:6px">Try again</button></div>`;return}
+  let rows=LEAD.rows.filter(r=>st.lconf==="ALL"||T[r.k][2]===st.lconf);const maxGP=Math.max(1,...rows.map(r=>r.gp||0)),q=rows.filter(r=>r.gp>=Math.max(1,maxGP*.5));
+  $("leadMeta").textContent=`${LEAD.season===2027?"2026-27 season":"2025-26 final numbers · 2026-27 leaders take over once games are played"} · players on the preseason Top 25 teams · minimum half of the most games played`;
+  el.innerHTML=LCATS.map(([key,label,sub,f])=>{const list=q.filter(r=>r[key]!==undefined&&!isNaN(r[key])&&(!f||f(r))).sort((a,b)=>b[key]-a[key]),open=st.lopen[key],shown=list.slice(0,open?15:5);
+    const fmt=v=>key==="dd"?String(Math.round(v)):v.toFixed(1)+(["fg","tp","ft"].includes(key)?"%":"");
+    return `<div class="lcat"><h4>${label}<small>${sub}</small></h4>${shown.length?shown.map((r,i)=>`<button class="lrow" data-player="${r.id}"><span class="rnk">${i+1}</span>${face(r.id,r.n)}<span style="min-width:0"><b>${esc(r.n)}${favStar(r.k)}</b><small>${logo(EID[r.k],14)}${esc(short(r.k))}${rk(r.k)?" · No. "+rk(r.k):""}</small></span><strong>${fmt(r[key])}</strong></button>`).join(""):`<div class="sempty">No qualified players yet.</div>`}
+      ${list.length>5?`<button class="lmore" data-lm="${key}">${open?"Show top 5":"Show top 15"}</button>`:""}</div>`}).join("");
+}
+$("lconfs").addEventListener("click",e=>{const b=e.target.closest("[data-lc]");if(!b)return;st.lconf=b.dataset.lc;renderLead()});
+$("ldgrid").addEventListener("click",e=>{if(e.target.closest("#lretry")){LEAD=null;renderLead();return loadLeaders()}
+  const m=e.target.closest("[data-lm]");if(m){st.lopen[m.dataset.lm]=!st.lopen[m.dataset.lm];return renderLead()}
+  const p=e.target.closest("[data-player]");if(p)openPlayer(p.dataset.player,null,p.querySelector("b")?.textContent||"")});
+
+/* ================= NCAA Tournament bracket ================= */
+const BRK_RANGE={2027:["2027-03-16","2027-04-06"],2026:["2026-03-18","2026-04-05"]};
+const BRK={},BG={};st.byear=todayISO>="2027-03-14"?2027:2026;st.breg=null;
+const RO=["First Four","1st Round","2nd Round","Sweet 16","Elite 8","Final Four","National Championship"],SEEDO=[1,16,8,9,5,12,4,13,6,11,3,14,7,10,2,15];
+function bgFor(iso,e){const A=e.c.find(c=>c.ha==="away")||e.c[0],H=e.c.find(c=>c.ha==="home")||e.c[1];let g=BG[e.id];
+  if(!g)g=BG[e.id]={iso,t:"",a:KEY_BY_ID[A.id]||A.loc,h:KEY_BY_ID[H.id]||H.loc,net:"TBA",ev:shortNote(e.note),n:true,rr:false,i:"b"+e.id,eid:e.id,bracket:true};
+  if(e.tv&&e.date)g.t=etHM(e.date);if(e.net)g.net=e.net;
+  const o=orient(g,e);if(o){const old=EV[g.i];if(old&&old.state==="in"&&o.state==="in"&&(old.A.sc!==o.A.sc||old.H.sc!==o.H.sc))FLASH[g.i]=Date.now();EV[g.i]=o}return g}
+async function loadBracket(y,{fresh=false}={}){
+  const R=BRK[y]=BRK[y]||{days:{},loading:false};if(R.loading)return;
+  if(y===2027&&todayISO<"2027-03-14"){R.ok=true;R.early=true;return}
+  R.loading=true;const saved=store.get("ncaawb-brk-"+y,{})||{};for(const d in saved)if(!R.days[d])R.days[d]=saved[d];
+  const [a,b]=BRK_RANGE[y],days=[];for(let d=a;d<=b;d=shiftISO(d,1))days.push(d);
+  const need=days.filter(d=>!saved[d]&&(!R.days[d]||fresh&&d>=shiftISO(todayISO,-1)&&d<=todayISO));
+  await pool(need,4,async d=>{const j=await getJSON(`${API}/scoreboard?dates=${d.replace(/-/g,"")}&groups=100&limit=100`,{fresh:d>=shiftISO(todayISO,-1)});
+    R.days[d]=(j.events||[]).map(compact).filter(e=>/NCAA Women's Basketball Championship/i.test(e.note));if(st.view==="brk")scheduleRender()});
+  const keep={};for(const d in R.days)if(d<shiftISO(todayISO,-1)&&R.days[d].length&&R.days[d].every(e=>e.st.s==="post"))keep[d]=R.days[d];store.set("ncaawb-brk-"+y,keep);
+  R.loading=false;R.ok=true;if(st.view==="brk")scheduleRender();
+}
+function bracketOf(y){const R=BRK[y];if(!R)return null;const regs={},ff=[],ch=[];
+  for(const d of Object.keys(R.days).sort())for(const e of R.days[d]){const rd=RO.findIndex(x=>e.note.includes(x)),g=bgFor(d,e);
+    if(rd===5){ff.push(g);continue}if(rd===6){ch.push(g);continue}
+    const m=e.note.match(/Regional (\d+) in ([^-]+?)\s*-/);if(!m||rd<0)continue;const reg=regs[m[1]]=regs[m[1]]||{n:m[1],city:m[2].trim(),r:[[],[],[],[],[]]};
+    if(rd===0){reg.r[0].push(g);continue}
+    const sd=Math.min(...e.c.map(c=>c.rk||99)),slot=SEEDO.indexOf(sd),pos=slot<0?reg.r[rd].length:Math.floor(slot/2**rd);reg.r[rd][pos]=g}
+  return {regs,ff,ch}}
+function seedOf(g,side){const r=EV[g.i];return r?(side==="a"?r.A.rk:r.H.rk):""}
+function bcard(g,cls=""){if(!g)return `<div class="bc tbd ${cls}"><div class="br2"><small></small><span>TBD</span></div><div class="br2"><small></small><span>TBD</span></div></div>`;
+  const r=EV[g.i],s=scores(g,r),L=liveOf(g),v=s||L;
+  const st2=s?finTxt(r):L?`<i class="dot"></i>${esc(L.txt)}`:r&&r.cx?esc(r.desc):`${fmtD(g.iso,{weekday:"short",month:"short",day:"numeric"})}${g.t?" · "+fmtT(g.t):""}`;
+  const row=(k,side,sc,lose)=>`<div class="br2${lose?" l":""}"><small>${seedOf(g,side)||""}</small>${logo(idOf(g,side),16)}<span>${esc(nm(k))}${T[k]?favStar(k):""}</span><b>${v?sc:""}</b></div>`;
+  return `<button class="bc ${cls}${L?" live":""}${isFavG(g)?" fav":""}" data-bg="${g.eid}"><span class="bs${L?" lv":""}">${st2}</span>${row(g.a,"a",v?v.a:"",s&&s.a<s.h)}${row(g.h,"h",v?v.h:"",s&&s.h<s.a)}</button>`}
+function renderBracket(){
+  const y=st.byear,R=BRK[y];
+  $("byears").innerHTML=[2027,2026].map(x=>`<button data-by="${x}" aria-pressed="${y===x}">${x===2027?"2026-27":"2025-26"}</button>`).join("");
+  const body=$("bbody"),regsEl=$("bregs");
+  if(!R||(!R.ok&&!Object.keys(R.days).length)){$("brkMeta").textContent="Women's NCAA Tournament from ESPN";regsEl.innerHTML="";body.innerHTML=loadnote("Loading the bracket from ESPN…");return}
+  const B=bracketOf(y),regs=Object.values(B.regs).sort((a,b)=>a.n-b.n),total=Object.values(R.days).reduce((a,d)=>a+d.length,0);
+  if(!total){regsEl.innerHTML="";$("brkMeta").textContent=y===2027?"2027 NCAA Tournament":"2026 NCAA Tournament";
+    body.innerHTML=`<div class="empty" style="margin-top:16px">${y===2027?"The 68-team field is announced on Selection Sunday in mid-March. The bracket fills in here as games are scheduled, with live scores during the tournament.":"ESPN doesn't have this tournament's games."} ${y===2027?`<button class="btn" data-by="2026" style="margin-left:6px">See last season's bracket</button>`:""}</div>`;return}
+  const champ=B.ch[0],cs=champ&&scores(champ,EV[champ.i]);
+  $("brkMeta").textContent=`${y===2027?"2027":"2026"} NCAA Tournament · ${total} of 67 games${cs?` · ${nm(cs.a>cs.h?champ.a:champ.h)} won the title`:""} · tap a game for the box score`;
+  if(!st.breg||(st.breg!=="ff"&&!B.regs[st.breg]))st.breg=regs[0]?regs[0].n:"ff";
+  regsEl.innerHTML=regs.map(g=>`<button data-br="${g.n}" aria-pressed="${st.breg===g.n}">Region ${g.n} · ${esc(g.city)}</button>`).join("")+`<button data-br="ff" aria-pressed="${st.breg==="ff"}">Final Four</button>`;
+  if(st.breg==="ff"){
+    body.innerHTML=`<div class="ffgrid"><div><h5>National semifinals</h5><div class="f4row">${[0,1].map(i=>bcard(B.ff[i])).join("")}</div></div><div><h5>National championship</h5>${bcard(B.ch[0],"champ")}</div></div>
+      <p class="note">Final Four teams: ${regs.map(r=>{const w=r.r[4][0],s2=w&&scores(w,EV[w.i]);return `Region ${r.n}: <b style="color:var(--ink)">${s2?esc(nm(s2.a>s2.h?w.a:w.h)):"TBD"}</b>`}).join(" · ")}</p>`;return}
+  const reg=B.regs[st.breg],cols=["1st Round","2nd Round","Sweet 16","Elite 8"];
+  let h=`<div class="bgrid">${cols.map((c,i)=>`<div class="bh" style="grid-column:${i+1}">${c}</div>`).join("")}`;
+  for(let rd=1;rd<=4;rd++){const n=8/2**(rd-1),span=2**rd;for(let p=0;p<n;p++){h+=`<div style="grid-column:${rd};grid-row:${p*span+2} / span ${span};display:flex;align-items:center;min-width:0">${bcard(reg.r[rd][p],rd===4?"last":"")}</div>`}}
+  h+=`</div>`;
+  const f4=reg.r[0].length?`<h5 class="sh">First Four</h5><div class="f4row">${reg.r[0].map(g=>bcard(g)).join("")}</div>`:"";
+  body.innerHTML=f4+`<div class="bscroll">${h}</div>`;
+}
+$("vBrk").addEventListener("click",e=>{const yb=e.target.closest("[data-by]");if(yb){st.byear=+yb.dataset.by;st.breg=null;renderBracket();return loadBracket(st.byear)}
+  const rb=e.target.closest("[data-br]");if(rb){st.breg=rb.dataset.br;return renderBracket()}
+  const c=e.target.closest("[data-bg]");if(c&&BG[c.dataset.bg])openGame(BG[c.dataset.bg])});
+function refreshBracketToday(){const y=st.byear,[a,b]=BRK_RANGE[y]||[];if(st.view!=="brk"||!BRK[y]||!a||todayISO<a||todayISO>b)return;delete BRK[y].days[todayISO];loadBracket(y,{fresh:true})}
+
+/* ================= Search ================= */
+let sqT=0,sqN=0,SR={q:"",players:[]};
+function openSearch(){const o=$("sov");o.hidden=false;requestAnimationFrame(()=>o.classList.add("on"));$("sq").value="";SR={q:"",players:[]};renderSearch("");setTimeout(()=>$("sq").focus(),30)}
+function closeSearch(){const o=$("sov");o.classList.remove("on");setTimeout(()=>{if(!o.classList.contains("on"))o.hidden=true},200)}
+$("srch").onclick=openSearch;$("sx").onclick=closeSearch;$("sov").addEventListener("click",e=>{if(e.target===$("sov"))closeSearch()});
+$("sq").addEventListener("input",e=>{const q=e.target.value.trim();renderSearch(q);clearTimeout(sqT);if(q.length>=2)sqT=setTimeout(()=>remoteSearch(q),220)});
+$("sq").addEventListener("keydown",e=>{const items=[...$("sres").querySelectorAll(".sitem")];if(e.key==="ArrowDown"&&items[0]){e.preventDefault();items[0].focus()}if(e.key==="Enter"&&items[0]){e.preventDefault();items[0].click()}});
+$("sres").addEventListener("keydown",e=>{const items=[...$("sres").querySelectorAll(".sitem")],i=items.indexOf(document.activeElement);if(e.key==="ArrowDown"&&items[i+1]){e.preventDefault();items[i+1].focus()}if(e.key==="ArrowUp"){e.preventDefault();(items[i-1]||$("sq")).focus()}});
+async function remoteSearch(q){const n=++sqN;try{const d=await getJSON(`https://site.web.api.espn.com/apis/common/v3/search?query=${encodeURIComponent(q)}&limit=12&type=player&sport=basketball&league=womens-college-basketball`);if(n!==sqN)return;
+  SR={q,players:(d.items||[]).filter(x=>x.type==="player"&&(!x.league||x.league==="womens-college-basketball")).map(x=>{const t=((x.teamRelationships||[])[0]||{}).core||{};return {id:String(x.id),n:x.displayName||"",team:t.location||t.shortDisplayName||"",tid:t.id||""}})};
+  renderSearch($("sq").value.trim())}catch(e){}}
+function renderSearch(q){
+  const ql=q.toLowerCase(),norm=x=>String(x||"").toLowerCase();
+  let teams=Object.keys(T).filter(k=>!ql||norm(T[k][1]).includes(ql)||norm(k)===ql||norm(short(k)).includes(ql));
+  teams.sort((a,b)=>(FAV.has(b)-FAV.has(a))||(T[a][0]-T[b][0]));if(!ql)teams=teams.slice(0,FAV.size?Math.max(FAV.size,5):5);
+  const seen=new Set(),players=[];
+  if(ql.length>=2){const add=p=>{if(!p.id||seen.has(String(p.id)))return;seen.add(String(p.id));players.push(p)};
+    (LEAD&&LEAD.rows||[]).filter(r=>norm(r.n).includes(ql)).slice(0,6).forEach(r=>add({id:r.id,n:r.n,team:nm(r.k),tid:EID[r.k]}));
+    for(const id in ROS){(ROS[id].rows||[]).filter(r=>norm(r.n).includes(ql)).slice(0,6).forEach(r=>add({id:r.id,n:r.n,team:nm(KEY_BY_ID[id]||""),tid:id}))}
+    if(SR.q&&ql.startsWith(SR.q.toLowerCase().slice(0,2)))SR.players.filter(p=>norm(p.n).includes(ql.split(" ")[0])).forEach(add)}
+  const tH=teams.map(k=>`<button class="sitem" data-sk="${k}">${logo(EID[k],28)}<span><b>${esc(nm(k))}${favStar(k)}</b><small>${T[k][2]} · ${rk(k)?"No. "+rk(k):"Unranked"}${POLL.ok&&!POLL.pre?" in the AP poll":" preseason"}</small></span></button>`).join("");
+  const pH=players.slice(0,10).map(p=>`<button class="sitem" data-sp="${p.id}" data-sn="${esc(p.n)}">${face(p.id,p.n)}<span><b>${esc(p.n)}</b><small>${esc(p.team||"")}</small></span></button>`).join("");
+  $("sres").innerHTML=(tH?`<h6>${ql?"Teams":FAV.size?"My teams":"Teams"}</h6>${tH}`:"")+(pH?`<h6>Players</h6>${pH}`:"")+
+    (!tH&&!pH?`<div class="sempty">${ql.length<2?"Type a team or player name.":"Searching ESPN…"}</div>`:"")+(!ql?`<div class="sempty" style="padding-top:6px">Type a player's name to find her page.</div>`:"");
+}
+$("sres").addEventListener("click",e=>{const t=e.target.closest("[data-sk]"),p=e.target.closest("[data-sp]");if(t){closeSearch();openTeam(t.dataset.sk,null)}if(p){closeSearch();openPlayer(p.dataset.sp,null,p.dataset.sn)}});
+
 /* views + rankings */
 st.view="cal";st.conf="ALL";
 function moveVPill(){const v=$("views"),b=v.querySelector(`[data-v="${st.view}"]`),p=v.querySelector(".vpill");if(b&&p){p.style.left=b.offsetLeft+"px";p.style.width=b.offsetWidth+"px"}}
-function setView(v){if(v===st.view)return;st.view=v;$("views").querySelectorAll("[data-v]").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===v));moveVPill();
-  const cal=$("vCal"),rank=$("vRank");cal.hidden=v!=="cal";rank.hidden=v!=="rank";const on=v==="cal"?cal:rank;on.classList.remove("viewin");void on.offsetWidth;on.classList.add("viewin");
-  if(v==="rank")renderRank(true);else{st.anim=true;st.animDay=true;renderGrid();renderDay();movePill()}hideFly()}
+const VIEWS={cal:"vCal",live:"vLive",rank:"vRank",stand:"vStand",lead:"vLead",brk:"vBrk"},HASH={live:"live",rank:"rankings",stand:"standings",lead:"leaders",brk:"bracket"};
+function setView(v){if(v===st.view||!VIEWS[v])return;st.view=v;$("views").querySelectorAll("[data-v]").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===v));moveVPill();
+  for(const k in VIEWS)$(VIEWS[k]).hidden=k!==v;const on=$(VIEWS[v]);on.classList.remove("viewin");void on.offsetWidth;on.classList.add("viewin");
+  if(v==="rank")renderRank(true);
+  else if(v==="live")renderLive();
+  else if(v==="stand"){renderStand();if(!STAND||STAND.err||Date.now()-(STAND.at||0)>10*60e3)loadStand()}
+  else if(v==="lead"){renderLead();if(!LEAD||LEAD.err||Date.now()-(LEAD.at||0)>6*36e5)loadLeaders()}
+  else if(v==="brk"){renderBracket();loadBracket(st.byear)}
+  else{st.anim=true;st.animDay=true;renderGrid();renderDay();movePill()}
+  hideFly();try{history.replaceState(null,"",v==="cal"?location.pathname:"#"+HASH[v])}catch(e){}
+  const b=$("views").querySelector(`[data-v="${v}"]`);if(b&&b.scrollIntoView)b.scrollIntoView({block:"nearest",inline:"nearest"})}
 $("views").addEventListener("click",e=>{const b=e.target.closest("[data-v]");if(b)setView(b.dataset.v)});
 const CONFS=["ALL","SEC","ACC","Big Ten","Big 12","Big East"];
 function renderConfs(){$("confs").innerHTML=CONFS.map(c=>`<button data-c="${c}" aria-pressed="${st.conf===c}" style="--cc:${c==="ALL"?"var(--ink)":`var(${CONF[c]})`}">${c==="ALL"?"All":`<i></i>${c}`}</button>`).join("")}
@@ -1588,10 +1988,12 @@ function renderRank(anim){
 }
 $("rlist").addEventListener("click",e=>{const b=e.target.closest(".rrow[data-team]");if(b)openTeam(b.dataset.team,null)});
 renderConfs();requestAnimationFrame(moveVPill);
-if(location.hash==="#rankings")setView("rank");
+{const hv=Object.keys(HASH).find(k=>"#"+HASH[k]===location.hash);if(hv)setView(hv)}
+renderLiveMeta();
 
 function renderAll(){st.anim=true;st.animDay=true;renderRail(true);renderMonths();renderGrid();renderDay()}
-function renderSoft(){renderRail();renderGrid();renderDay();renderNext(true);renderLiveMeta();if(st.view==="rank")renderRank();if(st.dr)renderDrawer(true);renderUpd()}
+function renderSoft(){renderRail();renderGrid();renderDay();renderNext(true);renderLiveMeta();if(st.view==="rank")renderRank();else if(st.view==="live")renderLive();else if(st.view==="stand")renderStand();else if(st.view==="lead")renderLead();else if(st.view==="brk")renderBracket();
+  if(st.dr)renderDrawer(true);renderUpd();if(pendingGame)openByEvent(pendingGame)}
 
 /* light / dark / auto */
 let theme=store.get("ncaawb-theme","auto");if(!["auto","light","dark"].includes(theme))theme="auto";
@@ -1622,12 +2024,14 @@ $("refresh").onclick=()=>{NET.fails=0;tick();loadPoll();toast("Refreshing from E
 let liveT=0,waiting=false;
 async function tick(){
   clearTimeout(liveT);const iso=todayISO,tg=games.filter(g=>g.iso===iso);
-  if(tg.length){try{await loadDay(iso,{full:!!(DAYS[iso]&&DAYS[iso].full),fresh:true})}catch(e){NET.fails++}scheduleRender()}
+  if(tg.length||isPost(iso)){try{await loadDay(iso,{full:!!(DAYS[iso]&&DAYS[iso].full),fresh:true})}catch(e){NET.fails++}scheduleRender()}
+  checkAlerts();refreshBracketToday();
   const now=Date.now(),R2=g=>EV[g.i],live=tg.some(g=>R2(g)&&R2(g).state==="in"),
     soon=tg.some(g=>(!R2(g)||R2(g).state==="pre")&&!(R2(g)&&R2(g).cx)&&etDate(g)-now<30*60e3),
     pending=tg.some(g=>!R2(g)||(R2(g).state!=="post"&&!R2(g).cx));
   const base=live?15e3:soon?30e3:pending?5*60e3:20*60e3,ms=Math.min(base*Math.pow(1.6,NET.fails),Math.max(base,3*60e3));
-  liveT=setTimeout(()=>{if(document.hidden)waiting=true;else tick()},ms);
+  const bg=alertsLive()&&tg.some(g=>(isFavG(g)||(ALERT.clash&&g.rr))&&!(R2(g)&&(R2(g).state==="post"||R2(g).cx)));
+  liveT=setTimeout(()=>{if(document.hidden&&!bg)waiting=true;else tick()},ms);
 }
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&(waiting||Date.now()-NET.last>20e3)){waiting=false;tick()}});
 setInterval(()=>{const t=etToday();if(t!==todayISO){todayISO=t;renderSoft();tick()}},60e3);
@@ -1636,6 +2040,7 @@ setInterval(()=>{const t=etToday();if(t!==todayISO){todayISO=t;renderSoft();tick
 async function backfill(){
   const days=[...new Set(games.map(g=>g.iso))].sort();
   const past=days.filter(d=>d<todayISO&&!(DAYS[d]&&DAYS[d].done)).reverse(),soon=days.filter(d=>d>todayISO&&d<=shiftISO(todayISO,7));
+  for(let d=POST0;d<=POST1&&d<=shiftISO(todayISO,7);d=shiftISO(d,1))if(!days.includes(d)&&!(DAYS[d]&&DAYS[d].done))(d<todayISO?past:soon).push(d);
   const q=[...past.filter(d=>d===st.sel),...past.filter(d=>d!==st.sel),...soon.filter(d=>!DAYS[d])];
   await pool(q,4,d=>loadDay(d).then(scheduleRender));
 }

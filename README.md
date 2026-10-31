@@ -15,6 +15,14 @@ Live scores, odds, box scores and the AP poll for every announced game of the pr
 - **Teams**: game log, season stats and player averages built from every box score, and the roster with photos
 - **Box scores** for every game: live during the game (refreshing every 15 seconds), final afterward, and a preview of each team's top players before tip
 - **Player pages**: tap any player in a box score, roster or leaders list for her photo and bio, this season's averages, recent games, full game log by season, and career stats by season with home/away splits
+- **My teams**: star the teams you follow. They lead the team list, get a star on the calendar, have their own filter, and the top card follows their next game
+- **Game alerts** for your teams (and optionally every Top 25 clash): tip-off, close game late, and final score. Alerts come while the site is open in a tab or as a home-screen app; on iPhone, add it to your Home Screen first
+- **Live view**: every game today side by side with scores, clock, win probability and the latest play
+- **Standings** for the SEC, ACC, Big Ten, Big 12 and Big East, with conference and overall records, streaks, home/away and record vs. the AP Top 25
+- **Stat leaders** among players on the Top 25 teams: points, rebounds, assists, steals, blocks, 3s, shooting percentages, double-doubles and minutes, filterable by conference
+- **Search** any team or player (press **/** on a computer)
+- **Postseason**: conference tournament and NCAA Tournament games appear on the calendar as ESPN schedules them, and the **Bracket** view shows the whole tournament with live scores (last season's bracket is there now)
+- Full-screen game, team and player pages
 - Team logos, light and dark mode, and drag-to-scroll on anything that moves sideways
 - Tip times and TV networks fill in from ESPN as they're announced
 - All times Eastern. "Today" rolls over at 4 AM ET, so late games stay on the night they were played.
