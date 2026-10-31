@@ -645,6 +645,27 @@ span.ph-img{display:block;background:rgba(255,255,255,.25)}
 .sr .rs .dot{width:6px;height:6px}
 .rrow .tn .lg{width:30px;height:30px}
 
+
+/* ---------- compact header, wider layout on big screens ---------- */
+.wrap{max-width:1560px}
+.hero .wrap{grid-template-columns:minmax(0,1fr) minmax(0,600px);align-items:center;gap:14px 40px;padding-block:18px 18px}
+.brand h1{font-size:clamp(40px,4.6vw,64px);line-height:.92;white-space:nowrap}
+.brand h1 em{display:inline;margin-left:.2em}
+.brand p{margin-top:8px;font-size:14px;max-width:66ch}
+.brand .meta{margin-top:8px;font-size:12.5px}
+.next{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:22px;row-gap:2px;align-items:center;padding:12px 16px}
+.next>*{grid-column:1}
+.next .mu{font-size:22px;margin:4px 0 0}
+.next .sub{font-size:12.5px}
+.next .clock,.next .score{grid-column:2;grid-row:1 / span 3;margin-top:0}
+.next .clock{gap:12px}
+.next .clock b{font-size:32px}
+.next .clock span{font-size:10px}
+.next .score{font-size:36px;gap:14px}
+.next .bar2{grid-column:1 / -1;margin-top:10px}
+.views{padding-top:14px}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;padding-block:16px 14px}.brand h1{font-size:clamp(36px,10vw,52px)}.brand p{display:none}}
+@media (max-width:460px){.next{grid-template-columns:1fr}.next .clock,.next .score{grid-column:1;grid-row:auto;margin-top:8px}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 
