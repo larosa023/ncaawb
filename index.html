@@ -61,20 +61,11 @@ button{cursor:pointer}
 .hero .court{position:absolute;inset:0;pointer-events:none;opacity:.9}
 .hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:24px 40px;align-items:end;padding-block:28px 26px}
 @media (max-width:860px){.hero .wrap{grid-template-columns:1fr}}
-.brand h1{font-family:var(--display);font-weight:900;font-size:clamp(46px,9vw,92px);line-height:.86;margin:0;text-transform:uppercase;letter-spacing:-.005em}
-.brand h1 em{font-style:normal;color:var(--ball);display:block}
-.brand p{margin:14px 0 0;color:var(--board-muted);max-width:52ch;font-size:15px}
-.brand .meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:14px;font-size:13px;color:var(--board-muted)}
 .brand .meta b{color:var(--board-ink);font-weight:600}
-.next{border:1px solid var(--board-line);border-radius:14px;padding:16px 18px;background:rgba(255,255,255,.03);text-align:left;width:100%;color:inherit;transition:transform .2s,border-color .2s,background .2s}
 .next:hover{transform:translateY(-2px);border-color:var(--ball);background:rgba(255,255,255,.06)}
 .next .lbl{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ball)}
-.next .mu{font-family:var(--display);font-weight:800;font-size:28px;line-height:1.02;text-transform:uppercase;margin:6px 0 2px;text-wrap:balance}
 .next .mu small{font-size:.6em;color:var(--board-muted);font-weight:700;margin-right:3px}
-.next .sub{font-size:13px;color:var(--board-muted)}
 .clock{display:flex;gap:14px;margin-top:12px}
-.clock div{display:flex;flex-direction:column;align-items:flex-start}
-.clock b{font-family:var(--display);font-weight:800;font-size:40px;line-height:1;color:var(--board-ink)}
 .clock span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--board-muted)}
 
 /* Clash rail */
@@ -84,7 +75,6 @@ button{cursor:pointer}
 .rail{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 4px 14px;margin:-10px -4px 0;scrollbar-width:thin;cursor:grab;user-select:none;-webkit-user-select:none}
 .rail.dragging,.chips.dragging{cursor:grabbing;scroll-snap-type:none}
 .rail.dragging .clash,.chips.dragging .chip{pointer-events:none}
-.chips{cursor:grab;user-select:none;-webkit-user-select:none}
 .clash{flex:0 0 228px;scroll-snap-align:start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 14px 12px;text-align:left;position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s,border-color .2s}
 .rail.anim .clash{animation:pop .6s cubic-bezier(.22,.61,.36,1) backwards;animation-delay:calc(var(--i,0)*40ms + .3s)}
 @keyframes pop{from{opacity:0;transform:translateY(10px)}}
@@ -102,24 +92,21 @@ button{cursor:pointer}
 /* Sticky controls */
 .bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .bar .wrap{display:flex;flex-direction:column;gap:8px;padding-block:10px}
-.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-block:2px;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.chips{cursor:grab;user-select:none;-webkit-user-select:none;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-block:2px;mask-image:linear-gradient(90deg,#000 92%,transparent)}
 .chips::-webkit-scrollbar{display:none}
 .chip{flex:none;display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 11px 5px 7px;font-size:13px;font-weight:600;white-space:nowrap;transition:background .2s,border-color .2s,color .2s,transform .3s cubic-bezier(.22,.61,.36,1)}
 .chips.anim .chip{animation:pop .5s cubic-bezier(.22,.61,.36,1) backwards;animation-delay:calc(var(--i)*22ms + .3s)}
 .chip:hover i{transform:scale(1.1)}
-.chip i{transition:transform .3s cubic-bezier(.22,.61,.36,1)}
 .chip:active{transform:scale(.98)}
-.chip[aria-pressed="true"]{animation:chipOn .45s cubic-bezier(.22,.61,.36,1)}
 @keyframes chipOn{0%{transform:scale(.96)}100%{transform:none}}
 .chip:hover{border-color:var(--ink);transform:translateY(-1px)}
-.chip i{width:14px;height:14px;border-radius:50%;background:var(--tc);flex:none;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--surface) 30%,transparent)}
+.chip i{transition:transform .3s cubic-bezier(.22,.61,.36,1);width:14px;height:14px;border-radius:50%;background:var(--tc);flex:none;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--surface) 30%,transparent)}
 .chip small{color:var(--muted);font-weight:600;font-size:11px}
-.chip[aria-pressed="true"]{background:var(--tc);border-color:var(--tc);color:var(--tt)}
+.chip[aria-pressed="true"]{animation:chipOn .45s cubic-bezier(.22,.61,.36,1);background:var(--tc);border-color:var(--tc);color:var(--tt)}
 .chip[aria-pressed="true"] small{color:inherit;opacity:.75}
 .chip.all i{background:conic-gradient(var(--sec) 0 20%,var(--acc) 0 40%,var(--b1g) 0 60%,var(--bige) 0 80%,var(--b12) 0)}
 .chip.all[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .row2{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
-.months{position:relative;display:flex;background:var(--raise);border-radius:10px;padding:3px}
 .months button{position:relative;z-index:1;background:none;border:0;padding:6px 14px;font-family:var(--display);font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);border-radius:8px;transition:color .2s}
 .months button[aria-selected="true"]{color:var(--ink)}
 .months .pill{position:absolute;z-index:0;top:3px;bottom:3px;border-radius:8px;background:var(--surface);box-shadow:var(--shadow);transition:left .42s cubic-bezier(.22,.61,.36,1),width .42s cubic-bezier(.22,.61,.36,1)}
@@ -145,13 +132,11 @@ main{padding-block:16px 40px}
 @keyframes inL{from{opacity:0;transform:translateX(-10px)}}
 @keyframes inR{from{opacity:0;transform:translateX(10px)}}
 .dow{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:13px;color:var(--muted);padding:0 6px 2px}
-.cell{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:10px;min-height:104px;padding:7px 6px 6px;display:flex;flex-direction:column;gap:3px;min-width:0;text-align:left;transition:border-color .15s,transform .15s,box-shadow .15s}
-.cell{cursor:pointer;z-index:0;transition:border-color .18s,transform .22s cubic-bezier(.22,.61,.36,1),box-shadow .22s,background .18s}
+.cell{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:10px;min-height:104px;padding:7px 6px 6px;display:flex;flex-direction:column;gap:3px;min-width:0;text-align:left;cursor:pointer;z-index:0;transition:border-color .18s,transform .22s cubic-bezier(.22,.61,.36,1),box-shadow .22s,background .18s}
 .cell:not(.out):hover{z-index:3;transform:translateY(-2px);border-color:var(--ball);box-shadow:0 8px 20px rgba(14,27,46,.14),0 0 0 1px var(--ball);background:var(--surface)}
 .cell:not(.out):hover .dn span{color:var(--ball)}
 .cell.today:not(.out):hover .dn span{color:#fff}
 .cell:not(.out):active{transform:translateY(-1px)}
-.day.flash .dayhead h2{animation:flash .9s ease-out}
 @keyframes flash{0%{color:var(--ball);transform:translateX(2px)}100%{transform:none}}
 .cell.out{background:transparent;border-style:dashed;border-color:color-mix(in srgb,var(--line) 60%,transparent);cursor:default}
 .cell.none{background:color-mix(in srgb,var(--surface) 55%,transparent)}
@@ -189,8 +174,7 @@ main{padding-block:16px 40px}
 .game{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px 12px 18px;text-align:left;width:100%;overflow:hidden;transition:transform .3s cubic-bezier(.22,.61,.36,1),box-shadow .3s,border-color .2s}
 .list.anim .game{animation:rise .6s cubic-bezier(.22,.61,.36,1) backwards;animation-delay:calc(var(--i)*40ms)}
 @keyframes rise{from{opacity:0;transform:translateY(10px)}}
-.game::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(var(--ca) 0 50%,var(--cb) 50% 100%)}
-.game::before{transition:width .3s cubic-bezier(.2,.8,.2,1)}
+.game::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(var(--ca) 0 50%,var(--cb) 50% 100%);transition:width .3s cubic-bezier(.2,.8,.2,1)}
 .game:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(14,27,46,.14);border-color:transparent}
 .game:hover::before{width:7px}
 .game:active{transform:translateY(-1px)}
@@ -198,7 +182,6 @@ main{padding-block:16px 40px}
 .game .top .fin{color:var(--win)}
 .game .top .tagx{color:var(--ball)}
 .tm{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15.5px;min-width:0}
-.tm .rk{font-size:11px;color:var(--muted);font-weight:700;min-width:16px}
 .tm .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .tm.l{color:var(--muted)}
 .sc{font-family:var(--display);font-weight:800;font-size:22px;line-height:1;text-align:right}
@@ -231,7 +214,6 @@ main{padding-block:16px 40px}
 .vs .side .rk{font-size:12px;font-weight:700;opacity:.85}
 .vs .side .nm{display:block;font-family:var(--display);font-weight:900;font-size:clamp(24px,6vw,32px);line-height:.95;text-transform:uppercase;overflow-wrap:anywhere}
 .vs .side:hover .nm{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
-.vs .side .scr{display:block;font-family:var(--display);font-weight:900;font-size:44px;line-height:1;margin-top:4px}
 .vs .side .scr.l{opacity:.55}
 .vs .mid{font-family:var(--display);font-weight:800;font-size:18px;opacity:.85}
 .tabs{flex:none;position:relative;display:flex;gap:2px;padding:0 14px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
@@ -254,8 +236,7 @@ main{padding-block:16px 40px}
 @keyframes fromL{from{opacity:0;transform:translateX(-16px)}}
 @keyframes fromR{from{opacity:0;transform:translateX(16px)}}
 @keyframes vsPop{from{opacity:0;transform:scale(.85)}}
-@keyframes wipe{from{clip-path:inset(0 100% 0 0 round 14px)}to{clip-path:inset(0 0 0 0 round 14px)}}
-.vs .side .scr{animation:none}
+.vs .side .scr{display:block;font-family:var(--display);font-weight:900;font-size:44px;line-height:1;margin-top:4px;animation:none}
 .drawer.entering .vs .side .scr{animation:scoreIn .7s .4s cubic-bezier(.22,.61,.36,1) backwards}
 @keyframes scoreIn{from{opacity:0;transform:translateY(6px)}}
 .drawer{transition:transform .38s cubic-bezier(.22,.61,.36,1),left .38s cubic-bezier(.22,.61,.36,1),top .38s cubic-bezier(.22,.61,.36,1),border-radius .38s cubic-bezier(.22,.61,.36,1),padding-top .38s cubic-bezier(.22,.61,.36,1)}
@@ -304,26 +285,19 @@ tr.tot td{font-weight:700;background:var(--raise)}
 /* hero entrance */
 .hero .court *{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.2s .15s cubic-bezier(.45,0,.2,1) forwards}
 @keyframes draw{to{stroke-dashoffset:0}}
-.brand h1{animation:up .8s cubic-bezier(.2,.8,.2,1) backwards}
-.brand h1 em{animation:up .8s .14s cubic-bezier(.2,.8,.2,1) backwards,glow 3.5s 1.2s ease-in-out infinite}
-.brand p{animation:up .7s .28s cubic-bezier(.2,.8,.2,1) backwards}
-.brand .meta{animation:up .7s .38s cubic-bezier(.2,.8,.2,1) backwards}
-.next{animation:slideIn .8s .3s cubic-bezier(.22,.61,.36,1) backwards}
 @keyframes up{from{opacity:0;transform:translateY(14px)}}
 @keyframes slideIn{from{opacity:0;transform:translateX(14px)}}
 @keyframes glow{0%,100%{text-shadow:0 0 0 rgba(255,122,54,0)}50%{text-shadow:0 0 16px rgba(255,122,54,.25)}}
 .next .lbl::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ball);margin-right:7px;vertical-align:1px;animation:live 1.6s ease-in-out infinite}
 @keyframes live{0%,100%{box-shadow:0 0 0 0 rgba(255,122,54,.7)}60%{box-shadow:0 0 0 8px rgba(255,122,54,0)}}
-.clock div{perspective:300px}
-.clock b{display:inline-block;transform-origin:50% 60%}
+.clock div{display:flex;flex-direction:column;align-items:flex-start;perspective:300px}
+.clock b{font-family:var(--display);font-weight:800;font-size:40px;line-height:1;color:var(--board-ink);display:inline-block;transform-origin:50% 60%}
 .clock b.tick{animation:flip .55s cubic-bezier(.22,.61,.36,1)}
 @keyframes flip{from{transform:translateY(-4px);opacity:.2}}
 .day.flash .dayhead h2{animation:flash2 .9s cubic-bezier(.22,.61,.36,1)}
 @keyframes flash2{0%{color:var(--ball);transform:translateX(4px);opacity:.6}100%{transform:none}}
 /* view switch */
 .views{padding-top:18px}
-.vt{position:relative;display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px;box-shadow:var(--shadow)}
-.vt button{position:relative;z-index:1;background:none;border:0;padding:8px 18px;font-family:var(--display);font-weight:900;font-size:20px;text-transform:uppercase;letter-spacing:.02em;color:var(--muted);border-radius:10px;transition:color .25s}
 .vt button[aria-selected="true"]{color:var(--bg)}
 .vt .vpill{position:absolute;z-index:0;top:4px;bottom:4px;border-radius:10px;background:var(--ink);transition:left .45s cubic-bezier(.22,.61,.36,1),width .45s cubic-bezier(.22,.61,.36,1)}
 .viewin{animation:viewIn .5s cubic-bezier(.2,.8,.2,1) backwards}
@@ -376,7 +350,7 @@ footer{font-size:12px;color:var(--muted);padding-block:0 34px;max-width:80ch}
 .lv{color:var(--live);font-weight:700;display:inline-flex;align-items:center}
 .lg{flex:none;object-fit:contain;display:inline-block;vertical-align:middle}
 .tm .lg{width:20px;height:20px}
-.tm .rk{order:-1}
+.tm .rk{font-size:11px;color:var(--muted);font-weight:700;min-width:16px;order:-1}
 .game .prog{position:absolute;left:0;bottom:0;height:3px;width:calc(var(--p,0)*100%);background:var(--live);border-radius:0 3px 3px 0;transition:width .6s}
 .game.is-live{border-color:color-mix(in srgb,var(--live) 45%,var(--line))}
 .sc.lvs{color:var(--ink)}
@@ -390,9 +364,7 @@ footer{font-size:12px;color:var(--muted);padding-block:0 34px;max-width:80ch}
 .clash .t span{font-family:var(--display)}
 .livebtn{display:inline-flex;align-items:center;gap:2px;background:color-mix(in srgb,var(--live) 22%,transparent);color:var(--board-ink);border:1px solid color-mix(in srgb,var(--live) 60%,transparent);border-radius:999px;padding:2px 10px 2px 8px;font-size:12.5px;font-weight:700}
 .livebtn:hover{background:color-mix(in srgb,var(--live) 35%,transparent)}
-.next .score{display:flex;gap:16px;margin-top:10px;font-family:var(--display);font-weight:900;font-size:44px;line-height:1;color:var(--board-ink)}
 .next .score span.l{opacity:.55}
-.next .bar2{height:4px;border-radius:4px;background:var(--board-line);margin-top:12px;overflow:hidden}
 .next .bar2 i{display:block;height:100%;width:calc(var(--p,0)*100%);background:var(--live)}
 .upd{font-size:12.5px;color:var(--muted);margin:16px 0 0;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .upd.err{color:var(--live)}
@@ -469,16 +441,30 @@ footer{font-size:12px;color:var(--muted);padding-block:0 34px;max-width:80ch}
 @keyframes spin{to{transform:rotate(360deg)}}
 .oddsmv{font-size:11.5px;color:var(--muted);font-weight:600}
 .rk-dim{color:var(--muted)}
-.months{max-width:100%;overflow-x:auto;scrollbar-width:none}
+.vs.solo .side{text-align:left}.vs.solo .lgw{margin-left:0}
+.btn svg{width:15px;height:15px}
+.todaybtn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 12px;font-family:var(--display);font-weight:800;font-size:16px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink);transition:border-color .2s}
+.todaybtn:hover{border-color:var(--ink)}
+.mrow{display:flex;align-items:center;gap:8px;min-width:0;max-width:100%}
+.upset{color:var(--live)!important;font-weight:700}
+.news{display:grid;gap:10px}
+.nitem{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px;align-items:start;color:inherit;text-decoration:none;border-radius:10px;padding:6px;transition:background .2s}
+.nitem:hover{background:var(--raise)}
+.nitem img,.nitem .ph{width:120px;aspect-ratio:16/9;border-radius:8px;object-fit:cover;background:var(--raise);max-width:100%}
+.nitem b{display:block;font-weight:600;font-size:14.5px;line-height:1.3;text-wrap:balance}
+.nitem p{margin:4px 0 0;font-size:12.5px;color:var(--muted);line-height:1.4}
+.nitem small{display:block;margin-top:4px;font-size:11.5px;color:var(--muted);font-weight:600}
+@media (max-width:460px){.nitem{grid-template-columns:96px minmax(0,1fr)}.nitem img,.nitem .ph{width:96px}}
+.months{position:relative;display:flex;background:var(--raise);border-radius:10px;padding:3px;max-width:100%;overflow-x:auto;scrollbar-width:none}
 .months::-webkit-scrollbar{display:none}
 @media (max-width:520px){.months button{padding:6px 10px;font-size:15px}}
 @media (max-width:640px){.tool kbd{display:none}.views{gap:8px}}
 
 /* ---------- views bar: six views + tools ---------- */
 .views{flex-wrap:wrap}
-.vt{max-width:100%;overflow-x:auto;scrollbar-width:none;flex:0 1 auto;min-width:0}
+.vt{position:relative;display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px;box-shadow:var(--shadow);max-width:100%;overflow-x:auto;scrollbar-width:none;flex:0 1 auto;min-width:0}
 .vt::-webkit-scrollbar{display:none}
-.vt button{font-size:18px;padding:8px 14px;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.vt button{position:relative;z-index:1;background:none;border:0;font-family:var(--display);font-weight:900;text-transform:uppercase;letter-spacing:.02em;color:var(--muted);border-radius:10px;transition:color .25s;font-size:18px;padding:8px 14px;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
 .vcount{display:none;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--live);color:#fff;font-family:var(--body);font-size:11px;font-weight:700;align-items:center;justify-content:center;letter-spacing:0}
 .vcount.on{display:inline-flex}
 .vtools{display:flex;gap:8px;align-items:center}
@@ -610,9 +596,8 @@ img.lg[data-l],img.face[data-l],img.ph-img[data-l]{opacity:0}
 .xbtn svg{width:16px;height:16px}
 .drawer.full{left:0;top:0;border-radius:0;padding-top:env(safe-area-inset-top,0px)}
 .drawer.full .grab{display:none}
-.drawer.full .dhead{border-radius:0;margin:0}
 .drawer.full .dhead>*{max-width:1100px;margin-left:auto;margin-right:auto}
-.drawer.full .dhead{padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.drawer.full .dhead{border-radius:0;margin:0;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
 .drawer.full .tabs{padding-inline:max(14px,calc((100% - 1100px)/2))}
 .drawer.full .dbody>.pane{max-width:1100px;margin:0 auto}
 @media (min-width:900px){.drawer.full .dhead{padding-block:24px 22px}.drawer.full .vs .side .nm{font-size:44px}.drawer.full .vs .side .scr{font-size:60px}.drawer.full .phd h3{font-size:48px}.drawer.full .ph-img{width:120px;height:120px}}
@@ -649,20 +634,20 @@ span.ph-img{display:block;background:rgba(255,255,255,.25)}
 /* ---------- compact header, wider layout on big screens ---------- */
 .wrap{max-width:1560px}
 .hero .wrap{grid-template-columns:minmax(0,1fr) minmax(0,600px);align-items:center;gap:14px 40px;padding-block:18px 18px}
-.brand h1{font-size:clamp(40px,4.6vw,64px);line-height:.92;white-space:nowrap}
-.brand h1 em{display:inline;margin-left:.2em}
-.brand p{margin-top:8px;font-size:14px;max-width:66ch}
-.brand .meta{margin-top:8px;font-size:12.5px}
-.next{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:22px;row-gap:2px;align-items:center;padding:12px 16px}
+.brand h1{font-family:var(--display);font-weight:900;margin:0;text-transform:uppercase;letter-spacing:-.005em;animation:up .8s cubic-bezier(.2,.8,.2,1) backwards;font-size:clamp(40px,4.6vw,64px);line-height:.92;white-space:nowrap}
+.brand h1 em{font-style:normal;color:var(--ball);animation:up .8s .14s cubic-bezier(.2,.8,.2,1) backwards,glow 3.5s 1.2s ease-in-out infinite;display:inline;margin-left:.2em}
+.brand p{margin:14px 0 0;color:var(--board-muted);animation:up .7s .28s cubic-bezier(.2,.8,.2,1) backwards;margin-top:8px;font-size:14px;max-width:66ch}
+.brand .meta{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--board-muted);animation:up .7s .38s cubic-bezier(.2,.8,.2,1) backwards;margin-top:8px;font-size:12.5px}
+.next{border:1px solid var(--board-line);border-radius:14px;background:rgba(255,255,255,.03);text-align:left;width:100%;color:inherit;transition:transform .2s,border-color .2s,background .2s;animation:slideIn .8s .3s cubic-bezier(.22,.61,.36,1) backwards;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:22px;row-gap:2px;align-items:center;padding:12px 16px}
 .next>*{grid-column:1}
-.next .mu{font-size:22px;margin:4px 0 0}
-.next .sub{font-size:12.5px}
+.next .mu{font-family:var(--display);font-weight:800;line-height:1.02;text-transform:uppercase;text-wrap:balance;font-size:22px;margin:4px 0 0}
+.next .sub{color:var(--board-muted);font-size:12.5px}
 .next .clock,.next .score{grid-column:2;grid-row:1 / span 3;margin-top:0}
 .next .clock{gap:12px}
 .next .clock b{font-size:32px}
 .next .clock span{font-size:10px}
-.next .score{font-size:36px;gap:14px}
-.next .bar2{grid-column:1 / -1;margin-top:10px}
+.next .score{display:flex;margin-top:10px;font-family:var(--display);font-weight:900;line-height:1;color:var(--board-ink);font-size:36px;gap:14px}
+.next .bar2{height:4px;border-radius:4px;background:var(--board-line);overflow:hidden;grid-column:1 / -1;margin-top:10px}
 .views{padding-top:14px}
 @media (max-width:860px){.hero .wrap{grid-template-columns:1fr;padding-block:16px 14px}.brand h1{font-size:clamp(36px,10vw,52px)}.brand p{display:none}}
 @media (max-width:460px){.next{grid-template-columns:1fr}.next .clock,.next .score{grid-column:1;grid-row:auto;margin-top:8px}}
@@ -679,7 +664,7 @@ span.ph-img{display:block;background:rgba(255,255,255,.25)}
   <div class="wrap">
     <div class="brand">
       <h1>Top 25<em>Hoops</em></h1>
-      <p>Every announced game for the AP preseason Top 25 in women's college basketball, opening tip through the end of the regular season. All times Eastern.</p>
+      <p>Every game for the preseason AP Top 25 in women's college basketball, from opening tip through the NCAA Tournament, with live scores, box scores and stats. All times Eastern.</p>
       <div class="meta" id="meta"></div>
     </div>
     <button class="next" id="next" aria-label="Next Top 25 clash"></button>
@@ -705,7 +690,7 @@ span.ph-img{display:block;background:rgba(255,255,255,.25)}
 <div class="bar"><div class="wrap">
   <div class="chips" id="chips" role="toolbar" aria-label="Filter by team"></div>
   <div class="row2">
-    <div class="months" id="months" role="tablist" aria-label="Month"></div>
+    <div class="mrow"><div class="months" id="months" role="tablist" aria-label="Month"></div><button class="todaybtn" id="gotoday" type="button">Today</button></div>
     <button class="switch" id="rrsw" role="switch" aria-checked="false"><span class="tr"></span>Clashes only</button>
     <div class="legend" id="legend"></div>
   </div>
@@ -1069,7 +1054,12 @@ function applyDay(iso,evs){
     if(e.net&&(!g.net||/^TBA$|networks|\bor\b/i.test(g.net)))g.net=e.net;
   }
   for(const e of evs){if(used.has(e.id)||!e.c.some(c=>KEY_BY_ID[c.id])||games.some(g=>g.eid===e.id))continue;
-    const g=gameFromEvent(iso,e);if(!g)continue;g.i=games.length;games.push(g);const o=orient(g,e);if(o)EV[g.i]=o;added++}
+    const g=gameFromEvent(iso,e);if(!g)continue;
+    // the list sometimes has a game on the wrong date: move it to ESPN's date instead of adding a second copy
+    const nrm=v=>String(v||"").toLowerCase().replace(/[^a-z]/g,""),side=(k,c)=>T[k]?EID[k]===c.id:(nrm(c.loc).startsWith(nrm(k).slice(0,5))||nrm(k).startsWith(nrm(c.loc).slice(0,5)));
+    const moved=games.find(x=>!x.dyn&&!x.eid&&x.iso!==iso&&Math.abs(new Date(x.iso)-new Date(iso))<=4*864e5&&e.c.length===2&&((side(x.a,e.c[0])&&side(x.h,e.c[1]))||(side(x.a,e.c[1])&&side(x.h,e.c[0]))));
+    if(moved){moved.iso=iso;moved.eid=e.id;const o=orient(moved,e);if(o)EV[moved.i]=o;if(e.tv&&e.date)moved.t=etHM(e.date);if(e.net&&(!moved.net||/^TBA$|networks|\bor\b/i.test(moved.net)))moved.net=e.net;added++;continue}
+    g.i=games.length;games.push(g);const o=orient(g,e);if(o)EV[g.i]=o;added++}
   if(added)reindex();
   return miss;
 }
@@ -1081,6 +1071,8 @@ function stText(r){const p=r.p||1,per=p>4?(p===5?"OT":(p-4)+"OT"):"Q"+p;
   if(/half/i.test(r.desc))return "Halftime";if(/end of/i.test(r.desc)||/^0(:00|\.0)?$/.test(r.clk))return "End of "+per;return per+" · "+r.clk}
 function prog(r){if(/half/i.test(r.desc))return .5;const [m,s]=String(r.clk||"0:0").split(":").map(Number);const rem=isNaN(s)?(m||0)/60:m+s/60;
   const q=Math.min(r.p||1,4);return Math.max(0,Math.min(1,((q-1)*10+((r.p||1)<=4?10-rem:10))/40))}
+function upsetOf(g){const r=EV[g.i];if(!r||r.state!=="post"||r.cx||r.A.sc===null)return false;const w=r.A.sc>r.H.sc?r.A:r.H,l=w===r.A?r.H:r.A;
+  return !!l.rk&&(!w.rk||w.rk-l.rk>=8)}
 const finTxt=r=>r&&r.p>4?(r.p===5?"Final/OT":`Final/${r.p-4}OT`):"Final";
 const bumped=g=>FLASH[g.i]&&Date.now()-FLASH[g.i]<2500;
 function oddsFor(g){
@@ -1292,7 +1284,8 @@ const favStar=k=>FAV.has(k)?'<span class="star" aria-label="My team">★</span>'
 let toastT;function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("on"),1800)}
 
 /* hero */
-$("meta").innerHTML=`<span><b>${games.length}</b> games</span><span><b>${games.filter(g=>g.rr).length}</b> ranked-vs-ranked</span><span><b>25</b> teams · 5 conferences</span><span id="livec"></span>`;
+$("meta").innerHTML=`<span><b id="mGames">${games.length}</b> games</span><span><b id="mRR">${games.filter(g=>g.rr).length}</b> ranked-vs-ranked</span><span><b>25</b> teams · 5 conferences</span><span id="livec"></span>`;
+function renderMeta(){const a=$("mGames"),b=$("mRR");if(a)a.textContent=games.length;if(b)b.textContent=games.filter(g=>g.rr).length}
 let nextG=null;
 function pickNext(){const now=Date.now(),ok=g=>!scores(g,resFor(g))&&!(EV[g.i]&&EV[g.i].cx)&&(liveOf(g)||etDate(g).getTime()+3*36e5>now);
   nextG=(FAV.size&&games.find(g=>isFavG(g)&&ok(g)))||games.find(g=>g.rr&&ok(g))||null}
@@ -1326,7 +1319,7 @@ function renderRail(anim){
   const list=games.filter(g=>g.rr&&(st.team==="ALL"||g.a===st.team||g.h===st.team)&&(liveOf(g)||etDate(g).getTime()>now-864e5*3));
   el.classList.toggle("anim",!!anim);
   el.innerHTML=list.length?list.map((g,ii)=>{const s=scores(g,resFor(g)),L=liveOf(g),v=s||L,bp=bumped(g)?"bump":"";return `<button class="clash" data-i="${g.i}" style="${pair(g)};--i:${Math.min(ii,10)}">
-    <div class="d">${L?`<span class="live"><i class="dot"></i>${esc(L.txt)}</span>`:fmtD(g.iso,{weekday:"short",month:"short",day:"numeric"})+(s?" · "+finTxt(EV[g.i]):EV[g.i]&&EV[g.i].cx?" · "+esc(EV[g.i].desc):"")}</div>
+    <div class="d">${L?`<span class="live"><i class="dot"></i>${esc(L.txt)}</span>`:fmtD(g.iso,{weekday:"short",month:"short",day:"numeric"})+(s?" · "+finTxt(EV[g.i])+(upsetOf(g)?' · <span class="upset">Upset</span>':""):EV[g.i]&&EV[g.i].cx?" · "+esc(EV[g.i].desc):"")}</div>
     <div class="t" style="--c:${tcol(g.a)}"><i></i><small>${rk(g.a)||""}</small>${esc(short(g.a))}${v?` <span class="${bp}" style="margin-left:auto${s&&s.a<s.h?";color:var(--muted)":""}">${v.a}</span>`:""}</div>
     <div class="t" style="--c:${tcol(g.h)}"><i></i><small>${rk(g.h)||""}</small>${esc(short(g.h))}${v?` <span class="${bp}" style="margin-left:auto${s&&s.h<s.a?";color:var(--muted)":""}">${v.h}</span>`:""}</div>
     <div class="n"><span>${g.ev?esc(g.ev.split(" · ")[0]):g.n?"Neutral":"At "+esc(short(g.h))}</span><b>${esc(g.net)}</b></div></button>`}).join("")
@@ -1378,6 +1371,10 @@ function goMonth(i,keepSel){if(i<0||i>=MONTHS.length||i===st.mi)return;st.dir=i>
 /* postseason months: look up each day ESPN may have scheduled */
 function ensureMonth(){const [y,m]=MONTHS[st.mi],pre=`${y}-${String(m+1).padStart(2,"0")}`,lim=shiftISO(todayISO,7);
   for(let d=1;d<=31;d++){const iso=`${pre}-${String(d).padStart(2,"0")}`;if(isPost(iso)&&iso<=lim&&!DAYS[iso])ensureDay(iso)}}
+$("gotoday").onclick=()=>{const v=visible(),g=v.find(x=>x.iso>=todayISO)||v[v.length-1];if(!g)return;st.sel=g.iso;const [y,m]=g.iso.split("-").map(Number),i=MONTHS.findIndex(([yy,mm])=>yy===y&&mm===m-1);
+  if(i>=0&&i!==st.mi){st.dir=i>st.mi?1:-1;st.mi=i;st.anim=true;movePill()}st.animDay=true;renderGrid();renderDay();
+  const day=document.querySelector(".day"),barH=document.querySelector(".bar").offsetHeight;scrollTo({top:day.getBoundingClientRect().top+scrollY-barH-12,behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"});
+  toast(g.iso===todayISO?"Today's games":"Next game day: "+fmtD(g.iso,{weekday:"short",month:"short",day:"numeric"}))};
 $("rrsw").onclick=()=>{st.rr=!st.rr;save();$("rrsw").setAttribute("aria-checked",st.rr);pickStart();renderAll()};
 $("legend").innerHTML=Object.entries(CONF).map(([c,v])=>`<span><i style="background:var(${v})"></i>${c}</span>`).join("")+`<span><i style="background:var(--ball)"></i>Clash</span>`;
 
@@ -1440,7 +1437,7 @@ function renderDay(){
     else if(g.ev)foot.unshift(esc(g.ev));
     const stt=s?`<span class="fin">${finTxt(r)}</span>`:L?`<span class="lv"><i class="dot"></i>${esc(L.txt)}</span>`:r&&r.cx?`<span class="lv">${esc(r.desc||"Postponed")}</span>`:`<span>${fmtT(g.t)+(g.t?" ET":"")}</span>`;
     return `<button class="game${L?" is-live":""}${isFavG(g)?" fav":""}" data-i="${g.i}" style="--i:${i};${pair(g)}">
-      <div class="top">${stt}${g.dyn&&/Tournament/.test(g.ev||"")?`<span class="tagx">${esc(g.ev.replace(/ · [^·]+ Regional/,""))}</span>`:g.rr?`<span class="tagx">Top 25 clash</span>`:`<span>${g.n?"Neutral":"At "+esc(shortOpp(g.h))}</span>`}</div>
+      <div class="top">${stt}${upsetOf(g)?`<span class="tagx upset">Upset</span>`:g.dyn&&/Tournament/.test(g.ev||"")?`<span class="tagx">${esc(g.ev.replace(/ · [^·]+ Regional/,""))}</span>`:g.rr?`<span class="tagx">Top 25 clash</span>`:`<span>${g.n?"Neutral":"At "+esc(shortOpp(g.h))}</span>`}</div>
       <div style="display:grid;gap:4px;min-width:0">
         <div class="tm${s&&!aw?" l":""}">${logo(idOf(g,"a"),20)}<span class="rk">${rk(g.a)||""}</span><span class="nm">${esc(nm(g.a))}${favStar(g.a)}</span></div>
         <div class="tm${s&&!hw?" l":""}">${logo(idOf(g,"h"),20)}<span class="rk">${rk(g.h)||""}</span><span class="nm">${esc(nm(g.h))}${favStar(g.h)}</span></div>
@@ -1455,8 +1452,10 @@ function stepDay(dir){const days=gameDays();const t=dir>0?days.find(d=>d>st.sel)
 $("dprev").onclick=()=>stepDay(-1);$("dnext").onclick=()=>stepDay(1);
 
 /* drawer */
-function openDrawer(){const d=$("drawer"),s=$("scrim");d.classList.toggle("full",!!st.full);d.classList.remove("entering");void d.offsetWidth;d.classList.add("entering");clearTimeout(d._et);d._et=setTimeout(()=>d.classList.remove("entering"),1400);if(!d.hidden&&d.classList.contains("on"))return;d.hidden=false;s.hidden=false;requestAnimationFrame(()=>{d.classList.add("on");s.classList.add("on")});document.body.style.overflow="hidden"}
-function closeDrawer(){const d=$("drawer"),s=$("scrim");d.classList.remove("on");s.classList.remove("on");document.body.style.overflow="";st.dr=null;setTimeout(()=>{if(!st.dr){d.hidden=true;s.hidden=true}},300)}
+let lastFocus=null;
+function openDrawer(){const d=$("drawer"),s=$("scrim");if(d.hidden&&document.activeElement&&document.activeElement!==document.body)lastFocus=document.activeElement;
+  setTimeout(()=>{const x=d.querySelector("[data-x]");if(x&&st.dr)x.focus({preventScroll:true})},60);d.classList.toggle("full",!!st.full);d.classList.remove("entering");void d.offsetWidth;d.classList.add("entering");clearTimeout(d._et);d._et=setTimeout(()=>d.classList.remove("entering"),1400);if(!d.hidden&&d.classList.contains("on"))return;d.hidden=false;s.hidden=false;requestAnimationFrame(()=>{d.classList.add("on");s.classList.add("on")});document.body.style.overflow="hidden"}
+function closeDrawer(){const d=$("drawer"),s=$("scrim");if(lastFocus&&document.contains(lastFocus)){try{lastFocus.focus({preventScroll:true})}catch(e){}}lastFocus=null;d.classList.remove("on");s.classList.remove("on");document.body.style.overflow="";st.dr=null;setTimeout(()=>{if(!st.dr){d.hidden=true;s.hidden=true}},300)}
 $("scrim").onclick=closeDrawer;
 function openGame(g){hideFly();st.dr={type:"game",g,tab:"info"};renderDrawer();openDrawer()}
 function openTeam(k,back){if(!T[k])return;st.dr={type:"team",k,tab:"sched",back};renderDrawer();openDrawer()}
@@ -1531,7 +1530,7 @@ function matchupHTML(g,r,s,L,o,S){
     ${s&&att?`<dt>Attendance</dt><dd>${Number(att).toLocaleString("en-US")}</dd>`:""}${(s||L)&&S&&S.off&&S.off.length?`<dt>Officials</dt><dd>${esc(S.off.join(", "))}</dd>`:""}${r&&r.cx?`<dt>Status</dt><dd><b>${esc(r.desc)}</b></dd>`:""}</dl></div>`);
   parts.push(oddsHTML(g,o,s));
   if(r&&!S&&!r.cx)parts.push(loadnote("Loading game details from ESPN…"));
-  parts.push(`<div class="actions">${[g.a,g.h].filter(k=>T[k]).map(k=>`<button class="btn" data-team="${k}">${esc(nm(k))} schedule →</button>`).join("")}</div>`);
+  parts.push(`<div class="actions">${upcoming(g)&&!liveOf(g)?`<button class="btn pri" data-ics><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>Add to calendar</button>`:""}${[g.a,g.h].filter(k=>T[k]).map(k=>`<button class="btn" data-team="${k}">${esc(nm(k))} schedule →</button>`).join("")}</div>`);
   return parts.join("");
 }
 function boxHTML(g,r,S,L){
@@ -1643,10 +1642,56 @@ function playerHTML(D){
     ${tabsHTML([["ov","Overview"],["log","Game log"],["car","Career"]],D.tab)}<div class="dbody"><div class="pane">${body}</div></div>`;
 }
 const FS_ICON={on:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>',off:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>'};
-const dact=()=>`<span class="dact"><button class="xbtn" data-full aria-label="${st.full?"Exit full screen":"Full screen"}" title="${st.full?"Exit full screen":"Full screen"} (F)">${st.full?FS_ICON.off:FS_ICON.on}</button><button class="xbtn" data-x aria-label="Close">×</button></span>`;
+
+/* ---------- add to calendar (.ics) ---------- */
+const icsEsc=v=>String(v||"").replace(/\\/g,"\\\\").replace(/[;,]/g,m=>"\\"+m).replace(/\n/g,"\\n");
+const icsUTC=d=>d.toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,"");
+function icsEvent(g){
+  const r=EV[g.i],start=etDate(g),end=new Date(start.getTime()+2*36e5),allDay=!g.t,day=g.iso.replace(/-/g,""),nextDay=shiftISO(g.iso,1).replace(/-/g,"");
+  const rkTxt=k=>rk(k)?`No. ${rk(k)} `:"",title=`${rkTxt(g.a)}${nm(g.a)} ${g.n?"vs.":"at"} ${rkTxt(g.h)}${nm(g.h)}`;
+  const link=r&&r.id?`https://ncaawb.netlify.app/?game=${r.id}`:"https://ncaawb.netlify.app/";
+  const fold=l=>{const out=[];while(l.length>74){out.push(l.slice(0,74));l=" "+l.slice(74)}out.push(l);return out.join("\r\n")};
+  return ["BEGIN:VEVENT",`UID:ncaawb-${r&&r.id?r.id:g.iso+"-"+String(g.a+g.h).replace(/\W/g,"")}@ncaawb.netlify.app`,`DTSTAMP:${icsUTC(new Date())}`,
+    allDay?`DTSTART;VALUE=DATE:${day}`:`DTSTART:${icsUTC(start)}`,allDay?`DTEND;VALUE=DATE:${nextDay}`:`DTEND:${icsUTC(end)}`,
+    fold(`SUMMARY:${icsEsc(title)}`),fold(`LOCATION:${icsEsc((r&&r.ven)||(g.n?"Neutral site":"Home of "+nm(g.h)))}`),
+    fold(`DESCRIPTION:${icsEsc(`TV: ${g.net}${g.ev?"\n"+g.ev:""}${allDay?"\nTip time to be announced":""}\nLive score: ${link}`)}`),`URL:${link}`,"END:VEVENT"].join("\r\n");
+}
+function saveICS(name,list){
+  if(!list.length){toast("No upcoming games to add");return}
+  const body=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Top 25 Hoops//ncaawb.netlify.app//EN","CALSCALE:GREGORIAN","METHOD:PUBLISH","X-WR-CALNAME:Top 25 Hoops",...list.map(icsEvent),"END:VCALENDAR"].join("\r\n")+"\r\n";
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([body],{type:"text/calendar;charset=utf-8"}));a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},4000);toast(list.length>1?`${list.length} games saved to a calendar file`:"Calendar file saved");
+}
+const upcoming=g=>!scores(g,resFor(g))&&!(EV[g.i]&&EV[g.i].cx)&&(liveOf(g)||g.iso>=todayISO);
+const slug=v=>String(v||"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+
+/* ---------- share links that open a game, team or player ---------- */
+function shareTarget(){const D=st.dr;if(!D)return null;const base=location.origin+location.pathname;
+  if(D.type==="game"){const r=EV[D.g.i];if(!r||!r.id)return null;const v=scores(D.g,r),L=liveOf(D.g),x=v||L;
+    return {url:`${base}?game=${r.id}`,title:`${nm(D.g.a)} ${D.g.n?"vs.":"at"} ${nm(D.g.h)}`,text:x?`${short(D.g.a)} ${x.a}, ${short(D.g.h)} ${x.h}${v?" (final)":L?" ("+L.txt+")":""}`:`${fmtD(D.g.iso,{weekday:"short",month:"short",day:"numeric"})} · ${fmtT(D.g.t)}${D.g.t?" ET":""} · ${D.g.net}`}}
+  if(D.type==="team")return {url:`${base}?team=${D.k}`,title:`${nm(D.k)} · Top 25 Hoops`,text:`${nm(D.k)} schedule, scores and stats`};
+  if(D.type==="player"){const b=PL[D.id]&&PL[D.id].bio,nmP=(b&&!b.err&&(b.athlete||b).displayName)||D.name||"Player";return {url:`${base}?player=${D.id}`,title:`${nmP} · Top 25 Hoops`,text:`${nmP}: stats, game log and career`}}
+  return null}
+async function doShare(){const t=shareTarget();if(!t)return;
+  if(navigator.share&&matchMedia("(pointer:coarse)").matches){try{await navigator.share(t);return}catch(e){if(e&&e.name==="AbortError")return}}
+  try{await navigator.clipboard.writeText(t.url);toast("Link copied")}catch(e){toast(t.url)}}
+const dact=()=>`<span class="dact">${shareTarget()?`<button class="xbtn" data-share aria-label="Share link" title="Share link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg></button>`:""}<button class="xbtn" data-full aria-label="${st.full?"Exit full screen":"Full screen"}" title="${st.full?"Exit full screen":"Full screen"} (F)">${st.full?FS_ICON.off:FS_ICON.on}</button><button class="xbtn" data-x aria-label="Close">×</button></span>`;
 let fullT=0;function toggleFull(){const d=$("drawer"),rm=matchMedia("(prefers-reduced-motion: reduce)").matches;clearTimeout(fullT);
   const swap=()=>{st.full=!st.full;store.set("ncaawb-full",st.full);d.classList.toggle("full",st.full);renderDrawer(true);requestAnimationFrame(placeUl)};
   if(rm){swap();return}d.classList.add("morph");fullT=setTimeout(()=>{swap();fullT=setTimeout(()=>{d.classList.remove("morph");placeUl()},220)},140)}
+
+/* ---------- team news (ESPN) ---------- */
+const NEWS={};
+function ensureNews(k){const id=EID[k];if(!id||NEWS[k])return;NEWS[k]={loading:true};
+  getJSON(`${API}/news?team=${id}&limit=12`).then(d=>{NEWS[k]={at:Date.now(),items:(d.articles||[]).filter(a=>a.headline).map(a=>({h:a.headline,d:a.description||"",t:a.published||"",by:a.byline||"",url:(a.links&&a.links.web&&a.links.web.href)||"",img:((a.images||[])[0]||{}).url||""}))}})
+    .catch(()=>{NEWS[k]={err:true}}).then(()=>{if(st.dr&&st.dr.type==="team"&&st.dr.k===k)renderDrawer(true)})}
+function newsHTML(k){ensureNews(k);const N=NEWS[k];
+  if(!N||N.loading)return loadnote("Loading news from ESPN…");
+  if(N.err)return `<div class="empty">Couldn't load news from ESPN.</div>`;
+  if(!N.items.length)return `<div class="empty">No recent ESPN stories for ${esc(nm(k))}.</div>`;
+  const when=t=>{const d=new Date(t);if(isNaN(d))return "";const h=(Date.now()-d)/36e5;return h<1?"Just now":h<24?Math.round(h)+" hr ago":h<24*7?Math.round(h/24)+" day"+(Math.round(h/24)>1?"s":"")+" ago":d.toLocaleDateString("en-US",{month:"short",day:"numeric"})};
+  const thumb=u=>{try{const p=new URL(u);return p.hostname==="a.espncdn.com"?`https://a.espncdn.com/combiner/i?img=${p.pathname}&w=320&h=180&scale=crop&cquality=70`:u}catch(e){return ""}};
+  return `<div class="news">${N.items.map(n=>`<a class="nitem" href="${esc(n.url)}" target="_blank" rel="noopener">${n.img?`<img src="${esc(thumb(n.img))}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'ph'}))">`:`<span class="ph"></span>`}<span><b>${esc(n.h)}</b>${n.d?`<p>${esc(n.d)}</p>`:""}<small>${esc([when(n.t),n.by].filter(Boolean).join(" · "))}</small></span></a>`).join("")}</div><p class="note">Stories from ESPN open in a new tab.</p>`}
 const perName=p=>p<=4?["","1st","2nd","3rd","4th"][p]+" quarter":p===5?"Overtime":(p-4)+" overtime";
 function playsHTML(g,r,S,D){
   if(!S)return loadnote("Loading play-by-play from ESPN…");
@@ -1700,12 +1745,13 @@ function renderDrawer(quiet){
         else if(L){const me=home?L.h:L.a,th=home?L.a:L.h;rs=`<span class="rs" style="color:var(--live)"><i class="dot"></i>${me}–${th}</span>`}
         return `<button class="sr" data-i="${g.i}" style="--i:${Math.min(tg.indexOf(g),14)}"><span class="dt">${fmtD(g.iso,{month:"short",day:"numeric"})}</span><span class="op"><small>${g.n?"vs":home?"vs":"at"}</small>${rk(opp)?`<small>${rk(opp)}</small>`:""}${esc(nm(opp))}</span>${rs}</button>`}).join("")}</div>`;
     else if(D.tab==="stats"){ensureTeamBoxes(k);body=(TB[k]?loadnote(`Loading box scores from ESPN · ${TB[k].done} of ${TB[k].n}`):"")+statsHTML(k,S)}
+    else if(D.tab==="news")body=newsHTML(k);
     else body=rosterView(k,EID[k]);
     html=`<div class="grab"></div><div class="dhead" style="--ca:${col};--cb:color-mix(in srgb,${col} 55%,#000)">
       <div class="dtop"><span>${D.back?`<button class="xbtn" data-back aria-label="Back" style="display:inline-grid;margin-right:6px">‹</button>`:""}${c}</span>${dact()}</div>
-      <div class="vs" style="grid-template-columns:1fr"><div class="side"><span class="lgw">${logo(EID[k],36,true)}</span><span class="rk" style="display:block">${pr?"No. "+pr:"Unranked"} · ${POLL.ok&&!POLL.pre?"AP poll":"AP preseason"}${rec&&rec!=="0–0"?" · "+rec:""}</span><span class="nm">${esc(n)}</span><button class="tlink favbtn" data-fav="${k}">${FAV.has(k)?"★ In My teams":"☆ Add to My teams"}</button>${nextGame?`<span class="rk" style="display:block;margin-top:8px">Next: ${fmtD(nextGame.iso,{month:"short",day:"numeric"})} ${nextGame.h===k||nextGame.n?"vs.":"at"} ${esc(nm(nextGame.h===k?nextGame.a:nextGame.h))} · ${esc(nextGame.net)}</span>`:""}</div></div></div>
-      ${tabsHTML([["sched","Game log"],["stats","Stats"],["roster","Roster"]],D.tab)}<div class="dbody"><div class="pane">${body}
-      <div class="actions"><button class="btn pri" data-filter="${k}">Show only ${esc(short(k))} on the calendar</button><a class="btn" href="https://${T[k][4]}" target="_blank" rel="noopener">Official roster ↗</a></div></div></div>`;
+      <div class="vs solo" style="grid-template-columns:1fr"><div class="side"><span class="lgw">${logo(EID[k],36,true)}</span><span class="rk" style="display:block">${pr?"No. "+pr:"Unranked"} · ${POLL.ok&&!POLL.pre?"AP poll":"AP preseason"}${rec&&rec!=="0–0"?" · "+rec:""}</span><span class="nm">${esc(n)}</span><button class="tlink favbtn" data-fav="${k}">${FAV.has(k)?"★ In My teams":"☆ Add to My teams"}</button>${nextGame?`<span class="rk" style="display:block;margin-top:8px">Next: ${fmtD(nextGame.iso,{month:"short",day:"numeric"})} ${nextGame.h===k||nextGame.n?"vs.":"at"} ${esc(nm(nextGame.h===k?nextGame.a:nextGame.h))} · ${esc(nextGame.net)}</span>`:""}</div></div></div>
+      ${tabsHTML([["sched","Game log"],["stats","Stats"],["roster","Roster"],["news","News"]],D.tab)}<div class="dbody"><div class="pane">${body}
+      <div class="actions">${tg.some(upcoming)?`<button class="btn" data-ics><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>Add remaining games to calendar</button>`:""}<button class="btn pri" data-filter="${k}">Show only ${esc(short(k))} on the calendar</button><a class="btn" href="https://${T[k][4]}" target="_blank" rel="noopener">Official roster ↗</a></div></div></div>`;
   }
   const hadLoad=quiet&&!!el.querySelector(".pane .loadnote"),nowLoad=html.includes('class="loadnote"');
   if(quiet)html=html.replace('<div class="pane">',`<div class="pane ${hadLoad&&!nowLoad?"fadein":"still"}">`);
@@ -1719,6 +1765,8 @@ function renderDrawer(quiet){
 $("drawer").addEventListener("click",e=>{
   if(e.target.closest("[data-x]"))return closeDrawer();
   if(e.target.closest("[data-full]"))return toggleFull();
+  if(e.target.closest("[data-share]"))return doShare();
+  const ic=e.target.closest("[data-ics]");if(ic){if(st.dr.type==="game")return saveICS(`${slug(nm(st.dr.g.a))}-${slug(nm(st.dr.g.h))}-${st.dr.g.iso}.ics`,[st.dr.g]);if(st.dr.type==="team"){const k=st.dr.k;return saveICS(`${slug(nm(k))}-schedule.ics`,games.filter(g=>(g.a===k||g.h===k)&&upcoming(g)))}}
   const fv=e.target.closest("[data-fav]");if(fv){toggleFav(fv.dataset.fav);return renderDrawer(true)}
   const al=e.target.closest("[data-al]");if(al)return setAlert(al.dataset.al);
   const bp=e.target.closest("[data-bgo]");if(bp){const g=BG[bp.dataset.bgo];if(g){st.dr={type:"game",g,tab:"info",back:{...st.dr}};return renderDrawer()}}
@@ -1740,6 +1788,8 @@ $("drawer").addEventListener("click",e=>{
   d.addEventListener("touchend",e=>{if(y0===null)return;const dy=(e.changedTouches[0].clientY-y0);d.style.transform="";y0=null;if(dy>110&&innerWidth<900)closeDrawer()})})();
 
 document.addEventListener("keydown",e=>{
+  if(e.key==="Tab"&&st.dr&&!$("drawer").hidden){const f=[...$("drawer").querySelectorAll('button:not([disabled]),a[href],[tabindex]:not([tabindex="-1"])')].filter(x=>x.offsetParent);
+    if(f.length){const i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus()}}}
   if(!$("sov").hidden){if(e.key==="Escape"){closeSearch();e.preventDefault()}return}
   if(e.key==="/"&&!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();return openSearch()}
   if(e.key==="Escape"){if(st.dr)closeDrawer();hideFly();return}
@@ -1802,7 +1852,9 @@ function notify(g,r,t){
   if(navigator.serviceWorker&&navigator.serviceWorker.controller)navigator.serviceWorker.ready.then(x=>x.showNotification(title,opt)).catch(plain);else plain();
 }
 function openByEvent(eid){const g=games.find(x=>EV[x.i]&&EV[x.i].id===String(eid))||BG[eid];if(g){pendingGame=null;openGame(g);return true}pendingGame=String(eid);return false}
-try{const q=new URLSearchParams(location.search).get("game");if(q)pendingGame=q}catch(e){}
+try{const q=new URLSearchParams(location.search);if(q.get("game"))pendingGame=q.get("game");
+  const tk=String(q.get("team")||"").toUpperCase();if(T[tk])setTimeout(()=>openTeam(tk,null),0);
+  if(/^\d+$/.test(q.get("player")||""))setTimeout(()=>openPlayer(q.get("player"),null,""),0)}catch(e){}
 navigator.serviceWorker&&navigator.serviceWorker.addEventListener("message",e=>{if(e.data&&e.data.game)openByEvent(e.data.game)});
 
 /* ================= Live: every game today side by side ================= */
@@ -2013,7 +2065,7 @@ renderConfs();requestAnimationFrame(moveVPill);
 renderLiveMeta();
 
 function renderAll(){st.anim=true;st.animDay=true;renderRail(true);renderMonths();renderGrid();renderDay()}
-function renderSoft(){renderRail();renderGrid();renderDay();renderNext(true);renderLiveMeta();if(st.view==="rank")renderRank();else if(st.view==="live")renderLive();else if(st.view==="stand")renderStand();else if(st.view==="lead")renderLead();else if(st.view==="brk")renderBracket();
+function renderSoft(){renderMeta();renderRail();renderGrid();renderDay();renderNext(true);renderLiveMeta();if(st.view==="rank")renderRank();else if(st.view==="live")renderLive();else if(st.view==="stand")renderStand();else if(st.view==="lead")renderLead();else if(st.view==="brk")renderBracket();
   if(st.dr)renderDrawer(true);renderUpd();if(pendingGame)openByEvent(pendingGame)}
 
 /* light / dark / auto */

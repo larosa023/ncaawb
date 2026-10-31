@@ -22,7 +22,11 @@ Live scores, odds, box scores and the AP poll for every announced game of the pr
 - **Stat leaders** among players on the Top 25 teams: points, rebounds, assists, steals, blocks, 3s, shooting percentages, double-doubles and minutes, filterable by conference
 - **Search** any team or player (press **/** on a computer)
 - **Postseason**: conference tournament and NCAA Tournament games appear on the calendar as ESPN schedules them, and the **Bracket** view shows the whole tournament with live scores (last season's bracket is there now)
-- Full-screen game, team and player pages
+- Full-screen game, team and player pages, plus a share button that copies a link straight to any game, team or player
+- **Add to calendar**: save one game, or a team's remaining schedule, to your phone or computer calendar
+- **Team news** from ESPN on every team page
+- **Upset** tags when an unranked team beats a ranked one (or a big underdog wins)
+- The calendar fills in games ESPN lists that weren't on the original schedule, and fixes dates that changed
 - Team logos, light and dark mode, and drag-to-scroll on anything that moves sideways
 - Tip times and TV networks fill in from ESPN as they're announced
 - All times Eastern. "Today" rolls over at 4 AM ET, so late games stay on the night they were played.

@@ -1,6 +1,6 @@
 /* Top 25 Hoops service worker: the app opens without signal and shows the last scores you loaded.
    The page itself is always fetched fresh when there's a connection, so updates show up right away. */
-const SHELL = 'ncaawb-shell-v2';
+const SHELL = 'ncaawb-shell-v3';
 const DATA = 'ncaawb-data-v1';
 const IMG = 'ncaawb-img-v1';
 const SHELL_FILES = ['./', 'manifest.webmanifest', 'favicon.svg', 'icon-192.png', 'apple-touch-icon.png'];
