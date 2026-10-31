@@ -467,6 +467,18 @@ footer{font-size:12px;color:var(--muted);padding-block:0 34px;max-width:80ch}
 @keyframes spin{to{transform:rotate(360deg)}}
 .oddsmv{font-size:11.5px;color:var(--muted);font-weight:600}
 .rk-dim{color:var(--muted)}
+
+/* full-screen side panel */
+.dact{display:flex;gap:8px;flex:none}
+.xbtn svg{width:16px;height:16px}
+.drawer.full{left:0;right:0;top:0;bottom:0;width:auto;max-height:none;border-radius:0;padding-top:env(safe-area-inset-top,0px)}
+.drawer.full .grab{display:none}
+.drawer.full .dhead{border-radius:0;margin:0}
+.drawer.full .dhead>*{max-width:1100px;margin-left:auto;margin-right:auto}
+.drawer.full .dhead{padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.drawer.full .tabs{padding-inline:max(14px,calc((100% - 1100px)/2))}
+.drawer.full .dbody>.pane{max-width:1100px;margin:0 auto}
+@media (min-width:900px){.drawer.full .dhead{padding-block:24px 22px}.drawer.full .vs .side .nm{font-size:44px}.drawer.full .vs .side .scr{font-size:60px}.drawer.full .phd h3{font-size:48px}.drawer.full .ph-img{width:120px;height:120px}}
 .plink{background:none;border:0;padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer;text-decoration:underline;text-decoration-color:color-mix(in srgb,currentColor 30%,transparent);text-underline-offset:3px}
 .plink:hover{color:var(--ball);text-decoration-color:currentColor}
 button.ldp{background:none;border:0;width:100%;text-align:left;color:inherit;font:inherit;cursor:pointer;border-radius:8px}
@@ -1085,7 +1097,8 @@ const pair=g=>`--ca:${tcol(g.a)};--cb:${tcol(g.h)}`;
 
 const $=id=>document.getElementById(id);
 const MONTHS=[[2026,10],[2026,11],[2027,0],[2027,1]];
-const st={team:"ALL",rr:false,mi:0,sel:null,dir:0,dr:null};
+const st={team:"ALL",rr:false,mi:0,sel:null,dir:0,dr:null,full:false};
+try{st.full=localStorage.getItem("ncaawb-full")==="true"}catch(e){}
 try{const s=JSON.parse(localStorage.getItem("t25cal")||"{}");if(s.team&&(s.team==="ALL"||T[s.team]))st.team=s.team;st.rr=!!s.rr}catch(e){}
 function save(){try{localStorage.setItem("t25cal",JSON.stringify({team:st.team,rr:st.rr}))}catch(e){}}
 /* "today" rolls over at 4 AM ET so late games stay on the night they were played */
@@ -1249,7 +1262,7 @@ function stepDay(dir){const days=gameDays();const t=dir>0?days.find(d=>d>st.sel)
 $("dprev").onclick=()=>stepDay(-1);$("dnext").onclick=()=>stepDay(1);
 
 /* drawer */
-function openDrawer(){const d=$("drawer"),s=$("scrim");d.classList.remove("entering");void d.offsetWidth;d.classList.add("entering");clearTimeout(d._et);d._et=setTimeout(()=>d.classList.remove("entering"),1400);if(!d.hidden&&d.classList.contains("on"))return;d.hidden=false;s.hidden=false;requestAnimationFrame(()=>{d.classList.add("on");s.classList.add("on")});document.body.style.overflow="hidden"}
+function openDrawer(){const d=$("drawer"),s=$("scrim");d.classList.toggle("full",!!st.full);d.classList.remove("entering");void d.offsetWidth;d.classList.add("entering");clearTimeout(d._et);d._et=setTimeout(()=>d.classList.remove("entering"),1400);if(!d.hidden&&d.classList.contains("on"))return;d.hidden=false;s.hidden=false;requestAnimationFrame(()=>{d.classList.add("on");s.classList.add("on")});document.body.style.overflow="hidden"}
 function closeDrawer(){const d=$("drawer"),s=$("scrim");d.classList.remove("on");s.classList.remove("on");document.body.style.overflow="";st.dr=null;setTimeout(()=>{if(!st.dr){d.hidden=true;s.hidden=true}},300)}
 $("scrim").onclick=closeDrawer;
 function openGame(g){hideFly();st.dr={type:"game",g,tab:"info"};renderDrawer();openDrawer()}
@@ -1432,10 +1445,13 @@ function playerHTML(D){
   $("drawer").setAttribute("aria-label",name);
   const body=bio&&bio.err&&D.tab==="ov"?retryBox("Couldn't load this player from ESPN.","bio"):D.tab==="log"?plLog(D,tid):D.tab==="car"?plCareer(D):plOverview(D,k,tid);
   return `<div class="grab"></div><div class="dhead" style="--ca:${col};--cb:color-mix(in srgb,${col} 55%,#000)">
-    <div class="dtop"><span>${D.back?`<button class="xbtn" data-back aria-label="Back" style="display:inline-grid;margin-right:6px">‹</button>`:""}${esc(team)}</span><button class="xbtn" data-x aria-label="Close">×</button></div>
+    <div class="dtop"><span>${D.back?`<button class="xbtn" data-back aria-label="Back" style="display:inline-grid;margin-right:6px">‹</button>`:""}${esc(team)}</span>${dact()}</div>
     <div class="phd">${face(D.id,name,"ph-img",true)}<div style="min-width:0"><h3>${esc(name)}</h3><div class="pmeta">${esc(meta)}</div>${k?`<button class="tlink" data-team="${k}">${esc(nm(k))} team page →</button>`:""}</div></div></div>
     ${tabsHTML([["ov","Overview"],["log","Game log"],["car","Career"]],D.tab)}<div class="dbody"><div class="pane">${body}</div></div>`;
 }
+const FS_ICON={on:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>',off:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>'};
+const dact=()=>`<span class="dact"><button class="xbtn" data-full aria-label="${st.full?"Exit full screen":"Full screen"}" title="${st.full?"Exit full screen":"Full screen"} (F)">${st.full?FS_ICON.off:FS_ICON.on}</button><button class="xbtn" data-x aria-label="Close">×</button></span>`;
+function toggleFull(){st.full=!st.full;store.set("ncaawb-full",st.full);$("drawer").classList.toggle("full",st.full);renderDrawer(true);requestAnimationFrame(placeUl);toast(st.full?"Full screen":"Side panel")}
 const perName=p=>p<=4?["","1st","2nd","3rd","4th"][p]+" quarter":p===5?"Overtime":(p-4)+" overtime";
 function playsHTML(g,r,S,D){
   if(!S)return loadnote("Loading play-by-play from ESPN…");
@@ -1469,7 +1485,7 @@ function renderDrawer(quiet){
     const side=(k,id,sc,dim)=>`<button class="side" ${T[k]?`data-team="${k}"`:"disabled"}><span class="lgw">${logo(id,36,true)}</span><span class="rk">${rk(k)?"No. "+rk(k):"Unranked"}</span><span class="nm">${esc(nm(k))}</span>${sc!==undefined?`<span class="scr${dim?" l":""}${bumped(g)?" bump":""}">${sc}</span>`:""}</button>`;
     const top=s?finTxt(r):L?`<span class="lv"><i class="dot"></i>${esc(L.txt)}</span>`:r&&r.cx?esc(r.desc):fmtD(g.iso,{weekday:"short",month:"short",day:"numeric"})+" · "+fmtT(g.t)+(g.t?" ET":"");
     html=`<div class="grab"></div><div class="dhead" style="${pair(g)}">
-      <div class="dtop"><span>${D.back?`<button class="xbtn" data-back aria-label="Back" style="display:inline-grid;margin-right:6px">‹</button>`:""}${top} · ${esc(g.net)}</span><button class="xbtn" data-x aria-label="Close">×</button></div>
+      <div class="dtop"><span>${D.back?`<button class="xbtn" data-back aria-label="Back" style="display:inline-grid;margin-right:6px">‹</button>`:""}${top} · ${esc(g.net)}</span>${dact()}</div>
       <div class="vs">${side(g.a,idOf(g,"a"),v?v.a:undefined,s&&!aw)}<span class="mid">${g.n?"VS":"AT"}</span>${side(g.h,idOf(g,"h"),v?v.h:undefined,s&&!hw)}</div></div>
       ${tabsHTML(tabs,D.tab)}<div class="dbody"><div class="pane">${body}</div></div>`;
   }else if(D.type==="player"){html=playerHTML(D)
@@ -1490,7 +1506,7 @@ function renderDrawer(quiet){
     else if(D.tab==="stats"){ensureTeamBoxes(k);body=(TB[k]?loadnote(`Loading box scores from ESPN · ${TB[k].done} of ${TB[k].n}`):"")+statsHTML(k,S)}
     else body=rosterView(k,EID[k]);
     html=`<div class="grab"></div><div class="dhead" style="--ca:${col};--cb:color-mix(in srgb,${col} 55%,#000)">
-      <div class="dtop"><span>${D.back?`<button class="xbtn" data-back aria-label="Back" style="display:inline-grid;margin-right:6px">‹</button>`:""}${c}</span><button class="xbtn" data-x aria-label="Close">×</button></div>
+      <div class="dtop"><span>${D.back?`<button class="xbtn" data-back aria-label="Back" style="display:inline-grid;margin-right:6px">‹</button>`:""}${c}</span>${dact()}</div>
       <div class="vs" style="grid-template-columns:1fr"><div class="side"><span class="lgw">${logo(EID[k],36,true)}</span><span class="rk" style="display:block">${pr?"No. "+pr:"Unranked"} · ${POLL.ok&&!POLL.pre?"AP poll":"AP preseason"}${rec&&rec!=="0–0"?" · "+rec:""}</span><span class="nm">${esc(n)}</span>${nextGame?`<span class="rk" style="display:block;margin-top:8px">Next: ${fmtD(nextGame.iso,{month:"short",day:"numeric"})} ${nextGame.h===k||nextGame.n?"vs.":"at"} ${esc(nm(nextGame.h===k?nextGame.a:nextGame.h))} · ${esc(nextGame.net)}</span>`:""}</div></div></div>
       ${tabsHTML([["sched","Game log"],["stats","Stats"],["roster","Roster"]],D.tab)}<div class="dbody"><div class="pane">${body}
       <div class="actions"><button class="btn pri" data-filter="${k}">Show only ${esc(short(k))} on the calendar</button><a class="btn" href="https://${T[k][4]}" target="_blank" rel="noopener">Official roster ↗</a></div></div></div>`;
@@ -1504,6 +1520,7 @@ function renderDrawer(quiet){
 }
 $("drawer").addEventListener("click",e=>{
   if(e.target.closest("[data-x]"))return closeDrawer();
+  if(e.target.closest("[data-full]"))return toggleFull();
   const pf=e.target.closest("[data-pf]");if(pf){st.dr.pf=pf.dataset.pf;return renderDrawer(true)}
   const pl=e.target.closest("[data-player]");if(pl)return openPlayer(pl.dataset.player,{...st.dr},pl.textContent.trim());
   const se=e.target.closest("[data-season]");if(se){st.dr.season=se.dataset.season;return renderDrawer(true)}
@@ -1523,6 +1540,7 @@ $("drawer").addEventListener("click",e=>{
 
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape"){if(st.dr)closeDrawer();hideFly();return}
+  if(st.dr&&(e.key==="f"||e.key==="F")&&!e.metaKey&&!e.ctrlKey&&!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName))return toggleFull();
   if(st.dr||st.view!=="cal"||/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName))return;
   if(e.key==="ArrowRight"&&e.shiftKey)goMonth(st.mi+1);else if(e.key==="ArrowLeft"&&e.shiftKey)goMonth(st.mi-1);
   else if(e.key==="ArrowRight")stepDay(1);else if(e.key==="ArrowLeft")stepDay(-1);
