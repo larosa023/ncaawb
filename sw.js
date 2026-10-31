@@ -1,0 +1,56 @@
+/* Top 25 Hoops service worker: the app opens without signal and shows the last scores you loaded.
+   The page itself is always fetched fresh when there's a connection, so updates show up right away. */
+const SHELL = 'ncaawb-shell-v1';
+const DATA = 'ncaawb-data-v1';
+const IMG = 'ncaawb-img-v1';
+const SHELL_FILES = ['./', 'manifest.webmanifest', 'favicon.svg', 'icon-192.png', 'apple-touch-icon.png'];
+
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(SHELL).then(c => c.addAll(SHELL_FILES)).catch(() => {}).then(() => self.skipWaiting()));
+});
+self.addEventListener('activate', e => {
+  e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => ![SHELL, DATA, IMG].includes(k)).map(k => caches.delete(k)))).then(() => self.clients.claim()));
+});
+
+// scores, polls, summaries and rosters: network first, fall back to the last saved copy
+const SAVE = /site\.api\.espn\.com\/apis\/site\/v2\/sports\/basketball\/womens-college-basketball\/(scoreboard|rankings|summary|teams\/\d+\/roster)/;
+// team logos and player photos rarely change: saved copy first
+const PIC = /^https:\/\/a\.espncdn\.com\/combiner\/i\?img=\/i\/(teamlogos|headshots)\//;
+
+self.addEventListener('fetch', e => {
+  const req = e.request;
+  if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+  if (req.mode === 'navigate' && url.origin === self.location.origin) {
+    e.respondWith(fetch(req).then(r => {
+      if (r.ok && url.pathname === new URL(self.registration.scope).pathname) { const copy = r.clone(); caches.open(SHELL).then(c => c.put('./', copy)); }
+      return r;
+    }).catch(() => caches.match('./', { cacheName: SHELL }).then(r => r || Response.error())));
+    return;
+  }
+  if (SAVE.test(req.url)) {
+    e.respondWith(fetch(req).then(r => {
+      if (r.ok) { const copy = r.clone(); caches.open(DATA).then(c => c.put(req.url, copy)).then(() => trim(DATA, 80)); }
+      return r;
+    }).catch(() => caches.open(DATA).then(c => c.match(req.url)).then(async r => {
+      if (!r) return Response.error();
+      return new Response(await r.blob(), { status: 200, headers: { 'content-type': 'application/json' } });
+    })));
+    return;
+  }
+  if (PIC.test(req.url)) {
+    e.respondWith(caches.open(IMG).then(async c => {
+      const hit = await c.match(req.url); if (hit) return hit;
+      const r = await fetch(req);
+      if (r.ok || r.type === 'opaque') { c.put(req.url, r.clone()); trim(IMG, 400); }
+      return r;
+    }));
+  }
+});
+
+const trimming = {};
+async function trim(name, max) {
+  if (trimming[name]) return; trimming[name] = true;
+  try { const c = await caches.open(name); const keys = await c.keys(); for (const k of keys.slice(0, Math.max(0, keys.length - max))) await c.delete(k); } catch (e) {}
+  trimming[name] = false;
+}

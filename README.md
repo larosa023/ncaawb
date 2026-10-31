@@ -1,13 +1,38 @@
-# Top 25 Hoops Calendar
+# Top 25 Hoops
 
 ### ▶ Open the site: **[ncaawb.netlify.app](https://ncaawb.netlify.app)**
 
-Nothing to download or install. The calendar runs in your browser at the link above.
+Live scores, odds, box scores and the AP poll for every announced game of the preseason AP Top 25 in women's college basketball, opening tip through the end of the regular season. It's a website, so there's nothing to download or install. Open the link on any phone or computer.
 
-Every announced game for the AP preseason Top 25 in women's college basketball, opening tip through the end of the regular season. All times Eastern.
+## What's on it
 
-- **Calendar** of every game, with filters by team and a "Top 25 clashes" view of ranked-vs-ranked matchups
-- **AP Top 25** with records, last game and next game
-- **Game and team details**: TV network, venue, rosters and schedules
+- **Calendar** of every game, with team filters and a "Top 25 clashes" view of ranked-vs-ranked matchups
+- **Live scores** that refresh every 15 seconds during games, with the quarter and clock, a progress bar and score flashes
+- **Final scores** and each team's top scorer on every finished game
+- **Odds**: spread, moneyline and over/under (DraftKings, via ESPN), with movement since the line opened and whether the favorite covered
+- **Game details**: scoring by quarter, win probability, game leaders, ESPN's matchup predictor, full box score, team stat comparison and play-by-play
+- **AP Top 25** from ESPN each week, with movement, points, first-place votes, records and others receiving votes
+- **Teams**: game log, season stats and player averages built from every box score, and the roster with photos
+- Team logos, light and dark mode, and drag-to-scroll on anything that moves sideways
+- Tip times and TV networks fill in from ESPN as they're announced
+- All times Eastern. "Today" rolls over at 4 AM ET, so late games stay on the night they were played.
 
-The site is a single page (`index.html`) hosted on Netlify. Every push to `main` redeploys it automatically.
+## Add it to your phone's home screen
+
+**iPhone:** open **[ncaawb.netlify.app](https://ncaawb.netlify.app)** in Safari, tap **Share** (the square with an up arrow), then **Add to Home Screen**, then **Add**.
+
+**Android:** open the link in Chrome, tap the **⋮** menu, then **Add to Home screen** (or **Install app**).
+
+It opens full-screen like an app. Without signal it still opens and shows the last scores you loaded.
+
+## How it works
+
+The whole site is one page, `index.html`. Scores, odds, box scores, play-by-play, rosters and the poll come straight from ESPN's public feeds in your browser. Finished game days and box scores are saved in the browser, so they only download once.
+
+- `sw.js` lets the site open offline and keeps the last scores you loaded
+- `manifest.webmanifest`, `icon-*.png` and `splash-*.png` make it installable, with launch screens for iPhone
+- `_headers` tells Netlify which files browsers should re-check and which they can keep
+
+Every change pushed to `main` is published automatically by Netlify within about a minute.
+
+Odds are for reference only.
