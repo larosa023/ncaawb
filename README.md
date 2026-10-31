@@ -13,6 +13,8 @@ Live scores, odds, box scores and the AP poll for every announced game of the pr
 - **Game details**: scoring by quarter, win probability, game leaders, ESPN's matchup predictor, full box score, team stat comparison and play-by-play
 - **AP Top 25** from ESPN each week, with movement, points, first-place votes, records and others receiving votes
 - **Teams**: game log, season stats and player averages built from every box score, and the roster with photos
+- **Box scores** for every game: live during the game (refreshing every 15 seconds), final afterward, and a preview of each team's top players before tip
+- **Player pages**: tap any player in a box score, roster or leaders list for her photo and bio, this season's averages, recent games, full game log by season, and career stats by season with home/away splits
 - Team logos, light and dark mode, and drag-to-scroll on anything that moves sideways
 - Tip times and TV networks fill in from ESPN as they're announced
 - All times Eastern. "Today" rolls over at 4 AM ET, so late games stay on the night they were played.
